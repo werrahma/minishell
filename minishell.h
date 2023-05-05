@@ -8,11 +8,13 @@ typedef struct s_list
 
 typedef struct s_env
 {
-	char *key;
-	char *value;
+	char	*key;
+	char	*value;
+	int		data;
 	struct s_env  *next;
 }				t_env;
 
+#include "libft/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>

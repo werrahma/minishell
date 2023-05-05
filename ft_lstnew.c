@@ -1,37 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 12:22:26 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/05 11:12:32 by werrahma         ###   ########.fr       */
+/*   Created: 2023/02/24 13:59:08 by werrahma          #+#    #+#             */
+/*   Updated: 2023/05/05 10:13:46 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(int ac, char **av, char **env)
+t_env	*ft_lstnew(int content)
 {
-    int i = 0;
-    int j;
-    char **hold;
-    t_env   list;
-    while(env[i])
-    {
-		j = 0;
-		
-		hold = ft_split(env[i], '=');
-		while (hold[j])
-		{
-		    list.key = hold[j];
-			list.value = hold[j];
-		    j++;
-		}
-		i++;
-    }
-	i = 0;
-	while ()
+	t_env	*new;
 
+	new = NULL;
+	new = malloc(sizeof(t_env));
+	new->data = content;
+	new->next = NULL;
+	return (new);
 }
