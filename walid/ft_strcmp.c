@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/04 14:49:08 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/05 14:48:55 by werrahma         ###   ########.fr       */
+/*   Created: 2023/05/05 15:12:51 by werrahma          #+#    #+#             */
+/*   Updated: 2023/05/05 15:15:05 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_cd(t_env *env)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	char str[PATH_MAX];
-	char *s;
+	size_t	a;
 
-	printf("%s\n", getcwd(str, PATH_MAX));
-
-	chdir("./pipex");
-	
-	// free(s);
-	printf("%s\n", getcwd(str, PATH_MAX));
-	// free(s);
-	while(1);
-	
+	a = 0;
+	while (s1[a] || s2[a])
+	{
+		if (s1[a] != s2[a])
+			return ((unsigned char)s1[a] - (unsigned char)s2[a]);
+		a++;
+	}
+	return (0);
 }

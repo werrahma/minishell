@@ -23,5 +23,10 @@ typedef struct s_env
 void	create_list(t_env **list, char **env);
 void	ft_lstadd_back(t_env **lst, t_env *new);
 t_env	*ft_lstnew(int content);
+void	ft_cd(t_env *env);
+int	ft_strcmp(const char *s1, const char *s2);
+void	pwd(void);
+void	ft_env(t_env *env);
+void	echo(char **str);
 
 #endif
