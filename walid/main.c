@@ -6,13 +6,13 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 12:22:26 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/05 16:06:20 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/06 11:33:35 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	check_agr(char **av, t_env *env)
+int	check_agr(char **av, t_env *env)
 {
 	int	i;
 
@@ -23,10 +23,11 @@ void	check_agr(char **av, t_env *env)
 			pwd();
 		else if (ft_strcmp("env", av[i]) == 0)
 			ft_env(env);
-		// else if (ft_strcmp("echo", av[i]) == 0)
-		// 	echo();
+		else if (ft_strcmp("echo", av[i]) == 0)
+			echo(av);
 		i++;
 	}
+	return (0);
 }
 
 int main(int ac, char **av, char **env)

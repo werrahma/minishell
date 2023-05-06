@@ -27,6 +27,6 @@ void	ft_cd(t_env *env);
 int	ft_strcmp(const char *s1, const char *s2);
 void	pwd(void);
 void	ft_env(t_env *env);
-void	echo(char **str);
+int	echo(char **str);
 
 #endif
