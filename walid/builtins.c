@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:18:00 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/06 19:42:43 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/06 23:07:06 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	print_cho(char **s, int i, int check)
 	int	j;
 
 	j = 0;
-	// printf("%s\n", s[i]);
 	if (check_echo(s[i]))
 		j = 1;
 	while (s[i])
@@ -43,7 +42,7 @@ void	print_cho(char **s, int i, int check)
 		else
 			printf("%s", s[i]);
 		i++;
-		if (s[i] && !check_echo(s[i]))
+		if (s[i] && !check_echo(s[i - 1]) || j == 0)
 			printf(" ");
 	}
 	if (check == 0)
@@ -95,4 +94,22 @@ int	echo(char **str)
 	// }
 	return (0);
 	
+}
+
+void	ft_cd(char *fille)
+{
+	char str[PATH_MAX];
+	char *path;
+
+	path = ft_strjoin("./", fille);
+	chdir(path);
+	printf("%s\n", getcwd(str, PATH_MAX));
+}
+
+void	ft_exit(char **av)
+{
+	int	i;
+
+	i = 1;
+	exit (printf("",ft_atoi(av[i]));
 }

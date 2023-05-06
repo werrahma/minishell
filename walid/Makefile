@@ -9,7 +9,7 @@ OBJ = $(SRC:.c=.o)
 
 CC = cc
 
-CFLAGS = -fsanitize=address -g
+CFLAGS = #-fsanitize=address -g
 
 all: $(NAME)
 
