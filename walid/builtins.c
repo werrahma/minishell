@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:18:00 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/06 14:10:42 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/06 19:42:43 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,21 @@ void	print_cho(char **s, int i, int check)
 {
 	int	j;
 
-	j = i;
+	j = 0;
 	// printf("%s\n", s[i]);
+	if (check_echo(s[i]))
+		j = 1;
 	while (s[i])
 	{
-		if (!check_echo(s[i]))
+		if (j == 1)
+		{
+			if(!check_echo(s[i]))
+				printf("%s", s[i]);
+		}
+		else
 			printf("%s", s[i]);
-		// else if (check_echo(s[i]) && !check_echo(s[i - 1]))
-		// 	printf("%s", s[i]);
-		// else if (check_echo(s[i]) && check_echo(s[i - 1]))
-		// 	printf("%s", s[i]);
 		i++;
-		if (s[i])
+		if (s[i] && !check_echo(s[i]))
 			printf(" ");
 	}
 	if (check == 0)
