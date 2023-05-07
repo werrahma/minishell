@@ -21,8 +21,8 @@ typedef struct s_env
 # include <limits.h>
 #include <stdlib.h>
 
-#include <readline/readline.h>
-#include <readline/history.h>
+// #include <readline/readline.h>
+// #include <readline/history.h>
 
 void	create_list(t_env **list, char **env);
 void	ft_lstadd_back(t_env **lst, t_env *new);
@@ -33,6 +33,7 @@ int		ft_strcmp(const char *s1, const char *s2);
 void	pwd(void);
 void	ft_env(t_env *env);
 int		echo(char **str);
-void	ft_cd(t_env *env, char *fille);
+void	ft_cd(t_env *env, char *file);
+void	unset(t_env **env, char *remove);
 
 #endif
