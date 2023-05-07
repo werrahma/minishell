@@ -11,13 +11,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-typedef struct s_lexer
-{
-	int   *i;
-	char c; 
-	char *content;
-}      t_lexer;
-
 typedef	struct s_tokens
 {
 	int		type;
@@ -26,7 +19,6 @@ typedef	struct s_tokens
 	struct s_tokens	*perv;
 }	t_tokens;
 
-//t_lexer *lexer_init(char *line);
 
 
 t_tokens	*lexer_split_cmdline(char *line);
@@ -46,7 +38,10 @@ int	lexer_openqts(char	*line, int indx);
 # define PIPE 2
 # define HEREDOC 3
 # define LIMETER 4
-# define CMD 5
+# define ARG 5
+# define INPUT 6
+# define OUTPUT 7
+# define APPEND 8
 
 
 // typedef struct mini

@@ -2,3 +2,4 @@
 minishell
 *.pdf
 *.DS_Store
+*.a

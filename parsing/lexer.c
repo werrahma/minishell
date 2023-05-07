@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 18:44:16 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/05/07 16:41:48 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/05/07 18:11:27 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,60 @@ int sep(char s)
 	return (0);
 }
 
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t	a;
 
-// t_lexer *lexer_init(char *line)
-// {
-// 	t_lexer	*lexer;
+	a = 0;
+	while (s1[a] || s2[a])
+	{
+		if (s1[a] != s2[a])
+			return ((unsigned char)s1[a] - (unsigned char)s2[a]);
+		a++;
+	}
+	return (0);
+}
 
-// 	lexer = maloc(sizeof(t_lexer));
-	
-// 	lexer->content = line;
-// 	lexer->i = 0;
-// 	lexer->c = line[lexer->i];
+int	definetype_helper(t_tokens *toke)
+{
+	if (!ft_strcmp(toke->cont, "<<"))
+		return (HEREDOC);
+	else if (!ft_strcmp(toke->cont, "<"))
+		return (INPUT);
+	else if (!ft_strcmp(toke->cont, ">"))
+		return (OUTPUT);
+	else if (!ft_strcmp(toke->cont, ">>"))
+		return (APPEND);
+	else if (!ft_strcmp(toke->cont, "|"))
+		return (PIPE);
+	else if (!toke->perv)
+		return (ARG);
+	else if (toke->perv->type == HEREDOC)
+		return (LIMETER);
+	else if (toke->perv->type == INPUT)
+		return (INFILE);
+	else if (toke->perv->type == OUTPUT)
+		return (OUTFILE);
+	else if (toke->perv->type == APPEND)
+		return (OUTFILE);
+	else
+		return(ARG);
+}
 
-// 	return (lexer);
+t_tokens	*lexer_definetype(t_tokens *token)
+{
+	t_tokens *tmp;
+	tmp = token;
 
-// }
-// int	lexer_definetype(t_tokens *token)
-// {
+	while(token)
+	{
+		token->type = definetype_helper(token);
+		token = token->next;
+	}
+	token = tmp;
+	return (token);
+}
 
-// }
 int	lexer_openqts(char	*line, int indx)
 {
 	int	i;
@@ -48,7 +84,6 @@ int	lexer_openqts(char	*line, int indx)
 	op = 0;
 	while(line[i] && i != indx)
 	{
-		//printf("%d\n", indx);
 		if (op == 0 && line[i] == '\"')
 			op = 1;
 		else if (op == 0 && line[i] == '\'')
@@ -58,7 +93,6 @@ int	lexer_openqts(char	*line, int indx)
 		else if (op == 2 && line[i] == '\'')
 			op = 0;
 		i++;
-		//printf("|%d| === %d\n", op, indx);
 	}
 	return (op);
 }
@@ -126,5 +160,6 @@ t_tokens	*lexer_split_cmdline(char *line)
 			ft_lstadd_back(&token, ft_lstnew(lexer_collect_op(line, &i)));
 		}
 	}
+	lexer_definetype(token);
 	return (token);
 }
