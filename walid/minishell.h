@@ -19,15 +19,20 @@ typedef struct s_env
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
+#include <stdlib.h>
+
+#include <readline/readline.h>
+#include <readline/history.h>
 
 void	create_list(t_env **list, char **env);
 void	ft_lstadd_back(t_env **lst, t_env *new);
 t_env	*ft_lstnew(int content);
+t_env	*ft_lstlast(t_env *lst);
 // void	ft_cd(t_env *env);
 int		ft_strcmp(const char *s1, const char *s2);
 void	pwd(void);
 void	ft_env(t_env *env);
 int		echo(char **str);
-void	ft_cd(char *fille);
+void	ft_cd(t_env *env, char *fille);
 
 #endif

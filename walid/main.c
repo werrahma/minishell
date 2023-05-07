@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 12:22:26 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/06 22:45:36 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/07 15:35:54 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int	check_agr(char **av, t_env *env)
 		else if (ft_strcmp("echo", av[i]) == 0)
 			echo(av);
 		else if (ft_strcmp("cd", av[i]) == 0)
-			ft_cd(av[i + 1]);
-		else if (ft_strcmp("exit", av[i]) == 0)
-			ft_exit(av[i + 1]);
+			ft_cd(env, av[i + 1]);
+		// else if (ft_strcmp("exit", av[i]) == 0)
+		// 	ft_exit(av[i + 1]);
 		i++;
 	}
 	return (0);
@@ -59,7 +59,12 @@ int main(int ac, char **av, char **env)
 		i++;
     }
 	list = tmp;
+	// char *read;
+	// while(1)
+	// {
+		// read = readline("minishell");
 	check_agr(av, list);
+	// }
 	// i = 0;
 	// while (tmp)
 	// {

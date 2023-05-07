@@ -15,7 +15,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	cd libft && $(MAKE)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) -ledit  $(LIBFT) -o $(NAME)
 
 clean:
 	rm -rf $(OBJ)

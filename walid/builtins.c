@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:18:00 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/06 23:07:06 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/07 16:25:41 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	print_cho(char **s, int i, int check)
 		else
 			printf("%s", s[i]);
 		i++;
-		if (s[i] && !check_echo(s[i - 1]) || j == 0)
+		if ((s[i] && !check_echo(s[i - 1])) || j == 0)
 			printf(" ");
 	}
 	if (check == 0)
@@ -96,20 +96,48 @@ int	echo(char **str)
 	
 }
 
-void	ft_cd(char *fille)
+void	ft_cd(t_env *env, char *fille)
 {
-	char str[PATH_MAX];
-	char *path;
+	char	str[PATH_MAX];
+	char	*path;
+	char	*oldpwd;
+	t_env	*tmp;
+	static int	check;
 
+	tmp = env;
+	if (check == 0)
+	{
+		ft_lstadd_back(&env, ft_lstnew(1));
+		env = ft_lstlast(env);
+		env->key = "OLDPWD";
+	}
+	env = tmp;
+	oldpwd = ft_strdup(getcwd(str, PATH_MAX));
 	path = ft_strjoin("./", fille);
 	chdir(path);
-	printf("%s\n", getcwd(str, PATH_MAX));
+	printf("---%s\n", oldpwd);
+	while(env)
+	{
+		if (ft_strcmp(env->key, "PWD"))
+		{
+			env->value = getcwd(str, PATH_MAX);
+			printf("new pwd == %s\n", getcwd(str, PATH_MAX));
+			check = 1;
+		}
+		else if (ft_strcmp(env->key, "OLDPWD"))
+		{
+			printf("oldpwd == %s\n", getcwd(str, PATH_MAX));
+			env->value = oldpwd;
+		}
+		env = env->next;
+	}
+		// printf("%s\n", )
 }
 
-void	ft_exit(char **av)
-{
-	int	i;
+// void	ft_exit(char **av)
+// {
+// 	int	i;
 
-	i = 1;
-	exit (printf("",ft_atoi(av[i]));
-}
+// 	i = 1;
+// 	exit (printf("",ft_atoi(av[i]));
+// }
