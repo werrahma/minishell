@@ -39,12 +39,20 @@ char	*ft_strdup(const char *s1);
 char	*ft_chrjoin(char *dst, char c);
 void	*ft_calloc(size_t count, size_t size);
 void	ft_lstadd_back(t_tokens **lst, t_tokens *new);
+int	lexer_openqts(char	*line, int indx);
+
+# define INFILE 0
+# define OUTFILE 1
+# define PIPE 2
+# define HEREDOC 3
+# define LIMETER 4
+# define CMD 5
 
 
 // typedef struct mini
 // {
 // 	char **cmd;
-	char af
+	//char af
 // 	int infile;
 // 	int outfile;
 

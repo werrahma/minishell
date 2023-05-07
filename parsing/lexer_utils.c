@@ -3,14 +3,23 @@
 
 void	ft_lstadd_back(t_tokens **lst, t_tokens *new)
 {
+	t_tokens	*tmp;
+
+	tmp = ft_lstlast(*lst);
 	if (!lst || !new)
 		return ;
 	if (*lst == NULL )
+	{
 		(*lst) = new;
+		new->perv = NULL;
+		return ;
+	}	
 	else
 		ft_lstlast(*lst)->next = new;
+	new->perv = tmp;
 }
-t_tokens	*ft_lstnew(char *content)
+
+t_tokens	*ft_lstnew( char *content)
 {
 	t_tokens	*lst;
 
@@ -19,6 +28,7 @@ t_tokens	*ft_lstnew(char *content)
 		return (NULL);
 	lst->cont = content;
 	lst->next = NULL;
+	lst->perv = NULL;
 	return (lst);
 }
 

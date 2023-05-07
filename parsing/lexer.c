@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 18:44:16 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/05/06 20:16:30 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/05/07 16:41:48 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,56 @@ int sep(char s)
 // 	return (lexer);
 
 // }
+// int	lexer_definetype(t_tokens *token)
+// {
+
+// }
+int	lexer_openqts(char	*line, int indx)
+{
+	int	i;
+	int op;
+
+	i = 0;
+	op = 0;
+	while(line[i] && i != indx)
+	{
+		//printf("%d\n", indx);
+		if (op == 0 && line[i] == '\"')
+			op = 1;
+		else if (op == 0 && line[i] == '\'')
+			op = 2;
+		else if (op == 1 && line[i] == '\"')
+			op = 0;
+		else if (op == 2 && line[i] == '\'')
+			op = 0;
+		i++;
+		//printf("|%d| === %d\n", op, indx);
+	}
+	return (op);
+}
 
 char	*lexer_collect_str(char *line , int *i)
 {
 	char *str;
 
 	str = NULL;
-	while(!sep(line[*i]) && line[*i])
+	if (line[*i] == '\'' || line[*i] == '\"')
 	{
-		str = ft_chrjoin(str, line[*i]);
 		(*i)++;
+		while(line[*i] && lexer_openqts(line, *i) != 0)
+		{
+			if (lexer_openqts(line, *i + 1) != 0)
+				str = ft_chrjoin(str, line[*i]);
+			(*i)++;
+		}
+	}
+	else
+	{
+		while(!sep(line[*i]) && line[*i])
+		{
+			str = ft_chrjoin(str, line[*i]);
+			(*i)++;
+		}
 	}
 	return (str);
 }
