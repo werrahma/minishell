@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:18:00 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/07 16:25:41 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/07 18:15:03 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,19 +112,19 @@ void	ft_cd(t_env *env, char *fille)
 		env->key = "OLDPWD";
 	}
 	env = tmp;
-	oldpwd = ft_strdup(getcwd(str, PATH_MAX));
+	oldpwd = getcwd(NULL, 0);
 	path = ft_strjoin("./", fille);
 	chdir(path);
 	printf("---%s\n", oldpwd);
 	while(env)
 	{
-		if (ft_strcmp(env->key, "PWD"))
+		if (ft_strcmp(env->key, "PWD") == 0)
 		{
 			env->value = getcwd(str, PATH_MAX);
 			printf("new pwd == %s\n", getcwd(str, PATH_MAX));
 			check = 1;
 		}
-		else if (ft_strcmp(env->key, "OLDPWD"))
+		else if (ft_strcmp(env->key, "OLDPWD") == 0)
 		{
 			printf("oldpwd == %s\n", getcwd(str, PATH_MAX));
 			env->value = oldpwd;
