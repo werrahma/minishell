@@ -8,6 +8,8 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <strings.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 typedef struct s_lexer
 {
@@ -39,5 +41,14 @@ void	*ft_calloc(size_t count, size_t size);
 void	ft_lstadd_back(t_tokens **lst, t_tokens *new);
 
 
+// typedef struct mini
+// {
+// 	char **cmd;
+	char af
+// 	int infile;
+// 	int outfile;
+
+// };
+ 
 
 #endif

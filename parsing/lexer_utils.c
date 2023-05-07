@@ -3,20 +3,13 @@
 
 void	ft_lstadd_back(t_tokens **lst, t_tokens *new)
 {
-
 	if (!lst || !new)
 		return ;
-	if (*lst == NULL)
-	{
+	if (*lst == NULL )
 		(*lst) = new;
-	}
 	else
-	{
 		ft_lstlast(*lst)->next = new;
-
-	}
 }
-
 t_tokens	*ft_lstnew(char *content)
 {
 	t_tokens	*lst;
@@ -33,7 +26,6 @@ t_tokens	*ft_lstlast(t_tokens *lst)
 {
 	if (!lst)
 		return (NULL);
-	printf("%s\n", lst->cont);
 	while (lst)
 	{
 		if (lst->next == NULL)
@@ -61,7 +53,7 @@ char	*ft_chrjoin(char *dst, char c)
 		p[i] = dst[i];
 	p[i++] = c;
 	p[i] = '\0';
-	//free(dst);
+	free(dst);
 	return (p);
 }
 
@@ -89,6 +81,8 @@ size_t	ft_strlen(const char *s)
 	size_t	i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	while (s[i])
 		i++;
 	return (i);

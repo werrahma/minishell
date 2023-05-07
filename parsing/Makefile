@@ -12,7 +12,7 @@ OBG = $(SRC:.c=.o)
 all : $(NAME)
 
 $(NAME) : $(OBG)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBG)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBG) -ledit
 
 clean :
 	rm -rf	$(OBG)
