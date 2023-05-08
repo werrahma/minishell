@@ -1,4 +1,5 @@
 *.o
 minishell
 *.pdf
+*.out
 *.DS_Store
