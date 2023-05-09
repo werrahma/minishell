@@ -12,7 +12,7 @@ int main(int ac, char **av, char **env)
     //   list = list->next;
     while(list)
     {
-      printf("main = %s\n", list->cont);
+      printf("main = %s  | typ == %d \n", list->cont, list->type);
       list = list->next;
     }
 

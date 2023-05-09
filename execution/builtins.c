@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:18:00 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/07 19:57:03 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/08 10:26:49 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,11 @@ int	echo(char **str)
 	
 }
 
-void	ft_cd(t_env *env, char *fille)
+void	ft_cd(t_env *env, char *file)
 {
 	char	str[PATH_MAX];
 	char	*path;
-	char	*oldpwd;
+	char	oldpwd[PATH_MAX];
 	t_env	*tmp;
 	static int	check;
 
@@ -112,22 +112,20 @@ void	ft_cd(t_env *env, char *fille)
 		env->key = "OLDPWD";
 	}
 	env = tmp;
-	oldpwd = getcwd(NULL, 0);
-	path = ft_strjoin("./", fille);
-	chdir(path);
-	printf("---%s\n", oldpwd);
+	getcwd(oldpwd, PATH_MAX);
+	chdir(file);
 	while(env)
 	{
 		if (ft_strcmp(env->key, "PWD") == 0)
 		{
 			env->value = getcwd(str, PATH_MAX);
-			printf("new pwd == %s\n", getcwd(str, PATH_MAX));
+			printf("new pwd == %s\n", env->value);
 			check = 1;
 		}
 		else if (ft_strcmp(env->key, "OLDPWD") == 0)
 		{
-			printf("oldpwd == %s\n", getcwd(str, PATH_MAX));
 			env->value = oldpwd;
+			printf("oldpwd == %s\n", oldpwd);
 		}
 		env = env->next;
 	}

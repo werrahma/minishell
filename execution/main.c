@@ -6,31 +6,47 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 12:22:26 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/07 15:35:54 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/09 15:15:01 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_agr(char **av, t_env *env)
+int	check_agr(char **av, t_env **env)
 {
 	int	i;
 
 	i = 0;
+	// while((*env))
+	// {
+	// 	printf("%s\n", (*env)->key);
+	// 	(*env) = (*env)->next;
+	// }
+	// exit(1);
 	while(av[i])
 	{
 		if (ft_strcmp("pwd", av[i]) == 0)
 			pwd();
 		else if (ft_strcmp("env", av[i]) == 0)
-			ft_env(env);
+			ft_env(*env);
 		else if (ft_strcmp("echo", av[i]) == 0)
 			echo(av);
 		else if (ft_strcmp("cd", av[i]) == 0)
-			ft_cd(env, av[i + 1]);
-		// else if (ft_strcmp("exit", av[i]) == 0)
-		// 	ft_exit(av[i + 1]);
+			ft_cd(*env, av[i + 1]);
+		else if (!ft_strcmp("unset", av[i]))\
+		{
+			printf("here\n");
+			unset(env, av);
+		}
+		else if (ft_strcmp("exit", av[i]) == 0)
+		{
+			// my_exit(av);
+			if(my_exit(av) != -1)
+				exit(my_exit(av));
+		}
 		i++;
 	}
+	exit(1);
 	return (0);
 }
 
@@ -63,7 +79,20 @@ int main(int ac, char **av, char **env)
 	// while(1)
 	// {
 		// read = readline("minishell");
-	check_agr(av, list);
+	// while(list)
+	// {
+	// 	printf("%s\n", list->key);
+	// 	list = list->next;
+	// }
+	// exit(2);
+	check_agr(av, &list);
+	// printf("\n\n\n\n");
+	while(list)
+	{
+		printf("%s == ", list->key);
+		printf("%s\n", list->value);
+		list = list->next;
+	}
 	// }
 	// i = 0;
 	// while (tmp)

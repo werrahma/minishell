@@ -1,6 +1,6 @@
 SRC = \
 		main.c ft_lstadd_back.c ft_lstadd_front.c ft_lstlast.c ft_lstnew.c create_list.c\
-		ft_strcmp.c builtins.c
+		ft_strcmp.c builtins.c unset.c exit.c
 
 NAME = minishell
 LIBFT = libft/libft.a
@@ -15,7 +15,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	cd libft && $(MAKE)
-	$(CC) $(CFLAGS) $(OBJ) -ledit  $(LIBFT) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
 
 clean:
 	rm -rf $(OBJ)
