@@ -2,10 +2,9 @@
 NAME = Minishell
 
 CC = cc
+#CFLAGS = -fsanitize=address -g
 
-#  CFLAGS = -fsanitize=address -g
-
-SRC = lexer.c lexer_utils.c main.c 
+SRC = lexer.c lexer_utils.c main.c last_list.c
 
 OBG = $(SRC:.c=.o)
 

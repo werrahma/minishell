@@ -20,18 +20,29 @@ typedef	struct s_tokens
 }	t_tokens;
 
 
+typedef struct s_mini
+{
+	char	**cmd;
+	int		infile;
+	int		outfile;
+	struct s_mini *next;
+}	t_mini;
+
 
 t_tokens	*lexer_split_cmdline(char *line);
+t_mini  *fill_last_list(t_tokens *token);
+t_mini	*ft_lstlastl(t_mini *lst);
+void	ft_lstadd_backl(t_mini **lst, t_mini *new);
 // parsinghelperf
 
 t_tokens	*ft_lstnew(char *content);
-size_t	ft_strlen(const char *s);
+size_t		ft_strlen(const char *s);
 t_tokens	*ft_lstlast(t_tokens *lst);
-char	*ft_strdup(const char *s1);
-char	*ft_chrjoin(char *dst, char c);
-void	*ft_calloc(size_t count, size_t size);
-void	ft_lstadd_back(t_tokens **lst, t_tokens *new);
-int	lexer_openqts(char	*line, int indx);
+char		*ft_strdup(const char *s1);
+char		*ft_chrjoin(char *dst, char c);
+void		*ft_calloc(size_t count, size_t size);
+void		ft_lstadd_back(t_tokens **lst, t_tokens *new);
+int			lexer_openqts(char	*line, int indx);
 
 # define INFILE 0
 # define OUTFILE 1
@@ -43,15 +54,6 @@ int	lexer_openqts(char	*line, int indx);
 # define OUTPUT 7
 # define APPEND 8
 
-
-// typedef struct mini
-// {
-// 	char **cmd;
-	//char af
-// 	int infile;
-// 	int outfile;
-
-// };
  
 
 #endif
