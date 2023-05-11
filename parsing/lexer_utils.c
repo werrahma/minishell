@@ -51,10 +51,16 @@ char	*ft_chrjoin(char *dst, char c)
 	int		i;
 	int		j;
 
+	p = NULL;
 	if (!dst && !c)
 		return (NULL);
 	if (!dst)
-		return (ft_strdup(&c));
+	{
+		p = malloc(2);
+		p[0] = c;
+		p[1] = '\0';
+		return (p);
+	}
 	p = ft_calloc((ft_strlen(dst) + 2), sizeof(char));
 	if (!p)
 		return (0);
@@ -109,10 +115,11 @@ char	*ft_strdup(const char *s1)
 	p = (char *)malloc((len + 1) * sizeof(char));
 	if (!p)
 		return (NULL);
-	while (i <= len)
+	while (i < len)
 	{
 		p[i] = s1[i];
 		i++;
 	}
+	p[i] = '\0';
 	return (p);
-}
+} 
