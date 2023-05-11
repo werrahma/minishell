@@ -6,15 +6,44 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 12:22:26 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/09 15:15:01 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/11 19:48:08 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	fill_list(t_env **list, char **env)
+{
+	int	i;
+	int	j;
+	char **hold;
+	t_env	*tmp = NULL;
+
+	i = 0;
+
+	// create_list(&list, env);
+	tmp = *list;
+    while(env[i])
+    {
+		j = 0;
+		hold = ft_split(env[i], '=');
+		while (j < 2)
+		{
+			(*list)->key = hold[j];
+			j++;
+			(*list)->value = hold[j];
+			j++;
+		}
+		(*list) = (*list)->next;
+		i++;
+	}
+	(*list) = tmp;
+}
+
 int	check_agr(char **av, t_env **env)
 {
 	int	i;
+	int	hold;
 
 	i = 0;
 	// while((*env))
@@ -23,7 +52,7 @@ int	check_agr(char **av, t_env **env)
 	// 	(*env) = (*env)->next;
 	// }
 	// exit(1);
-	while(av[i])
+	while(i < 2)
 	{
 		if (ft_strcmp("pwd", av[i]) == 0)
 			pwd();
@@ -40,13 +69,18 @@ int	check_agr(char **av, t_env **env)
 		}
 		else if (ft_strcmp("exit", av[i]) == 0)
 		{
-			// my_exit(av);
-			if(my_exit(av) != -1)
-				exit(my_exit(av));
+			hold = my_exit(av);
+			if(hold != -1)
+				exit(hold);
+		}
+		else if (!ft_strcmp("export", av[i]))
+		{
+			my_export(env, av);
+			exit(1);
 		}
 		i++;
 	}
-	exit(1);
+	// exit(1);
 	return (0);
 }
 
@@ -56,25 +90,26 @@ int main(int ac, char **av, char **env)
     int j;
     char **hold;
     t_env   *list = NULL;
-    t_env   *tmp = NULL;
+    // t_env   *tmp = NULL;
 
 	create_list(&list, env);
-	tmp = list;
-    while(env[i])
-    {
-		j = 0;
-		hold = ft_split(env[i], '=');
-		while (j < 2)
-		{
-		    list->key = hold[j];
-		    j++;
-			list->value = hold[j];
-			j++;
-		}
-		list = list->next;
-		i++;
-    }
-	list = tmp;
+	fill_list(&list, env);
+	// tmp = list;
+    // while(env[i])
+    // {
+	// 	j = 0;
+	// 	hold = ft_split(env[i], '=');
+	// 	while (j < 2)
+	// 	{
+	// 		list->key = hold[j];
+	// 		j++;
+	// 		list->value = hold[j];
+	// 		j++;
+	// 	}
+	// 	list = list->next;
+	// 	i++;
+	// }
+	// list = tmp;
 	// char *read;
 	// while(1)
 	// {

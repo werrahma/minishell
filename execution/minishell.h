@@ -36,5 +36,7 @@ int		echo(char **str);
 void	ft_cd(t_env *env, char *file);
 void	unset(t_env **env, char **remove);
 int		my_exit(char **av);
+int		str_len(char **av);
+void	my_export(t_env **env, char **av);
 
 #endif

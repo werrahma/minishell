@@ -1,6 +1,6 @@
 SRC = \
 		main.c ft_lstadd_back.c ft_lstadd_front.c ft_lstlast.c ft_lstnew.c create_list.c\
-		ft_strcmp.c builtins.c unset.c exit.c
+		ft_strcmp.c builtins.c unset.c exit.c export.c
 
 NAME = minishell
 LIBFT = libft/libft.a
