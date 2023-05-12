@@ -8,8 +8,13 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <strings.h>
+# include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+
+# include "../execution/minishell.h"
+//# include "../get_next_line/get_next_line.h
+#include "../execution/libft/libft.h"
 
 typedef	struct s_tokens
 {
@@ -43,6 +48,9 @@ char		*ft_chrjoin(char *dst, char c);
 void		*ft_calloc(size_t count, size_t size);
 void		ft_lstadd_back(t_tokens **lst, t_tokens *new);
 int			lexer_openqts(char	*line, int indx);
+char	*get_next_line(int fd);
+int		ft_strcmp(const char *s1, const char *s2);
+void    open_herfiles(t_tokens *tokens);
 
 # define INFILE 0
 # define OUTFILE 1

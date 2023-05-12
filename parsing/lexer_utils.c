@@ -73,36 +73,18 @@ char	*ft_chrjoin(char *dst, char c)
 	return (p);
 }
 
-void	*ft_calloc(size_t count, size_t size)
-{
-	size_t	i;
-	char	*ptr;
 
-	i = 0;
-	if (count && size > SIZE_MAX / count)
-		return (NULL);
-	ptr = malloc(count * size);
-	if (!ptr)
-		return (NULL);
-	while (i < count)
-	{
-		ptr[i] = '\0';
-		i++;
-	}
-	return (ptr);
-}
+// size_t	ft_strlen(const char *s)
+// {
+// 	size_t	i;
 
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	if (!s)
-		return (0);
-	while (s[i])
-		i++;
-	return (i);
-}
+// 	i = 0;
+// 	if (!s)
+// 		return (0);
+// 	while (s[i])
+// 		i++;
+// 	return (i);
+// }
 
 char	*ft_strdup(const char *s1)
 {

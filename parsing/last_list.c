@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:46:33 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/05/10 13:54:24 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/05/12 20:00:58 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_mini	*creat_list(t_tokens *tokens)
 
 	while(tokens)
 	{
-		if(tokens->type == 2)
+		if(tokens->type == PIPE)
 			i++;
 		tokens = tokens->next;
 	}
@@ -95,9 +95,10 @@ t_mini	*fill_last_list(t_tokens *token)
 	tmp = list;
 
 	i = 0;
+	open_herfiles(token);
 	while (token)
 	{
-		if(token->type == 2)
+		if(token->type == PIPE)
 		{
 			list = list->next;
 			i = 0;
@@ -108,71 +109,19 @@ t_mini	*fill_last_list(t_tokens *token)
 			list->cmd[i] = ft_strdup(token->cont);
 			i++;
 		}
+		// else if (token->next && token->type == HEREDOC)
+		// {
+
+		// }
 		else if (token->next && token->type == INPUT)
 			list->infile = openfd(token->next->cont, 0);	
 		else if (token->next &&  token->type == OUTPUT)
-		{
-			//printf("**%d\n", list->outfile);
 			list->outfile = openfd(token->next->cont, 1);
-		}
 		else if (token->next && token->type == APPEND)
-		{
 			list->outfile = openfd(token->next->cont, 2);
-		}
-		//printf("%d\n" , token->type);
 		token = token->next;
 	}
 	list = tmp;
 	return (list);
 
 }
-
-// t_mini  *fill_last_list(t_tokens *token)
-// {
-// 	t_mini  *mill;
-// 	t_mini  *tmp;
-// 	int		i;
-// 	mill = NULL;
-// 	while(token && token->next)
-// 	{
-// 		ft_lstadd_backl(&mill, ft_lstnewl());
-// 		tmp = ft_lstlastl(mill);
-// 		while(token && token->next && token->type != PIPE)
-// 		{
-// 			i = 0;
-// 			while (token && (token->type == 3 || token->type == 5 || token->type == 4))
-// 			{
-// 				tmp->cmd = realloc(tmp->cmd,  (i + 1) * sizeof(char *));
-// 				tmp->cmd[i] = ft_strdup(token->cont);
-// 				token = token->next;
-// 				i++;
-// 			}
-// 			if (token && token->next && token->type == INPUT)
-// 			{
-			
-// 				tmp->infile = openfd(token->next->cont, 0);
-// 			}
-// 			else if (token && token->next &&  token->type == OUTFILE)
-// 			{
-// 				tmp->outfile = openfd(token->next->cont, 1);
-// 			}
-// 			// exit(1);
-// 			else if (token && token->next && token->type == APPEND)
-// 			{
-// 				tmp->outfile = openfd(token->next->cont, 2);
-// 			}
-// 			else 
-// 			{
-// 				tmp->infile = 0;
-// 				tmp->outfile = 1;
-// 				// break;
-// 			}
-// 		//	printf("%s\n", tmp->cmd[i - 1]);
-// 			if(token)
-// 				token = token->next;
-// 		}
-// 		if (token)
-// 			token = token->next; 
-// 	}
-// 	return (mill);
-// }
