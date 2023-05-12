@@ -38,5 +38,7 @@ void	unset(t_env **env, char **remove);
 int		my_exit(char **av);
 int		str_len(char **av);
 void	my_export(t_env **env, char **av);
+int		cmp_env(char *str1, char *str2);
+void	sort_list(t_env **env);
 
 #endif

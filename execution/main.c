@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 12:22:26 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/11 19:48:08 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/12 21:14:04 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,9 @@ int	check_agr(char **av, t_env **env)
 		}
 		else if (!ft_strcmp("export", av[i]))
 		{
-			my_export(env, av);
-			exit(1);
+			// my_export(env, av);
+			sort_list(env);
+			// exit(1);
 		}
 		i++;
 	}

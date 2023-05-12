@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:07:11 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/12 18:57:07 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/12 21:12:59 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,16 @@ void	dup_value(char *str, t_env *lst)
 	while(str[j])
 		j++;
 	lst->value = malloc(j + 1);
+	j = 0;
 	while(str[i])
 	{
-printf("%c\n", str[i]);
-		lst->value[i] = str[i];
+		lst->value[j] = str[i];
 		i++;
+		j++;
 	}
-	// lst->value[i] = '\0';
-	printf("%s\n", lst->value);
+	lst->value[j] = '\0';
+	// printf("%s\n", lst->value);
+	// printf("here\n");
 }
 
 void	dup_key(char *str, t_env *lst)
@@ -54,7 +56,7 @@ void	dup_key(char *str, t_env *lst)
 		i++;
 	}
 	lst->key[i] = '\0';
-	printf("%s\n", lst->key);
+	// printf("%s\n", lst->key);
 	
 }
 
@@ -100,10 +102,12 @@ void	my_export(t_env **env, char **av)
 		dup_value(av[i], *env);
 		i++;
 	}
-	exit(1);
+	*env = tmp;
+	// sort_list(env);
 	while (tmp)
 	{
 		printf("%s\n", tmp->key);
 		tmp = tmp->next;
 	}
+	exit(1);
 }
