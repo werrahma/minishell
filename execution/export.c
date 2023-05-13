@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:07:11 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/12 21:12:59 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/13 18:46:06 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,36 @@ void	dup_key(char *str, t_env *lst)
 // {	
 // }
 
+void	if_plus(char *arg, t_env *env)
+{
+	int i;
+
+	i = 0;
+	while(arg[i])
+	{
+		if (arg[i] == '+' && arg[i + 1] == '=')
+		{
+			env->value = ft_strjoin(env->value, arg);
+			return ;
+		}
+		i++;
+	}
+}
+
+int	check_exporting(t_env *env, char *arg)
+{
+	while(env)
+	{
+		if (!ft_strncmp(env->key, arg, ft_strlen(env->key)))
+		{
+			if_plus(arg, env);
+			return (1);
+		}
+		env = env->next;
+	}
+	return (0);
+}
+
 void	my_export(t_env **env, char **av)
 {
 	int	i;
@@ -91,23 +121,29 @@ void	my_export(t_env **env, char **av)
 	i = 2;
 	j = 0;
 	tmp = *env;
-	// printf("%s\n", av[i]);
+	// if(str_len(av) == 1)
+	// {
+		// printf("han\n");
+		sort_list(env);
+	// }
 	// exit(1);
 	while(av[i])
 	{
-		ft_lstadd_back(env, ft_lstnew(1));
-		*env = ft_lstlast(*env);
-		// split_byequals(*env, av[i]);
-		dup_key(av[i], *env);
-		dup_value(av[i], *env);
+		if(check_exporting(*env, av[i]));
+		else
+		{
+			ft_lstadd_back(env, ft_lstnew(1));
+			*env = ft_lstlast(*env);
+			dup_key(av[i], *env);
+			dup_value(av[i], *env);
+		}
 		i++;
 	}
 	*env = tmp;
-	// sort_list(env);
-	while (tmp)
-	{
-		printf("%s\n", tmp->key);
-		tmp = tmp->next;
-	}
-	exit(1);
+	// while (tmp)
+	// {
+	// 	printf("%s\n", tmp->key);
+	// 	tmp = tmp->next;
+	// }
+	// exit(1);
 }

@@ -4,34 +4,45 @@
 void	sort_list(t_env **env)
 {
 	t_env *tmp;
+	char *key_swaping;
+	char *value_swaping;
 
-	// tmp = *env;
+	tmp = *env;
 
+	// printf("%d\n", ft_strncmp("zlid", "walid", 1));
+	// exit(1);
+	printf("am here\n");
 	while(*env && (*env)->next)
 	{
-		if (cmp_env((*env)->key, (*env)->next->key) < 1)
+		if (ft_strncmp((*env)->key, (*env)->next->key, 1) > 1)
 		{
-			tmp = (*env)->next;
-			(*env)->next = tmp->next;
-			// exit(2);
-			tmp->next = (*env);
+			// printf("declare -x");
+			// printf(" ");
+			key_swaping = (*env)->next->key;
+			(*env)->next->key = (*env)->key;
+			(*env)->key = key_swaping;
+
+			value_swaping = (*env)->next->value;
+			(*env)->next->value = (*env)->value;
+			(*env)->value = value_swaping;
+			// value_swaping = (*env)->next->value;
+			// (*env)->next->value = value_swaping;
+			// key_swaping = (*env);
 			*env = tmp;
-		printf("%s\n", (*env)->key);
-			// printf("am here\n");
-			// tmp = (*head)->next;
-			// (*head)->next = tmp->next;
-			// tmp->next = (*head);
-			// (*head) = tmp;
 		}
 		else
+		{
+			// printf("hjds\n");
 			*env = (*env)->next;
+		}
 	}
-	// *env = tmp;
-	while(*env)
-	{
-		printf("%s == ", (*env)->key);
-		printf("%s\n", (*env)->value);
-		(*env) = (*env)->next;
-	}
-	exit(1);
+	// printf("%s\n", (*env)->key);
+	*env = tmp;
+	// while(*env)
+	// {
+	// 	printf("%s == ", (*env)->key);
+	// 	printf("%s\n", (*env)->value);
+	// 	(*env) = (*env)->next;
+	// }
+	// exit(1);
 }
