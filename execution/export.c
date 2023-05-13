@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:07:11 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/13 18:46:06 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/13 20:11:43 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,29 +121,48 @@ void	my_export(t_env **env, char **av)
 	i = 2;
 	j = 0;
 	tmp = *env;
-	// if(str_len(av) == 1)
-	// {
-		// printf("han\n");
-		sort_list(env);
-	// }
-	// exit(1);
-	while(av[i])
+	if(str_len(av) == 2)
 	{
-		if(check_exporting(*env, av[i]));
-		else
+		while((*env))
+	{
+		if ((*env)->value)
 		{
-			ft_lstadd_back(env, ft_lstnew(1));
-			*env = ft_lstlast(*env);
-			dup_key(av[i], *env);
-			dup_value(av[i], *env);
+			printf("declare -x ");
+			printf("%s", (*env)->key);
+			printf("=");
+			printf("%s\n", (*env)->value);
 		}
-		i++;
+		(*env) = (*env)->next;
+	}
+		// printf("am here\n");
+		sort_list(env);
+	}
+	else
+	{
+		while(av[i])
+		{
+			if(check_exporting(*env, av[i]));
+			else
+			{
+				ft_lstadd_back(env, ft_lstnew(1));
+				*env = ft_lstlast(*env);
+				dup_key(av[i], *env);
+				dup_value(av[i], *env);
+			}
+			i++;
+		}
 	}
 	*env = tmp;
-	// while (tmp)
+	// while((*env))
 	// {
-	// 	printf("%s\n", tmp->key);
-	// 	tmp = tmp->next;
+	// 	if ((*env)->value)
+	// 	{
+	// 		printf("declare -x ");
+	// 		printf("%s", (*env)->key);
+	// 		printf("=");
+	// 		printf("%s\n", (*env)->value);
+	// 	}
+	// 	(*env) = (*env)->next;
 	// }
-	// exit(1);
+	exit(1);
 }

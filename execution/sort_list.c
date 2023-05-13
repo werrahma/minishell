@@ -11,7 +11,6 @@ void	sort_list(t_env **env)
 
 	// printf("%d\n", ft_strncmp("zlid", "walid", 1));
 	// exit(1);
-	printf("am here\n");
 	while(*env && (*env)->next)
 	{
 		if (ft_strncmp((*env)->key, (*env)->next->key, 1) > 1)
@@ -31,10 +30,7 @@ void	sort_list(t_env **env)
 			*env = tmp;
 		}
 		else
-		{
-			// printf("hjds\n");
 			*env = (*env)->next;
-		}
 	}
 	// printf("%s\n", (*env)->key);
 	*env = tmp;
