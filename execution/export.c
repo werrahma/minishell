@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:07:11 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/13 20:11:43 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/14 16:03:18 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,16 +124,16 @@ void	my_export(t_env **env, char **av)
 	if(str_len(av) == 2)
 	{
 		while((*env))
-	{
-		if ((*env)->value)
 		{
-			printf("declare -x ");
-			printf("%s", (*env)->key);
-			printf("=");
-			printf("%s\n", (*env)->value);
+			if ((*env)->value)
+			{
+				printf("declare -x ");
+				printf("%s", (*env)->key);
+				printf("=");
+				printf("%s\n", (*env)->value);
+			}
+			(*env) = (*env)->next;
 		}
-		(*env) = (*env)->next;
-	}
 		// printf("am here\n");
 		sort_list(env);
 	}
@@ -152,17 +152,18 @@ void	my_export(t_env **env, char **av)
 			i++;
 		}
 	}
+	// printf("hna\n");
 	*env = tmp;
-	// while((*env))
-	// {
-	// 	if ((*env)->value)
-	// 	{
-	// 		printf("declare -x ");
-	// 		printf("%s", (*env)->key);
-	// 		printf("=");
-	// 		printf("%s\n", (*env)->value);
-	// 	}
-	// 	(*env) = (*env)->next;
-	// }
+	while((*env))
+	{
+		if ((*env)->value)
+		{
+			printf("declare -x ");
+			printf("%s", (*env)->key);
+			printf("=");
+			printf("%s\n", (*env)->value);
+		}
+		(*env) = (*env)->next;
+	}
 	exit(1);
 }
