@@ -9,18 +9,19 @@ int main(int ac, char **av, char **env)
     // t_env   *tmp = NULL;
 
     char *line;
-	t_tokens     *lst;
+	// t_tokens     *lst;
 	t_mini	*li;
 
+	create_list(&list, env);
+	fill_list(&list, env);
 	while (1)
 	{
 		line = readline("minishell$ ");
-		lst = lexer_split_cmdline(line);
-		li = fill_last_list(lst);
+		// lst = lexer_split_cmdline(line);
+		li = fill_last_list(lexer_split_cmdline(line));
+		check_agr(li->cmd, &list);
+		free(line);
 	}
-	create_list(&list, env);
-	fill_list(&list, env);
-	check_agr(av, &list);
 	while(list)
 	{
 		printf("%s == ", list->key);

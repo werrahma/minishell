@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   last_list.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:46:33 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/05/14 16:39:39 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/05/14 18:30:36 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ t_mini	*fill_last_list(t_tokens *token)
 	{
 		if(token->type == PIPE)
 		{
+			list->cmd = realloc(list->cmd, (i + 1) * sizeof(char *));
+			list->cmd[i] = NULL;
 			list = list->next;
 			i = 0;
 		}
@@ -121,6 +123,8 @@ t_mini	*fill_last_list(t_tokens *token)
 			list->outfile = openfd(token->next->cont, 2);
 		token = token->next;
 	}
+	list->cmd = realloc(list->cmd, (i + 1) * sizeof(char *));
+	list->cmd[i] = NULL;
 	list = tmp;
 	return (list);
 

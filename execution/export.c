@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:07:11 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/14 16:03:18 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/14 18:54:14 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	dup_value(char *str, t_env *lst)
 
 	while(str[i] && str[i] != '=')
 		i++;
-	i++;
+	if(str[i] == '=')
+		i++;
 	j = i;
 	while(str[j])
 		j++;
@@ -47,7 +48,7 @@ void	dup_key(char *str, t_env *lst)
 	j = 0;
 	while (str[j] && str[j] != '=')
 		j++;
-	lst->key = malloc(i + 1);
+	lst->key = malloc(j + 1);
 	i = 0;
 	// exit(1);
 	while (str && i < j)
@@ -118,10 +119,10 @@ void	my_export(t_env **env, char **av)
 	int	j;
     t_env *tmp;
 
-	i = 2;
+	i = 0;
 	j = 0;
 	tmp = *env;
-	if(str_len(av) == 2)
+	if(str_len(av) == 1)
 	{
 		while((*env))
 		{
@@ -165,5 +166,5 @@ void	my_export(t_env **env, char **av)
 		}
 		(*env) = (*env)->next;
 	}
-	exit(1);
+	// exit(1);
 }
