@@ -3,7 +3,7 @@ NAME = Minishell
 LIBFT = ../execution/libft/libft.a
 
 CC = cc
-CFLAGS = -fsanitize=address -g
+# CFLAGS = -fsanitize=address -g
 
 SRC = lexer.c lexer_utils.c main.c last_list.c here_doc.c \
 		../get_next_line/get_next_line.c \

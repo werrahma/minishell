@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:46:33 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/05/12 20:00:58 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/05/14 14:44:15 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int openfd(char *file, int i)
 		fd = open(file , O_CREAT | O_RDWR | O_TRUNC, 0777);
 	else if (i == 2)
 		fd = open(file , O_CREAT | O_RDWR | O_APPEND, 0777);
+	else if (i == 3)
+		fd = open(file , O_RDWR | O_APPEND, 0777);
 	return (fd);
 }
 
@@ -98,21 +100,20 @@ t_mini	*fill_last_list(t_tokens *token)
 	open_herfiles(token);
 	while (token)
 	{
+		//printf("ls\n");
 		if(token->type == PIPE)
 		{
 			list = list->next;
 			i = 0;
 		}
-		else if ((token->type == 3 || token->type == 5 || token->type == 4))
+		else if (token->type == 5)
 		{
 			list->cmd = realloc(list->cmd, (i + 1) * sizeof(char *));
 			list->cmd[i] = ft_strdup(token->cont);
 			i++;
 		}
-		// else if (token->next && token->type == HEREDOC)
-		// {
-
-		// }
+		else if (token->next && token->type == HEREDOC)
+			list->infile = openfd(token->next->cont, 3);
 		else if (token->next && token->type == INPUT)
 			list->infile = openfd(token->next->cont, 0);	
 		else if (token->next &&  token->type == OUTPUT)

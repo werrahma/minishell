@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 21:20:11 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/05/13 11:18:14 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/05/14 14:29:43 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void    open_herfiles(t_tokens *tokens)
 			{
 				name = ft_gethername();
 				here_doc(name, tokens->next->cont);
+				tokens->next->cont = name;
 			}
 			waitpid(id, 0, 0);
 		}
