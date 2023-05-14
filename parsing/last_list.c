@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:46:33 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/05/14 14:44:15 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/05/14 16:14:47 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,12 @@ t_mini	*fill_last_list(t_tokens *token)
 	open_herfiles(token);
 	while (token)
 	{
-		//printf("ls\n");
 		if(token->type == PIPE)
 		{
 			list = list->next;
 			i = 0;
 		}
-		else if (token->type == 5)
+		else if (token->type == ARG)
 		{
 			list->cmd = realloc(list->cmd, (i + 1) * sizeof(char *));
 			list->cmd[i] = ft_strdup(token->cont);

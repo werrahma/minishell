@@ -1,11 +1,11 @@
 
 #include "minishell.h"
 
-void	ft_lstadd_back(t_tokens **lst, t_tokens *new)
+void	ft_lstadd_backp(t_tokens **lst, t_tokens *new)
 {
 	t_tokens	*tmp;
 
-	tmp = ft_lstlast(*lst);
+	tmp = ft_lstlastp(*lst);
 	if (!lst || !new)
 		return ;
 	if (*lst == NULL )
@@ -15,11 +15,11 @@ void	ft_lstadd_back(t_tokens **lst, t_tokens *new)
 		return ;
 	}	
 	else
-		ft_lstlast(*lst)->next = new;
+		ft_lstlastp(*lst)->next = new;
 	new->perv = tmp;
 }
 
-t_tokens	*ft_lstnew( char *content)
+t_tokens	*ft_lstnewp( char *content)
 {
 	t_tokens	*lst;
 
@@ -32,7 +32,7 @@ t_tokens	*ft_lstnew( char *content)
 	return (lst);
 }
 
-t_tokens	*ft_lstlast(t_tokens *lst)
+t_tokens	*ft_lstlastp(t_tokens *lst)
 {
 	if (!lst)
 		return (NULL);

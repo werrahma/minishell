@@ -40,13 +40,13 @@ t_mini	*ft_lstlastl(t_mini *lst);
 void	ft_lstadd_backl(t_mini **lst, t_mini *new);
 // parsinghelperf
 
-t_tokens	*ft_lstnew(char *content);
+t_tokens	*ft_lstnewp(char *content);
 size_t		ft_strlen(const char *s);
-t_tokens	*ft_lstlast(t_tokens *lst);
+t_tokens	*ft_lstlastp(t_tokens *lst);
 char		*ft_strdup(const char *s1);
 char		*ft_chrjoin(char *dst, char c);
 void		*ft_calloc(size_t count, size_t size);
-void		ft_lstadd_back(t_tokens **lst, t_tokens *new);
+void		ft_lstadd_backp(t_tokens **lst, t_tokens *new);
 int			lexer_openqts(char	*line, int indx);
 char	*get_next_line(int fd);
 int		ft_strcmp(const char *s1, const char *s2);

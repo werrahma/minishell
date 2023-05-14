@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 18:44:16 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/05/08 20:21:47 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/05/14 16:35:26 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,12 +155,12 @@ t_tokens	*lexer_split_cmdline(char *line)
 			i++; 
 		else if (!sep(line[i]))
 		{
-			ft_lstadd_back(&token, ft_lstnew(lexer_collect_str(line, &i)));
+			ft_lstadd_backp(&token, ft_lstnewp(lexer_collect_str(line, &i)));
 			
 		}
 		else if (sep(line[i]))
 		{
-			ft_lstadd_back(&token, ft_lstnew(lexer_collect_op(line, &i)));
+			ft_lstadd_backp(&token, ft_lstnewp(lexer_collect_op(line, &i)));
 		}
 	}
 	lexer_definetype(token);
