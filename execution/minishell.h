@@ -14,6 +14,7 @@ typedef struct s_env
 	struct s_env  *next;
 }				t_env;
 
+#include "../parsing/p_minishell.h"
 #include "libft/libft.h"
 # include <stdio.h>
 # include <stdlib.h>

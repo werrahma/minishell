@@ -6,11 +6,11 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 18:44:16 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/05/14 16:35:26 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/05/14 16:41:53 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "p_minishell.h"
 
 int sep(char s)
 {
@@ -21,19 +21,19 @@ int sep(char s)
 	return (0);
 }
 
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	size_t	a;
+// int	ft_strcmp(const char *s1, const char *s2)
+// {
+// 	size_t	a;
 
-	a = 0;
-	while (s1[a] || s2[a])
-	{
-		if (s1[a] != s2[a])
-			return ((unsigned char)s1[a] - (unsigned char)s2[a]);
-		a++;
-	}
-	return (0);
-}
+// 	a = 0;
+// 	while (s1[a] || s2[a])
+// 	{
+// 		if (s1[a] != s2[a])
+// 			return ((unsigned char)s1[a] - (unsigned char)s2[a]);
+// 		a++;
+// 	}
+// 	return (0);
+// }
 
 int	definetype_helper(t_tokens *toke)
 {
