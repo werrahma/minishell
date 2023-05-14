@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 12:22:26 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/14 15:58:59 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/14 16:51:56 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,58 +85,58 @@ int	check_agr(char **av, t_env **env)
 	return (0);
 }
 
-int main(int ac, char **av, char **env)
-{
-    int i = 0;
-    int j;
-    char **hold;
-    t_env   *list = NULL;
-    // t_env   *tmp = NULL;
+// int main(int ac, char **av, char **env)
+// {
+//     int i = 0;
+//     int j;
+//     char **hold;
+//     t_env   *list = NULL;
+//     // t_env   *tmp = NULL;
 
-	create_list(&list, env);
-	fill_list(&list, env);
-	// tmp = list;
-    // while(env[i])
-    // {
-	// 	j = 0;
-	// 	hold = ft_split(env[i], '=');
-	// 	while (j < 2)
-	// 	{
-	// 		list->key = hold[j];
-	// 		j++;
-	// 		list->value = hold[j];
-	// 		j++;
-	// 	}
-	// 	list = list->next;
-	// 	i++;
-	// }
-	// list = tmp;
-	// char *read;
-	// while(1)
-	// {
-		// read = readline("minishell");
-	// while(list)
-	// {
-	// 	printf("%s\n", list->key);
-	// 	list = list->next;
-	// }
-	// exit(2);
-	check_agr(av, &list);
-	// printf("\n\n\n\n");
-	while(list)
-	{
-		printf("%s == ", list->key);
-		printf("%s\n", list->value);
-		list = list->next;
-	}
-	// }
-	// i = 0;
-	// while (tmp)
-	// {
-	// 	// printf("%d\n", i);
-	// 	// i++;
-	// 	printf("key == %s   value == %s\n", tmp->key, tmp->value);
-	// 	tmp = tmp->next;
-	// }
+// 	create_list(&list, env);
+// 	fill_list(&list, env);
+// 	// tmp = list;
+//     // while(env[i])
+//     // {
+// 	// 	j = 0;
+// 	// 	hold = ft_split(env[i], '=');
+// 	// 	while (j < 2)
+// 	// 	{
+// 	// 		list->key = hold[j];
+// 	// 		j++;
+// 	// 		list->value = hold[j];
+// 	// 		j++;
+// 	// 	}
+// 	// 	list = list->next;
+// 	// 	i++;
+// 	// }
+// 	// list = tmp;
+// 	// char *read;
+// 	// while(1)
+// 	// {
+// 		// read = readline("minishell");
+// 	// while(list)
+// 	// {
+// 	// 	printf("%s\n", list->key);
+// 	// 	list = list->next;
+// 	// }
+// 	// exit(2);
+// 	check_agr(av, &list);
+// 	// printf("\n\n\n\n");
+// 	while(list)
+// 	{
+// 		printf("%s == ", list->key);
+// 		printf("%s\n", list->value);
+// 		list = list->next;
+// 	}
+// 	// }
+// 	// i = 0;
+// 	// while (tmp)
+// 	// {
+// 	// 	// printf("%d\n", i);
+// 	// 	// i++;
+// 	// 	printf("key == %s   value == %s\n", tmp->key, tmp->value);
+// 	// 	tmp = tmp->next;
+// 	// }
 
-}
+// }
