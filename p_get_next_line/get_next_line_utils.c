@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 02:01:42 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/05/14 11:53:51 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/05/14 13:56:25 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int	ft_strlen(char *s)
 // 		p[i] = s1[i];
 // 		i++;
 // 	return (p);
-// }
 
 char	*ft_strchr(char *s, int c)
 {
