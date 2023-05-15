@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:18:00 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/11 15:36:39 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/15 12:48:47 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,13 @@ int	echo(char **str)
 	int	i;
 	int	j;
 
-	i = 1;
+	i = 0;
 	j = 0;
 	if (str_len(str) <= 1)
 		exit(1);
 	// while(str[i])
 	// {
-		if (str[2][0] == '-')
+		if (str[1][0] == '-')
 		{
 			if(!check_echo(str[i + 1]))
 				return (print_cho(str, i + 1, 0), 0);

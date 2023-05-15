@@ -19,6 +19,7 @@ int main(int ac, char **av, char **env)
 		line = readline("minishell$ ");
 		// lst = lexer_split_cmdline(line);
 		li = fill_last_list(lexer_split_cmdline(line));
+		add_history(line);
 		check_agr(li->cmd, &list);
 		free(line);
 	}

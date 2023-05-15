@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:07:11 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/14 21:52:08 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/15 11:54:16 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,6 @@ void	my_export(t_env **env, char **av)
 	tmp = *env;
 	if(str_len(av) == 1)
 	{
-		printf("hna\n");
 		while((*env))
 		{
 			if ((*env)->value)
@@ -136,7 +135,6 @@ void	my_export(t_env **env, char **av)
 			}
 			(*env) = (*env)->next;
 		}
-		// printf("am here\n");
 		sort_list(env);
 	}
 	else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 12:22:26 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/14 21:46:38 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/15 12:56:44 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int	check_agr(char **av, t_env **env)
 	// 	(*env) = (*env)->next;
 	// }
 	// exit(1);
-	while(av[i])
-		printf("%s\n", av[i++]);
+	// while(av[i])
+	// 	printf("%s\n", av[i++]);
 	// exit(1);
 	i = 0;
 	while(av[i])
@@ -65,10 +65,11 @@ int	check_agr(char **av, t_env **env)
 		else if (ft_strcmp("echo", av[i]) == 0)
 			echo(av);
 		else if (ft_strcmp("cd", av[i]) == 0)
-			ft_cd(*env, av[i + 1]);
-		else if (!ft_strcmp("unset", av[i]))\
 		{
-			printf("here\n");
+			ft_cd(*env, av[i + 1]);
+		}
+		else if (!ft_strcmp("unset", av[i]))
+		{
 			unset(env, av);
 		}
 		else if (ft_strcmp("exit", av[i]) == 0)
@@ -79,7 +80,6 @@ int	check_agr(char **av, t_env **env)
 		}
 		else if (!ft_strcmp("export", av[i]))
 		{
-			printf("am in export\n");
 			my_export(env, av);
 			// sort_list(env);
 			// exit(1);
