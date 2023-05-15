@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:18:00 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/15 12:48:47 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/15 22:32:23 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	print_cho(char **s, int i, int check)
 		else
 			printf("%s", s[i]);
 		i++;
-		if ((s[i] && !check_echo(s[i - 1])))
+		if ((s[i] || !check_echo(s[i - 1])))
 			printf(" ");
 	}
 	if (check == 0)
@@ -138,7 +138,12 @@ void	ft_cd(t_env *env, char *file)
 	oldpwd = getcwd(NULL, 0);
 	// printf("%s\n", oldpwd);
 	// while(1);
-	chdir(file);
+	if (chdir(file) == -1)
+	{
+		write(1, "minishell: cd:", 14);
+		write(1, file, ft_strlen(file));
+		write(2, ": No such file or directory\n", 28);
+	}
 	while(env)
 	{
 		if (ft_strcmp(env->key, "PWD") == 0)
