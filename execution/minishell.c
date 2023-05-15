@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 12:22:26 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/14 18:21:19 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/14 21:46:38 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,10 @@ int	check_agr(char **av, t_env **env)
 	// }
 	// exit(1);
 	while(av[i])
+		printf("%s\n", av[i++]);
+	// exit(1);
+	i = 0;
+	while(av[i])
 	{
 		if (ft_strcmp("pwd", av[i]) == 0)
 			pwd();
@@ -75,6 +79,7 @@ int	check_agr(char **av, t_env **env)
 		}
 		else if (!ft_strcmp("export", av[i]))
 		{
+			printf("am in export\n");
 			my_export(env, av);
 			// sort_list(env);
 			// exit(1);

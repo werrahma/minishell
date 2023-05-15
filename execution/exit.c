@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 12:46:05 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/10 16:02:03 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/14 23:04:43 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,21 @@ int	my_exit(char **av)
 	int	flag;
 	int	status;
 
-	i = 2;
+	i = 0;
 	flag = 0;
 	write(2, "exit\n", 5);
-	if (str_len(av) > 3)
+	printf("%d\n", str_len(av));
+	if (str_len(av) > 2)
 	{
 		write(1, "too many arguments\n", 19);
 		return (-1);
 	}
-	else if(!check_arg(av[2]))
+	else if(!check_arg(av[0]))
 	{
 		status = 255;
 	}
 	else
-		status = ft_atoi(av[2]);
+		status = ft_atoi(av[0]);
 	if (status > 255)
 		status = status % 256;
 	else if (status < 0)
