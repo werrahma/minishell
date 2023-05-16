@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 12:22:26 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/15 22:38:32 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/16 12:03:11 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ int	check_agr(char **av, t_env **env)
 			echo(av);
 		else if (ft_strcmp("cd", av[i]) == 0)
 		{
-			ft_cd(*env, av[i + 1]);
+			if (!av[i + 1])
+				ft_cd(*env, av[i]);
+			else
+				ft_cd(*env, av[i + 1]);
 		}
 		else if (!ft_strcmp("unset", av[i]))
 		{
