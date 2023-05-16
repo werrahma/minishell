@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 21:20:11 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/05/14 16:31:43 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/15 15:03:17 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,11 @@ void    here_doc(char *name, char *li)
 	f = open(name, O_CREAT | O_RDWR | O_TRUNC, 0777);
 	while (1)
 	{
-		//printf("%s\n", li);
 		ft_putstr_fd("heredoc> ", 1);
 		line = get_next_line(0);
 		if(!line)
 			break;
-		if(!ft_strncmp(line, li, ft_strlen(li)))
+		if(!ft_strncmp(line, li, ft_strlen(line) - 1) && ft_strlen(line) - 1 == ft_strlen(li))
 		{
 			free(line);
 			break;
@@ -65,14 +64,14 @@ void    open_herfiles(t_tokens *tokens)
 	{
 		if(!ft_strcmp(tokens->cont , "<<"))
 		{
-			id = fork();
-			if (id == 0)
-			{
+			//id = fork();
+			//if (id == 0)
+			//{
 				name = ft_gethername();
 				here_doc(name, tokens->next->cont);
 				tokens->next->cont = name;
-			}
-			waitpid(id, 0, 0);
+			//}
+			//waitpid(id, 0, 0);
 		}
 		tokens = tokens->next;
 	}
