@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:07:11 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/14 18:54:14 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/15 11:54:16 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,6 @@ void	my_export(t_env **env, char **av)
 			}
 			(*env) = (*env)->next;
 		}
-		// printf("am here\n");
 		sort_list(env);
 	}
 	else
@@ -155,16 +154,16 @@ void	my_export(t_env **env, char **av)
 	}
 	// printf("hna\n");
 	*env = tmp;
-	while((*env))
-	{
-		if ((*env)->value)
-		{
-			printf("declare -x ");
-			printf("%s", (*env)->key);
-			printf("=");
-			printf("%s\n", (*env)->value);
-		}
-		(*env) = (*env)->next;
-	}
+	// while((*env))
+	// {
+	// 	if ((*env)->value)
+	// 	{
+	// 		printf("declare -x ");
+	// 		printf("%s", (*env)->key);
+	// 		printf("=");
+	// 		printf("%s\n", (*env)->value);
+	// 	}
+	// 	(*env) = (*env)->next;
+	// }
 	// exit(1);
 }

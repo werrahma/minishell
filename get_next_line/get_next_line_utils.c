@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 02:01:42 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/05/14 13:56:25 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/14 21:31:13 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	*ft_calloc(size_t count, size_t size)
 	char	*ptr;
 
 	i = 0;
-	if (count && size > SIZE_MAX / count)
+	if (count && size > 18446744073709551615UL / count)
 		return (NULL);
 	ptr = malloc(count * size);
 	if (!ptr)

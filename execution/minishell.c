@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 12:22:26 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/14 18:21:19 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/15 22:38:32 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,10 @@ int	check_agr(char **av, t_env **env)
 	// 	(*env) = (*env)->next;
 	// }
 	// exit(1);
+	// while(av[i])
+	// 	printf("%s\n", av[i++]);
+	// exit(1);
+	i = 0;
 	while(av[i])
 	{
 		if (ft_strcmp("pwd", av[i]) == 0)
@@ -61,10 +65,11 @@ int	check_agr(char **av, t_env **env)
 		else if (ft_strcmp("echo", av[i]) == 0)
 			echo(av);
 		else if (ft_strcmp("cd", av[i]) == 0)
-			ft_cd(*env, av[i + 1]);
-		else if (!ft_strcmp("unset", av[i]))\
 		{
-			printf("here\n");
+			ft_cd(*env, av[i + 1]);
+		}
+		else if (!ft_strcmp("unset", av[i]))
+		{
 			unset(env, av);
 		}
 		else if (ft_strcmp("exit", av[i]) == 0)
