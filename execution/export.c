@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:07:11 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/16 15:56:46 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/16 23:01:46 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_env	*fond_key(t_env *list, char *str)
+{
+	while (list)
+	{
+		if (!ft_strncmp(list->key, str, ft_strlen(list->key)))
+			return (list);
+		list = list->next;
+	}
+	return (NULL);
+}
 
 void	dup_value(char *str, t_env *lst)
 {
@@ -18,7 +29,6 @@ void	dup_value(char *str, t_env *lst)
 	int j;
 
 	i = 0;
-
 	while(str[i] && str[i] != '=')
 		i++;
 	if(str[i] == '=')
@@ -39,7 +49,6 @@ void	dup_value(char *str, t_env *lst)
 		lst->value = NULL;
 	else
 		lst->value[j] = '\0';
-	// printf("%s\n", lst->value);
 	// printf("here\n");
 }
 
@@ -61,7 +70,7 @@ void	dup_key(char *str, t_env *lst)
 		i++;
 	}
 	lst->key[i] = '\0';
-	printf("---%s\n", lst->key);
+	// printf("---%s\n", lst->key);
 	
 }
 
@@ -151,7 +160,11 @@ void	my_export(t_env **env, char **av)
 		{
 			if(check_exporting(*env, av[i]))
 			{
-				printf("am here\n");
+				// printf("am here\n");
+				// printf("%s\n", av[i]);
+				// dup_key(av[i], *env);
+				*env = fond_key(*env, av[i]);
+				dup_value(av[i], *env);
 			}
 			else
 			{
@@ -176,5 +189,6 @@ void	my_export(t_env **env, char **av)
 	// 	}
 	// 	(*env) = (*env)->next;
 	// }
+	// *env = tmp;
 	// exit(1);
 }
