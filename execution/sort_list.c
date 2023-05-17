@@ -9,14 +9,10 @@ void	sort_list(t_env **env)
 
 	tmp = *env;
 
-	// printf("%d\n", ft_strncmp("zlid", "walid", 1));
-	// exit(1);
 	while(*env && (*env)->next)
 	{
-		if (ft_strncmp((*env)->key, (*env)->next->key, 1) > 1)
+		if (ft_strncmp((*env)->key, (*env)->next->key, 1) >= 1)
 		{
-			// printf("declare -x");
-			// printf(" ");
 			key_swaping = (*env)->next->key;
 			(*env)->next->key = (*env)->key;
 			(*env)->key = key_swaping;

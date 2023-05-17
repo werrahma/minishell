@@ -14,6 +14,7 @@ int main(int ac, char **av, char **env)
 
 	create_list(&list, env);
 	fill_list(&list, env);
+	pipex(ac , av, env);
 	while (1)
 	{
 		line = readline("minishell$ ");
