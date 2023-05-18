@@ -15,12 +15,13 @@ typedef struct s_env
 }				t_env;
 
 #include "../parsing/p_minishell.h"
-#include "libft/libft.h"
+# include "libft/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
-#include <stdlib.h>
+# include <stdlib.h>
+# include "../pipex_bonus/pipex.h"
 
 // #include <readline/readline.h>
 // #include <readline/history.h>

@@ -5,6 +5,13 @@ SRC = \
 		parsing/lexer.c parsing/lexer_utils.c parsing/last_list.c parsing/here_doc.c \
 		get_next_line/get_next_line.c \
 		get_next_line/get_next_line_utils.c \
+		pipex_bonus/check_access.c\
+		pipex_bonus/children.c\
+		pipex_bonus/final_path.c\
+		pipex_bonus/ft_fail.c\
+		pipex_bonus/help.c\
+		pipex_bonus/pipex.c\
+		pipex_bonus/size_limiter.c\
 
 NAME = minishell
 LIBFT = execution/libft/libft.a

@@ -6,11 +6,22 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:07:11 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/15 11:54:16 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/17 11:19:18 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_env	*fond_key(t_env *list, char *str)
+{
+	while (list)
+	{
+		if (!ft_strncmp(list->key, str, ft_strlen(list->key)))
+			return (list);
+		list = list->next;
+	}
+	return (NULL);
+}
 
 void	dup_value(char *str, t_env *lst)
 {
@@ -18,7 +29,6 @@ void	dup_value(char *str, t_env *lst)
 	int j;
 
 	i = 0;
-
 	while(str[i] && str[i] != '=')
 		i++;
 	if(str[i] == '=')
@@ -27,6 +37,7 @@ void	dup_value(char *str, t_env *lst)
 	while(str[j])
 		j++;
 	lst->value = malloc(j + 1);
+	// lst->value = NULL;
 	j = 0;
 	while(str[i])
 	{
@@ -34,8 +45,10 @@ void	dup_value(char *str, t_env *lst)
 		i++;
 		j++;
 	}
-	lst->value[j] = '\0';
-	// printf("%s\n", lst->value);
+	if (j == 0)
+		lst->value = NULL;
+	else
+		lst->value[j] = '\0';
 	// printf("here\n");
 }
 
@@ -57,7 +70,7 @@ void	dup_key(char *str, t_env *lst)
 		i++;
 	}
 	lst->key[i] = '\0';
-	// printf("%s\n", lst->key);
+	// printf("---%s\n", lst->key);
 	
 }
 
@@ -119,29 +132,40 @@ void	my_export(t_env **env, char **av)
 	int	j;
     t_env *tmp;
 
-	i = 0;
+	i = 1;
 	j = 0;
 	tmp = *env;
 	if(str_len(av) == 1)
 	{
+		sort_list(env);
 		while((*env))
 		{
+			// if ((*env)->value)
+			// {
+			printf("declare -x ");
+			printf("%s", (*env)->key);
 			if ((*env)->value)
 			{
-				printf("declare -x ");
-				printf("%s", (*env)->key);
 				printf("=");
 				printf("%s\n", (*env)->value);
 			}
+			else
+				printf("\n");
 			(*env) = (*env)->next;
 		}
-		sort_list(env);
 	}
 	else
 	{
 		while(av[i])
 		{
-			if(check_exporting(*env, av[i]));
+			if(check_exporting(*env, av[i]))
+			{
+				// printf("am here\n");
+				// printf("%s\n", av[i]);
+				// dup_key(av[i], *env);
+				*env = fond_key(*env, av[i]);
+				dup_value(av[i], *env);
+			}
 			else
 			{
 				ft_lstadd_back(env, ft_lstnew(1));
@@ -165,5 +189,6 @@ void	my_export(t_env **env, char **av)
 	// 	}
 	// 	(*env) = (*env)->next;
 	// }
+	// *env = tmp;
 	// exit(1);
 }

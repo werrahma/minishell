@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:18:00 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/15 22:32:23 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/16 14:58:54 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,14 @@ int	echo(char **str)
 	
 }
 
-int	check_oldpwd(t_env *env)
+int	check_oldpwd(t_env *env, int *flag)
 {
 	while (env)
 	{
 		if (ft_strcmp(env->key, "OLDPWD") == 0)
 			return (1);
+		if (!ft_strcmp(env->key, "HOME"))
+			*flag = 1;
 		env = env->next;
 	}
 	return (0);
@@ -124,10 +126,12 @@ void	ft_cd(t_env *env, char *file)
 	char	*path;
 	char	*oldpwd;
 	t_env	*tmp;
+	int		flag;
 	static int	check;
 
 	tmp = env;
-	if (check_oldpwd(env));
+	flag = 0;
+	if (check_oldpwd(env, &flag));
 	else if (check == 0)
 	{
 		ft_lstadd_back(&env, ft_lstnew(1));
@@ -135,9 +139,15 @@ void	ft_cd(t_env *env, char *file)
 		env->key = "OLDPWD";
 	}
 	env = tmp;
+	if (!ft_strcmp(file, "cd") && flag == 1)
+		file = ft_strdup("/Users/werrahma");
+	else if (!ft_strcmp(file, "cd") && flag == 0)
+	{
+		write(1, "minishell: cd:", 14);
+		write(2, " HOME not set\n", 14);
+		return ;
+	}
 	oldpwd = getcwd(NULL, 0);
-	// printf("%s\n", oldpwd);
-	// while(1);
 	if (chdir(file) == -1)
 	{
 		write(1, "minishell: cd:", 14);
@@ -155,7 +165,7 @@ void	ft_cd(t_env *env, char *file)
 		else if (ft_strcmp(env->key, "OLDPWD") == 0)
 		{
 			env->value = oldpwd;
-			free(oldpwd);
+			// free(oldpwd);
 			// printf("oldpwd == %s\n", oldpwd);
 		}
 		env = env->next;
