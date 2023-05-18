@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/02/22 17:22:31 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/18 12:34:52 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,15 @@ void	child_process_one(char **av, char **env, t_pipe *pipes)
 	char	**ps_path;
 	char	*acs1;
 	char	**args;
-
-	fd1 = open (av[1], O_RDONLY, 0777);
+ 
+	printf("%s\n", av[0]);
+	fd1 = open (av[0], O_RDONLY, 0777);
 	if (fd1 < 0)
 		ft_fail('f');
 	ps_path = pathfinder(env);
 	if (!ps_path)
 		exit (1);
-	args = ft_split(av[2], ' ');
+	args = ft_split(av[1], ' ');
 	acs1 = check_access(ps_path, args[0]);
 	dup2(fd1, 0);
 	dup2(pipes->fd[0][1], 1);

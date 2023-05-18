@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:42:32 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/17 13:12:18 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/18 12:27:55 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@ int	pipex(int ac, char **av, char **env)
 	pipes.f0 = 0;
 	pipes.f1 = 1;
 	// ft_main(ac, av, env);
+	// int i = 0;
+	// while(av[i])
+	// 	printf("%s\n", av[i++]);
+	// while(1);
 	pipe(pipes.fd[0]);
 	pipe(pipes.fd[1]);
 	id0 = fork();
