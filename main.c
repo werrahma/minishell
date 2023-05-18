@@ -1,5 +1,6 @@
 #include "execution/minishell.h"
 
+
 int main(int ac, char **av, char **env)
 {
     int i = 0;
@@ -19,12 +20,16 @@ int main(int ac, char **av, char **env)
 		line = readline("minishell$ ");
 		// lst = lexer_split_cmdline(line);
 		li = fill_last_list(lexer_split_cmdline(line));
+		while(li)
+		{
+			if(!check_agr(li->cmd, &list))
+				pipex(li, env);
+			li = li->next;
+		}
 		// i = 0;
 		// while(li->cmd[i])
 		// 	printf("%s\n", li->cmd[i++]);
-		// pipex(ac , li->cmd, env);
 		add_history(line);
-		check_agr(li->cmd, &list);
 		free(line);
 	}
 	// while(list)

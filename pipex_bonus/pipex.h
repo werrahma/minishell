@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 22:22:57 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/18 19:28:18 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/18 23:23:21 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include "../execution/libft/libft.h"
-# include "../execution/minishell.h"
+// # include "../execution/minishell.h"
+# include "../parsing/p_minishell.h"
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
 # endif
@@ -40,7 +41,7 @@ char	*ft_strdup(const char *s1);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 size_t	ft_strlen(const char *ar);
-void	last_child(int infile, char **env, t_pipe *pipes);
+void	last_child(t_mini *list, char **env, t_pipe *pipes);
 // int		here_doc(char **av, int ac);
 // char	*get_next_line(int fd);
 int		ft_strcmp(const char *s1, const char *s2);
@@ -56,6 +57,7 @@ void	ft_fail(char av);
 int		size_lim(char *str, char *av);
 char	*get_strjoin(char *s1, char *s2);
 int		ft_checker(int ac, char *av);
+void	pipex(t_mini *list, char **env);
 // int	pipex(int ac, char **av, char **env);
 
 #endif

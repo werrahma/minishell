@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 12:22:26 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/16 12:03:11 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/18 23:05:16 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	check_agr(char **av, t_env **env)
 	// while(av[i])
 	// 	printf("%s\n", av[i++]);
 	// exit(1);
-	i = 0;
 	while(av[i])
 	{
 		if (ft_strcmp("pwd", av[i]) == 0)

@@ -12,7 +12,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-# include "../execution/minishell.h"
+// # include "../execution/minishell.h"
 //# include "../get_next_line/get_next_line.h
 #include "../execution/libft/libft.h"
 
