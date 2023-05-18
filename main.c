@@ -17,6 +17,8 @@ int main(int ac, char **av, char **env)
 	while (1)
 	{
 		line = readline("minishell$ ");
+		if (!line)
+			break;
 		// lst = lexer_split_cmdline(line);
 		li = fill_last_list(lexer_split_cmdline(line));
 		i = 0;
@@ -28,11 +30,11 @@ int main(int ac, char **av, char **env)
 		check_agr(li->cmd, &list);
 		free(line);
 	}
-	while(list)
-	{
-		printf("%s == ", list->key);
-		printf("%s\n", list->value);
-		list = list->next;
-	}
+	// while(list)
+	// {
+	// 	printf("%s == ", list->key);
+	// 	printf("%s\n", list->value);
+	// 	list = list->next;
+	// }
 
 }
