@@ -6,28 +6,28 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/18 12:34:52 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/18 19:27:56 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+// # include "../execution/minishille.h"
 
-void	child_process_one(char **av, char **env, t_pipe *pipes)
+void	child_process_one(t_mini *list, char **env, t_pipe *pipes)
 {
 	int		fd1;
 	char	**ps_path;
 	char	*acs1;
 	char	**args;
- 
-	printf("%s\n", av[0]);
-	fd1 = open (av[0], O_RDONLY, 0777);
-	if (fd1 < 0)
+
+	// fd1 = open (av[0], O_RDONLY, 0777);
+	if (list->infile < 0)
 		ft_fail('f');
 	ps_path = pathfinder(env);
 	if (!ps_path)
 		exit (1);
-	args = ft_split(av[1], ' ');
-	acs1 = check_access(ps_path, args[0]);
+	// args = ft_split(av[1], ' ');
+	acs1 = check_access(ps_path, list->cmd[0]);
 	dup2(fd1, 0);
 	dup2(pipes->fd[0][1], 1);
 	close(pipes->fd[0][0]);
@@ -38,7 +38,7 @@ void	child_process_one(char **av, char **env, t_pipe *pipes)
 	ft_fail('e');
 }
 
-void	child_process_two(char **av, char **env, t_pipe *pipes, int i)
+void	child_process_two(char **av, char **env, t_pipe *pipes)
 {
 	char	**ps_path;
 	char	*acs2;
@@ -59,7 +59,7 @@ void	child_process_two(char **av, char **env, t_pipe *pipes, int i)
 	ft_fail('e');
 }
 
-void	last_child_child(int ac, char **av, char **env, t_pipe *pipes)
+void	last_child(int ac, char **av, char **env, t_pipe *pipes)
 {
 	char	**ps_path;
 	char	*acs2;

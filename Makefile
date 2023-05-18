@@ -9,7 +9,7 @@ SRC = \
 		pipex_bonus/children.c\
 		pipex_bonus/final_path.c\
 		pipex_bonus/ft_fail.c\
-		pipex_bonus/help.c\
+		pipex_bonus/multiple_pipe.c\
 		pipex_bonus/pipex.c\
 		pipex_bonus/size_limiter.c\
 

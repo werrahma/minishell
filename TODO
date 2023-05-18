@@ -1,0 +1,3 @@
+check if infile is a file for reading
+else work white multipel_pipe
+else check it is a outfile for writing

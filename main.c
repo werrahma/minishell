@@ -17,15 +17,12 @@ int main(int ac, char **av, char **env)
 	while (1)
 	{
 		line = readline("minishell$ ");
-		if (!line)
-			break;
 		// lst = lexer_split_cmdline(line);
 		li = fill_last_list(lexer_split_cmdline(line));
-		i = 0;
-		while(li->cmd[i])
-			printf("%s\n", li->cmd[i++]);
+		// i = 0;
+		// while(li->cmd[i])
+		// 	printf("%s\n", li->cmd[i++]);
 		// pipex(ac , li->cmd, env);
-		while(1);
 		add_history(line);
 		check_agr(li->cmd, &list);
 		free(line);
