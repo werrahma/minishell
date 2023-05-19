@@ -38,6 +38,9 @@ int main(int ac, char **av, char **env)
 	// 	printf("%s == ", list->key);
 	// 	printf("%s\n", list->value);
 	// 	list = list->next;
+
+
+	
 	// }
 
 }

@@ -6,7 +6,7 @@
 /*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 13:15:07 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/19 23:02:55 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/19 23:25:48 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	pipex(t_mini *list, char **env)
 	}
 	if (list->outfile > 2 || flag == 1)
 	{
+
+		
 		chld_t = fork();
 		if (chld_t == 0)
 			last_child(list, env, &pipes);
