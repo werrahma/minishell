@@ -6,7 +6,7 @@
 /*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/18 23:27:23 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/19 23:13:16 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,20 +67,21 @@ void	last_child(t_mini *list, char **env, t_pipe *pipes)
 	int		fd2;
 
 	// fd2 = open (av[ac - 1], O_RDWR | O_CREAT | O_TRUNC, 0777);
-	if (fd2 < 0)
-		ft_fail('f');
+	// if (fd2 < 0)
+	// 	ft_fail('f');
 	ps_path = pathfinder(env);
 	if (!ps_path)
 		exit(1);
 	// args = ft_split(av[ac - 2], ' ');
 	acs2 = check_access(ps_path, list->cmd[0]);
 	dup2(pipes->fd[pipes->f0][0], 0);
-	dup2(fd2, 1);
+	dup2(list->outfile, 1);
 	close(pipes->fd[pipes->f0][0]);
 	close(pipes->fd[pipes->f0][1]);
 	close(pipes->fd[pipes->f1][0]);
 	close(pipes->fd[pipes->f1][1]);
-	close(fd2);
+	if(list->outfile != 1)
+		close(list->outfile);
 	execve(acs2, args, env);
 	ft_fail('e');
 }

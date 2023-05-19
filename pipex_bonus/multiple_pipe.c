@@ -6,7 +6,7 @@
 /*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:05:52 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/18 22:08:20 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/19 22:08:15 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,18 @@ void	multiple_pipe(t_mini *list, char **env, t_pipe *pipes)
 	int ac = 0;
 
 	i = 3;
-	
-	while (list->infile == 0)
-	{
+	// while (list->infile == 0)
+	// {
+	// printf("hna\n");
 		id1 = fork();
 		if (id1 == 0)
-			child_process_one(list, env, pipes);
+			child_process_two(list, env, pipes);
+		// return ;
 		close(pipes->fd[pipes->f0][0]);
 		close(pipes->fd[pipes->f0][1]);
 		pipe(pipes->fd[pipes->f0]);
+		// return ;
 		swap(&pipes->f0, &pipes->f1);
-		i++;
-	}
+	// 	i++;
+	// }
 }
