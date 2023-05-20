@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   children.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/18 23:27:23 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/19 18:46:36 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	child_process_one(t_mini *list, char **env, t_pipe *pipes)
 	char	**args;
 
 	// fd1 = open (av[0], O_RDONLY, 0777);
+	// write(2,"here\n", 5);
+	// exit (1);
 	if (list->infile < 0)
 		ft_fail('f');
 	ps_path = pathfinder(env);

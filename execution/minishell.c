@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 12:22:26 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/18 23:05:16 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:57:09 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	fill_list(t_env **list, char **env)
 
 	// create_list(&list, env);
 	tmp = *list;
-    while(env[i])
-    {
+	while(env[i])
+	{
 		j = 0;
 		hold = ft_split(env[i], '=');
 		while (j < 2)
