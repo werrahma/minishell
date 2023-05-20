@@ -20,11 +20,18 @@ int main(int ac, char **av, char **env)
 		line = readline("minishell$ ");
 		// lst = lexer_split_cmdline(line);
 		li = fill_last_list(lexer_split_cmdline(line));
+		// while(li)
+		// {
+		// 	printf("jhsd\n");
+		// 	li = li->next;
+		// }
+		// exit(1);
 		while(li)
 		{
-			if(!check_agr(li->cmd, &list))
+			printf("here\n");
+			// if(!check_agr(li->cmd, &list))
 				pipex(li, env);
-			exit(1);
+			// exit(1);
 			li = li->next;
 		}
 		// i = 0;
@@ -38,6 +45,9 @@ int main(int ac, char **av, char **env)
 	// 	printf("%s == ", list->key);
 	// 	printf("%s\n", list->value);
 	// 	list = list->next;
+
+
+	
 	// }
 
 }
