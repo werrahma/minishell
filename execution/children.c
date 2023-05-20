@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/20 13:32:13 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/20 21:16:00 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	child_process_one(t_mini *list, char **env, t_pipe *pipes)
 		exit (1);
 	// args = ft_split(av[1], ' ');
 	acs1 = check_access(ps_path, list->cmd[0]);
-	dup2(fd1, 0);
+	if (list->infile != -3)
+		dup2(fd1, 0);
 	dup2(pipes->fd[0][1], 1);
 	close(pipes->fd[0][0]);
 	close(pipes->fd[0][1]);
@@ -51,8 +52,10 @@ void	child_process_two(t_mini *list, char **env, t_pipe *pipes)
 		exit(1);
 	// args = ft_split(av[i], ' ');
 	acs2 = check_access(ps_path, list->cmd[0]);
-	dup2(pipes->fd[pipes->f0][0], 0);
-	dup2(pipes->fd[pipes->f1][1], 1);
+	if (list->infile != -3)
+		dup2(pipes->fd[pipes->f0][0], 0);
+	if (list->outfile != -3)
+		dup2(pipes->fd[pipes->f1][1], 1);
 	close(pipes->fd[pipes->f0][0]);
 	close(pipes->fd[pipes->f0][1]);
 	close(pipes->fd[pipes->f1][0]);
@@ -75,16 +78,29 @@ void	last_child(t_mini *list, char **env, t_pipe *pipes)
 	if (!ps_path)
 		exit(1);
 	// args = ft_split(av[ac - 2], ' ');
+	printf("hrere\n");
+	printf("infile ==  %d outfile == %d\n", list->infile, list->outfile);
 	acs2 = check_access(ps_path, list->cmd[0]);
-	dup2(pipes->fd[pipes->f0][0], 0);
-	dup2(list->outfile, 1);
+	printf("%s\n", acs2);
+	if (list->infile != -3)
+	{
+		printf("am here for duping inf\n");
+		dup2(pipes->fd[pipes->f0][0], 0);
+	}
+	if (list->outfile != -3)
+	{
+		printf("am here for duping outf\n");
+		// dup2(list->outfile, 1);
+	}
 	close(pipes->fd[pipes->f0][0]);
 	close(pipes->fd[pipes->f0][1]);
 	close(pipes->fd[pipes->f1][0]);
 	close(pipes->fd[pipes->f1][1]);
-	// if(list->outfile != 1)
-		// close(list->outfile);
-	// return ;
+	if(list->outfile != -3)
+	{
+		printf("am closed the file\n");
+		close(list->outfile);
+	}
 	execve(acs2, list->cmd, env);
 	ft_fail('e');
 }

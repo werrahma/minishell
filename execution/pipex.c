@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 13:15:07 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/20 13:34:05 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/20 21:08:50 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,22 @@ void	pipex(t_mini *list, char **env)
 	int i = 0;
 	// while()
 	printf("in  %d    out   %d\n", list->infile, list->outfile);
-	if(list->infile > 2 && list->next)
+	// return ;
+	if(list->infile > 2)
 	{
 		// printf("here\n");
 		chld_o = fork();
 		if (chld_o == 0)
 			child_process_one(list, env, &pipes);
 	}
-	else if (list->infile < 2 && list->next)
+	else if (list->infile < 2)
 	{
-		printf("multiple\n");
+		// printf("multiple\n");
 		multiple_pipe(list, env, &pipes);
 	}
 	if (!list->next)
 	{
-		printf("am here\n");
+		// printf("am here\n");
 		flag = 1;
 		list->outfile = 1;
 	}
