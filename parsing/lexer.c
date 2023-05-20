@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 18:44:16 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/05/17 21:06:04 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/05/20 13:09:45 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,58 +83,50 @@ int	lexer_openqts(char	*line, int indx)
 	return (op);
 }
 
-// char	*lexer_collect_str(char *line , int *i)
-// {
-// 	char *str;
-
-// 	str = NULL;
-// 	if (line[*i] == '\'' || line[*i] == '\"')
-// 	{
-// 		(*i)++;
-// 		while(line[*i] && lexer_openqts(line, *i) != 0)
-// 		{
-// 			if (lexer_openqts(line, *i + 1) != 0)
-// 				str = ft_chrjoin(str, line[*i]);
-// 			(*i)++;
-// 		}
-// 		while(line[*i] != ' ' && line[*i])
-// 		{
-// 			printf("%d\n", lexer_openqts(line, *i + 1));
-// 			if (lexer_openqts(line, *i + 1) != 0)
-// 				str = ft_chrjoin(str, line[*i]);
-// 			(*i)++;
-// 		}
-// 	}
-// 	else
-// 	{
-// 		while(!sep(line[*i]) && line[*i])
-// 		{
-// 			//if (lexer_openqts(line, *i + 1) != 0)
-// 			str = ft_chrjoin(str, line[*i]);
-// 			(*i)++;
-// 		}
-// 	}
-// 	return (str);
-// }
-
 char	*lexer_collect_str(char *line, int *i)
 {
 	char *str = NULL;
-	
-	while(!sep(line[*i]) && line[*i])
+	// while(line[*i])
+	// 	printf("here %d", (*i)++);
+	// exit(1);
+	while(line[*i])
 	{
-		if (lexer_openqts(line, *i) == 0 && line[*i] != '\'' && line[*i] != '\"')
+		if (sep(line[*i]) && lexer_openqts(line, *i) == 0)
+		{
+			return (str);
+		}
+		else if (lexer_openqts(line, *i) == 0 && line[*i] != '\'' && line[*i] != '\"' &&  !sep(line[*i]))
 			str = ft_chrjoin(str, line[*i]);
 		else if (lexer_openqts(line, *i) == 1 && line[*i] == '\'')
 			str = ft_chrjoin(str, line[*i]);
-		else if (lexer_openqts(line, *i) == 2 && line[*i] == '\"')
+		else if (lexer_openqts(line, *i ) == 2 && line[*i] == '\"')
 			str = ft_chrjoin(str, line[*i]);
-		else if (line[*i] != '\"' && line[*i] != '\'')
+		else /*if (line[*i] != '\"' && line[*i] != '\'')*/
 			str = ft_chrjoin(str, line[*i]);
 		(*i)++;
 	}
+	//printf("%s\n", str);
 	return (str);
 }
+
+// char	*lexer_collect_str(char *line, int *i)
+// {
+// 	char *str = NULL;
+	
+// 	while(!sep(line[*i]) && line[*i])
+// 	{
+// 		if (lexer_openqts(line, *i) == 0 && line[*i] != '\'' && line[*i] != '\"')
+// 			str = ft_chrjoin(str, line[*i]);
+// 		else if (lexer_openqts(line, *i) == 1 && line[*i] == '\'')
+// 			str = ft_chrjoin(str, line[*i]);
+// 		else if (lexer_openqts(line, *i) == 2 && line[*i] == '\"')
+// 			str = ft_chrjoin(str, line[*i]);
+// 		else if (line[*i] != '\"' && line[*i] != '\'')
+// 			str = ft_chrjoin(str, line[*i]);
+// 		(*i)++;
+// 	}
+// 	return (str);
+// }
 
 char * lexer_collect_op(char *line, int *i)
 {
