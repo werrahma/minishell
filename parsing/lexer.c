@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 18:44:16 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/05/20 13:09:45 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/05/20 14:45:08 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "p_minishell.h"
+# include "../execution/minishell.h"
 
 int sep(char s)
 {

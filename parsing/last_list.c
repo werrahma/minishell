@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   last_list.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:46:33 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/05/20 13:10:02 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/05/20 14:44:56 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "p_minishell.h"
+# include "../execution/minishell.h"
 
 void	ft_lstadd_backl(t_mini **lst, t_mini *new)
 {
