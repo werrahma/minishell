@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   last_list.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:46:33 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/05/14 18:30:36 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/20 13:10:02 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ t_mini	*ft_lstnewl(void)
 		return (NULL);
 	lst->next = NULL;
 	lst->cmd  = NULL;
-	lst->infile = 0;
-	lst->outfile = 1;
+	lst->infile = -3;
+	lst->outfile = -3;
 	return (lst);
 }
 
