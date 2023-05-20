@@ -85,7 +85,7 @@ void	multiple_pipe(t_mini *list, char **env, t_pipe *pipes);
 void	ft_fail(char av);
 int		size_lim(char *str, char *av);
 int		ft_checker(int ac, char *av);
-void	pipex(t_mini *list, char **env);
+void	pipex(t_mini *list, char **env, t_pipe *pipes);
 
 // ***** parsing 
 // typedef	struct s_tokens
