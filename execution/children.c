@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/20 13:32:13 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/21 16:34:30 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,26 @@ void	child_process_one(t_mini *list, char **env, t_pipe *pipes)
 	// fd1 = open (av[0], O_RDONLY, 0777);
 	// write(2,"here\n", 5);
 	// exit (1);
-	if (list->infile < 0)
+	if (list->infile == -1)
 		ft_fail('f');
 	ps_path = pathfinder(env);
 	if (!ps_path)
 		exit (1);
 	// args = ft_split(av[1], ' ');
 	acs1 = check_access(ps_path, list->cmd[0]);
-	dup2(fd1, 0);
-	dup2(pipes->fd[0][1], 1);
+	if (list->infile != -3)
+		dup2(list->infile, 0);
+	if (list->outfile != -3)
+	{
+		// printf("am duping 1 with outfile\n");
+		dup2(list->outfile, 1);
+	}
+	else
+	{
+		printf("am duping 1 with pipe\n");
+		dup2(pipes->fd[0][1], 1);
+	}
+	// return ;
 	close(pipes->fd[0][0]);
 	close(pipes->fd[0][1]);
 	close(pipes->fd[1][0]);
@@ -51,8 +62,10 @@ void	child_process_two(t_mini *list, char **env, t_pipe *pipes)
 		exit(1);
 	// args = ft_split(av[i], ' ');
 	acs2 = check_access(ps_path, list->cmd[0]);
+	// if (list->infile != -3)
 	dup2(pipes->fd[pipes->f0][0], 0);
-	dup2(pipes->fd[pipes->f1][1], 1);
+	// if (list->outfile != -3)
+		dup2(pipes->fd[pipes->f1][1], 1);
 	close(pipes->fd[pipes->f0][0]);
 	close(pipes->fd[pipes->f0][1]);
 	close(pipes->fd[pipes->f1][0]);
@@ -69,22 +82,39 @@ void	last_child(t_mini *list, char **env, t_pipe *pipes)
 	int		fd2;
 
 	// fd2 = open (av[ac - 1], O_RDWR | O_CREAT | O_TRUNC, 0777);
-	// if (fd2 < 0)
-	// 	ft_fail('f');
+	if (list->outfile == -1)
+		ft_fail('f');
 	ps_path = pathfinder(env);
 	if (!ps_path)
 		exit(1);
 	// args = ft_split(av[ac - 2], ' ');
+	// printf("hrere\n");
+	// printf("infile ==  %d outfile == %d\n", list->infile, list->outfile);
 	acs2 = check_access(ps_path, list->cmd[0]);
-	dup2(pipes->fd[pipes->f0][0], 0);
-	dup2(list->outfile, 1);
+	// printf("%s\n", acs2);
+	if (list->infile == -3)
+	{
+		printf("am here for duping inf\n");
+		printf("f0 == %d\n", pipes->f0);
+		dup2(pipes->fd[pipes->f0][0], 0);
+	}
+	if (list->outfile != -3)
+	{
+		// printf("am here for duping outf\n");
+		fprintf(stderr, "outfile %d\n", pipes->fd[0][0 ]);
+		// printf("%d\n", list->outfile);
+		if(dup2(list->outfile, 1) < 0)
+			perror("dup2");
+	}
 	close(pipes->fd[pipes->f0][0]);
 	close(pipes->fd[pipes->f0][1]);
 	close(pipes->fd[pipes->f1][0]);
 	close(pipes->fd[pipes->f1][1]);
-	// if(list->outfile != 1)
-		// close(list->outfile);
-	// return ;
+	if(list->outfile != 1)
+	{
+		// printf("am closed the file\n");
+		close(list->outfile);
+	}
 	execve(acs2, list->cmd, env);
 	ft_fail('e');
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   children.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/20 12:46:44 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/20 21:46:55 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ void	last_child(t_mini *list, char **env, t_pipe *pipes)
 	close(pipes->fd[pipes->f0][1]);
 	close(pipes->fd[pipes->f1][0]);
 	close(pipes->fd[pipes->f1][1]);
-	// if(list->outfile != 1)
-		// close(list->outfile);
+	if(list->outfile > 2)
+		close(list->outfile);
 	// return ;
 	execve(acs2, list->cmd, env);
 	ft_fail('e');

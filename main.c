@@ -13,9 +13,13 @@ int main(int ac, char **av, char **env)
     char *line;
 	// t_tokens     *lst;
 	t_mini	*li;
+	t_pipe pipes;
 
 	create_list(&list, env);
 	fill_list(&list, env);
+	pipes.f0 = 0;
+	pipes.f1 = 1;
+	// exit(1);
 	while (1)
 	{
 		line = readline("minishell$ ");
@@ -28,11 +32,13 @@ int main(int ac, char **av, char **env)
 		// 	li = li->next;
 		// }
 		// exit(1);
+		// lst = lexer_split_cmdline(line);
+		li = fill_last_list(lexer_split_cmdline(line));
 		while(li)
 		{
-			printf("here\n");
-			// if(!check_agr(li->cmd, &list))
-				pipex(li, env);
+			if(!check_agr(li->cmd, &list))
+				pipex(li, env, &pipes);
+			// printf("f0 === %d,,,, f1 == %d", pipes.f0, pipes.f1);
 			// exit(1);
 			li = li->next;
 		}
