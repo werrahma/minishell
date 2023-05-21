@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   children.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/21 00:18:18 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/21 16:34:30 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,16 @@ void	child_process_one(t_mini *list, char **env, t_pipe *pipes)
 	if (list->infile != -3)
 		dup2(list->infile, 0);
 	if (list->outfile != -3)
+	{
+		// printf("am duping 1 with outfile\n");
 		dup2(list->outfile, 1);
+	}
 	else
+	{
+		printf("am duping 1 with pipe\n");
 		dup2(pipes->fd[0][1], 1);
+	}
+	// return ;
 	close(pipes->fd[0][0]);
 	close(pipes->fd[0][1]);
 	close(pipes->fd[1][0]);
@@ -85,17 +92,19 @@ void	last_child(t_mini *list, char **env, t_pipe *pipes)
 	// printf("infile ==  %d outfile == %d\n", list->infile, list->outfile);
 	acs2 = check_access(ps_path, list->cmd[0]);
 	// printf("%s\n", acs2);
-	if (list->infile != -3)
+	if (list->infile == -3)
 	{
-		// printf("am here for duping inf\n");
+		printf("am here for duping inf\n");
+		printf("f0 == %d\n", pipes->f0);
 		dup2(pipes->fd[pipes->f0][0], 0);
 	}
 	if (list->outfile != -3)
 	{
 		// printf("am here for duping outf\n");
-
+		fprintf(stderr, "outfile %d\n", pipes->fd[0][0 ]);
 		// printf("%d\n", list->outfile);
-		dup2(list->outfile, 1);
+		if(dup2(list->outfile, 1) < 0)
+			perror("dup2");
 	}
 	close(pipes->fd[pipes->f0][0]);
 	close(pipes->fd[pipes->f0][1]);

@@ -28,7 +28,7 @@ int main(int ac, char **av, char **env)
 		{
 			if(!check_agr(li->cmd, &list))
 				pipex(li, env, &pipes);
-			printf("f0 === %d,,,, f1 == %d", pipes.f0, pipes.f1);
+			// printf("f0 === %d,,,, f1 == %d", pipes.f0, pipes.f1);
 			// exit(1);
 			li = li->next;
 		}
