@@ -1,6 +1,24 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+typedef	struct s_tokens
+{
+	int		type;
+	char	*cont;
+	struct s_tokens	*next;
+	struct s_tokens	*perv;
+}	t_tokens;
+
+
+typedef struct s_mini
+{
+	char	**cmd;
+	int		infile;
+	int		outfile;
+	struct s_mini *next;
+}	t_mini;
+
+
 typedef struct s_list
 {
 	char **str;
@@ -14,14 +32,26 @@ typedef struct s_env
 	struct s_env  *next;
 }				t_env;
 
-#include "../parsing/p_minishell.h"
+typedef struct s_pipe
+{
+	int	fd[2][2];
+	int	f0;
+	int	f1;
+}				t_pipe;
+
+// #include "../parsing/p_minishell.h"
 # include "libft/libft.h"
-# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdio.h>
+# include <string.h>
+# include <fcntl.h>
 # include <limits.h>
-# include <stdlib.h>
-# include "../pipex_bonus/pipex.h"
+# include <strings.h>
+# include <sys/wait.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+// # include "../pipex_bonus/pipex.h"
 
 // #include <readline/readline.h>
 // #include <readline/history.h>
@@ -43,6 +73,67 @@ void	my_export(t_env **env, char **av);
 int		cmp_env(char *str1, char *str2);
 void	sort_list(t_env **env);
 void	fill_list(t_env **list, char **env);
-int	check_agr(char **av, t_env **env);
+int		check_agr(char **av, t_env **env);
+
+void	child_process_one(t_mini *list, char **env, t_pipe *pipes);
+void	child_process_two(t_mini *list, char **env, t_pipe *pipes);
+void	last_child(t_mini *list, char **env, t_pipe *pipes);
+char	*check_access(char **ps_path, char *av);
+char	**pathfinder(char **env);
+void	swap(int *a, int *b);
+void	multiple_pipe(t_mini *list, char **env, t_pipe *pipes);
+void	ft_fail(char av);
+int		size_lim(char *str, char *av);
+int		ft_checker(int ac, char *av);
+void	pipex(t_mini *list, char **env);
+
+// ***** parsing 
+// typedef	struct s_tokens
+// {
+// 	int		type;
+// 	char	*cont;
+// 	struct s_tokens	*next;
+// 	struct s_tokens	*perv;
+// }	t_tokens;
+
+
+// typedef struct s_mini
+// {
+// 	char	**cmd;
+// 	int		infile;
+// 	int		outfile;
+// 	struct s_mini *next;
+// }	t_mini;
+
+
+t_tokens	*lexer_split_cmdline(char *line);
+t_mini  *fill_last_list(t_tokens *token);
+t_mini	*ft_lstlastl(t_mini *lst);
+void	ft_lstadd_backl(t_mini **lst, t_mini *new);
+// parsinghelperf
+
+t_tokens	*ft_lstnewp(char *content);
+size_t		ft_strlen(const char *s);
+t_tokens	*ft_lstlastp(t_tokens *lst);
+char		*ft_strdup(const char *s1);
+char		*ft_chrjoin(char *dst, char c);
+void		*ft_calloc(size_t count, size_t size);
+void		ft_lstadd_backp(t_tokens **lst, t_tokens *new);
+int			lexer_openqts(char	*line, int indx);
+char	*get_next_line(int fd);
+int		ft_strcmp(const char *s1, const char *s2);
+void    open_herfiles(t_tokens *tokens);
+void    do_expand_tokens(t_tokens **tokens, t_env *env);
+
+# define INFILE 0
+# define OUTFILE 1
+# define PIPE 2
+# define HEREDOC 3
+# define LIMETER 4
+# define ARG 5
+# define INPUT 6
+# define OUTPUT 7
+# define APPEND 8
+
 
 #endif

@@ -1,50 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   final_path.c                                       :+:      :+:    :+:   */
+/*   check_access.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/08 11:36:22 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/20 13:33:37 by werrahma         ###   ########.fr       */
+/*   Created: 2023/02/08 11:33:48 by werrahma          #+#    #+#             */
+/*   Updated: 2023/05/20 13:33:21 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_split(char **sp)
+char	*check_access(char **ps_path, char *av)
 {
 	int	i;
 
 	i = 0;
-	while (sp)
-		free(sp[i++]);
-	free(sp);
-}
-
-char	**pass_split(char *path)
-{
-	char	*n_path;
-	char	**sp;
-
-	n_path = ft_strdup(&path[5]);
-	sp = ft_split(n_path, ':');
-	if (!sp)
-		free_split(sp);
-	free(n_path);
-	return (sp);
-}
-
-char	**pathfinder(char **env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i])
+	if (av[0] == '/')
+		return (av);
+	av = ft_strjoin("/", av);
+	while (ps_path[i])
 	{
-		if (ft_strncmp("PATH=", env[i], 5) == 0)
-			return (pass_split(env[i]));
+		ps_path[i] = ft_strjoin(ps_path[i], av);
+		if (access(ps_path[i], X_OK) != -1)
+		{
+			free(av);
+			return (ps_path[i]);
+		}
 		i++;
 	}
-	return (NULL);
+	write(1, av + 1, ft_strlen(av + 1));
+	write(1, " :command not found\n", 21);
+	return (0);
 }

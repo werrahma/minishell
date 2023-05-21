@@ -7,6 +7,7 @@ int main(int ac, char **av, char **env)
     int j;
     char **hold;
     t_env   *list = NULL;
+	t_tokens	*tokens;
     // t_env   *tmp = NULL;
 
     char *line;
@@ -18,8 +19,9 @@ int main(int ac, char **av, char **env)
 	while (1)
 	{
 		line = readline("minishell$ ");
-		// lst = lexer_split_cmdline(line);
-		li = fill_last_list(lexer_split_cmdline(line));
+		tokens = lexer_split_cmdline(line);
+		//do_expand_tokens(&tokens, list);
+		li = fill_last_list(tokens);
 		// while(li)
 		// {
 		// 	printf("jhsd\n");

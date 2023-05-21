@@ -1,50 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   final_path.c                                       :+:      :+:    :+:   */
+/*   ft_fail.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/08 11:36:22 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/20 13:33:37 by werrahma         ###   ########.fr       */
+/*   Created: 2023/02/16 22:28:55 by werrahma          #+#    #+#             */
+/*   Updated: 2023/05/20 13:34:29 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_split(char **sp)
+void	ft_fail(char av)
 {
-	int	i;
-
-	i = 0;
-	while (sp)
-		free(sp[i++]);
-	free(sp);
-}
-
-char	**pass_split(char *path)
-{
-	char	*n_path;
-	char	**sp;
-
-	n_path = ft_strdup(&path[5]);
-	sp = ft_split(n_path, ':');
-	if (!sp)
-		free_split(sp);
-	free(n_path);
-	return (sp);
-}
-
-char	**pathfinder(char **env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i])
+	if (av == 'f')
 	{
-		if (ft_strncmp("PATH=", env[i], 5) == 0)
-			return (pass_split(env[i]));
-		i++;
+		write(1, "open failed\n", 12);
+		exit(1);
 	}
-	return (NULL);
+	else if (av == 'e')
+	{
+		write(2, "\nexecve->fail\n", 14);
+		exit(1);
+	}
+	else if (av == 'a')
+	{
+		write(1, "bad arguments bye", 17);
+		exit(1);
+	}
 }

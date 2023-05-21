@@ -6,11 +6,11 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 21:20:11 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/05/15 15:03:17 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/05/20 14:55:40 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "p_minishell.h" 
+#include "../execution/minishell.h"
 
 char	*ft_gethername()
 {

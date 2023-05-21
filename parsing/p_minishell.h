@@ -12,7 +12,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-// # include "../execution/minishell.h"
+# include "../execution/minishell.h"
 //# include "../get_next_line/get_next_line.h
 #include "../execution/libft/libft.h"
 
@@ -51,6 +51,7 @@ int			lexer_openqts(char	*line, int indx);
 char	*get_next_line(int fd);
 int		ft_strcmp(const char *s1, const char *s2);
 void    open_herfiles(t_tokens *tokens);
+void    expand_tokens(t_tokens *token, t_env *env);
 
 # define INFILE 0
 # define OUTFILE 1

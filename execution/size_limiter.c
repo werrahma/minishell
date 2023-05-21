@@ -1,50 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   final_path.c                                       :+:      :+:    :+:   */
+/*   size_limiter.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/08 11:36:22 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/20 13:33:37 by werrahma         ###   ########.fr       */
+/*   Created: 2023/02/21 15:19:47 by werrahma          #+#    #+#             */
+/*   Updated: 2023/05/20 13:34:39 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_split(char **sp)
+int	size_lim(char *str, char *av)
 {
-	int	i;
+	int	size;
 
-	i = 0;
-	while (sp)
-		free(sp[i++]);
-	free(sp);
+	size = ft_strlen(str);
+	if (ft_strlen(av) > ft_strlen(str))
+		size = ft_strlen(av);
+	return (size);
 }
 
-char	**pass_split(char *path)
+int	ft_checker(int ac, char *av)
 {
-	char	*n_path;
-	char	**sp;
+	int	fd_h;
 
-	n_path = ft_strdup(&path[5]);
-	sp = ft_split(n_path, ':');
-	if (!sp)
-		free_split(sp);
-	free(n_path);
-	return (sp);
-}
-
-char	**pathfinder(char **env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i])
+	if (ac < 6)
 	{
-		if (ft_strncmp("PATH=", env[i], 5) == 0)
-			return (pass_split(env[i]));
-		i++;
+		write(1, "bad arguments bye", 17);
+		exit(1);
 	}
-	return (NULL);
+	fd_h = open (av, O_CREAT | O_RDWR | O_TRUNC, 0777);
+	if (fd_h < 0)
+	{
+		write(2, "\nopen failed \n", 14);
+		exit(1);
+	}
+	return (fd_h);
 }
