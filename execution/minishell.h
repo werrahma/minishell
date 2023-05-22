@@ -124,6 +124,7 @@ int			lexer_openqts(char	*line, int indx);
 char	*get_next_line(int fd);
 int		ft_strcmp(const char *s1, const char *s2);
 void    open_herfiles(t_tokens *tokens);
+void    do_expand_tokens(t_tokens **tokens, t_env *env);
 
 # define INFILE 0
 # define OUTFILE 1

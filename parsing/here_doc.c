@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 21:20:11 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/05/20 14:44:51 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/20 14:55:40 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../execution/minishell.h"
+#include "../execution/minishell.h"
 
 char	*ft_gethername()
 {

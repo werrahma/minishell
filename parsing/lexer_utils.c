@@ -1,5 +1,5 @@
 
-# include "../execution/minishell.h"
+#include "../execution/minishell.h"
 
 void	ft_lstadd_backp(t_tokens **lst, t_tokens *new)
 {
@@ -72,19 +72,6 @@ char	*ft_chrjoin(char *dst, char c)
 	free(dst);
 	return (p);
 }
-
-
-// size_t	ft_strlen(const char *s)
-// {
-// 	size_t	i;
-
-// 	i = 0;
-// 	if (!s)
-// 		return (0);
-// 	while (s[i])
-// 		i++;
-// 	return (i);
-// }
 
 char	*ft_strdup(const char *s1)
 {
