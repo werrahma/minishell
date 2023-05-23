@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 13:15:07 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/21 20:01:41 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/05/22 11:35:27 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	pipex(t_mini *list, char **env, t_pipe *pipes)
 	close(pipes->fd[pipes->f0][1]);
 	close(pipes->fd[pipes->f0][0]);
 	close(pipes->fd[pipes->f0][1]);
-	while (wait(NULL) != 1)
+	while (wait(NULL) != 1);
 		// continue ;
 	// return ;
 }
