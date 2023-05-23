@@ -35,8 +35,8 @@ typedef struct s_env
 typedef struct s_pipe
 {
 	int	fd[2][2];
-	int stdiin;
-	int stdoout;
+	int	stdiin;
+	int	stdouut;
 	int	f0;
 	int	f1;
 }				t_pipe;
@@ -78,7 +78,7 @@ void	fill_list(t_env **list, char **env);
 int		check_agr(char **av, t_env **env);
 
 void	child_process_one(t_mini *list, char **env, t_pipe *pipes);
-void	child_process_two(t_mini *list, char **env, t_pipe *pipes);
+void	child_process_two(t_mini *list, char **env, t_pipe *pipes, int check);
 void	last_child(t_mini *list, char **env, t_pipe *pipes);
 char	*check_access(char **ps_path, char *av);
 char	**pathfinder(char **env);
@@ -125,6 +125,7 @@ int			lexer_openqts(char	*line, int indx);
 char	*get_next_line(int fd);
 int		ft_strcmp(const char *s1, const char *s2);
 void    open_herfiles(t_tokens *tokens);
+void    do_expand_tokens(t_tokens **tokens, t_env *env);
 
 # define INFILE 0
 # define OUTFILE 1

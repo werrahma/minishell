@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 22:22:57 by werrahma          #+#    #+#             */
-/*   Updated: 2023/02/22 16:33:53 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/21 21:16:20 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
 # endif

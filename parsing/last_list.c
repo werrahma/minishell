@@ -6,11 +6,11 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:46:33 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/05/22 12:25:06 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/23 11:38:47 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../execution/minishell.h"
+#include "../execution/minishell.h"
 
 void	ft_lstadd_backl(t_mini **lst, t_mini *new)
 {
@@ -100,6 +100,7 @@ t_mini	*fill_last_list(t_tokens *token)
 	open_herfiles(token);
 	while (token)
 	{
+		// printf("%s\n", token->cont);
 		if(token->type == PIPE)
 		{
 			list->cmd = realloc(list->cmd, (i + 1) * sizeof(char *));

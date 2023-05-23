@@ -1,11 +1,14 @@
-# include "../execution/minishell.h"
+#include "../execution/minishell.h"
 
 int main(int ac, char **av, char **env)
 {
 	char *line;
 	t_tokens     *list;
 	t_mini	*li;
+	t_env *f;
 
+	create_list(&f, env);
+	fill_list(&f, env);
 	//while (1)
 	//{
 		line = readline("minishell$ ");
