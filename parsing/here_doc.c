@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 21:20:11 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/05/20 14:55:40 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/05/23 18:03:04 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void    open_herfiles(t_tokens *tokens)
 
 	while(tokens)
 	{
-		if(!ft_strcmp(tokens->cont , "<<"))
+		if(tokens->type == HEREDOC)
 		{
 			//id = fork();
 			//if (id == 0)

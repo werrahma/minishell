@@ -64,6 +64,7 @@ char    *expand_tokens(t_tokens *token, t_env *env)
 	}
 	return (str);
 }
+
 void    do_expand_tokens(t_tokens **tokens, t_env *env)
 {
 	t_tokens *tmp;
