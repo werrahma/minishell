@@ -16,16 +16,18 @@ int qoutesordlr(t_tokens *token)
 }
 char *expenv(char *str, t_env *env)
 {
+	t_env *rmp = env;
 	while(env)
 	{
 		if (ft_strcmp(str, env->key) == 0)
 			return (env->value);
 		env = env->next;
 	}
+	env = rmp;
 	return (ft_strdup(""));
 }
 
-void    expand_tokens(t_tokens *token, t_env *env)
+char    *expand_tokens(t_tokens *token, t_env *env)
 {
 	int i = 0;
 	char *str = NULL;
@@ -34,37 +36,48 @@ void    expand_tokens(t_tokens *token, t_env *env)
 
 	while(token->cont[i])
 	{
-		if(token->cont[i] == '$')
+		if(token->cont[i] == '$' && lexer_openqts(token->cont, i) != 2)
 		{
 			j = i + 1;
-			break;
+			i = j;
+			while (i)
+			{
+				if (token->cont[i] == '\0' || !(ft_isalnum(token->cont[i])))
+				{
+					s = ft_substr(token->cont, j , (i - j));
+					str = ft_strjoin(str, expenv(s, env));
+					i--;
+					break;
+				}
+				i++;
+			}
 		}
-		else
+		else if (lexer_openqts(token->cont , i) == 0 && token->cont[i] != '\'' && token->cont[i] != '\"')
 			str = ft_chrjoin(str, token->cont[i]);
+		else if (lexer_openqts(token->cont, i) == 1 && token->cont[i] == '\'')
+			str = ft_chrjoin(str, token->cont[i]);
+		else if (lexer_openqts(token->cont, i) == 2 && token->cont[i] == '\"')
+			str = ft_chrjoin(str, token->cont[i]);
+		else if (token->cont[i] != '\"' && token->cont[i] != '\'')
+ 			str = ft_chrjoin(str, token->cont[i]);
 		i++;
 	}
-	i = j;
-	while (token->cont[i])
-	{
-		if(!(ft_isalnum(token->cont[i])))
-			break;
-		i++;
-	}
-	s = ft_substr(token->cont, j , i - j);
-	str = ft_strjoin(str, expenv(s, env));
-	printf("**%s\n", str);
+	return (str);
 }
 void    do_expand_tokens(t_tokens **tokens, t_env *env)
 {
 	t_tokens *tmp;
+	char	*str;
 
 	tmp = *tokens;
 
 	while (*tokens)
 	{
-		if (qoutesordlr(*tokens) == 2)
+		if (qoutesordlr(*tokens))
 		{
-			expand_tokens(*tokens, env);
+			str = expand_tokens(*tokens, env);
+			free((*tokens)->cont);
+			(*tokens)->cont = str;
 		}
 		*tokens = (*tokens)->next;
 	}
