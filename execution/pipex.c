@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 13:15:07 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/23 16:24:11 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/05/23 19:44:02 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,12 @@ void	pipex(t_mini *list, char **env, t_pipe *pipes)
 		if (chld_o == 0)
 			child_process_one(list, env, pipes);
 	}
-	if ((list->infile == -3 && a > 0 || a > 0))
+	if (a > 0)
 	{
 		// printf("%d\n", pipes->stdiin);
 		// printf("get == %s\n", get_next_line(pipes->fd[0][0]));
-		if(!dup2(pipes->fd[0][0], pipes->stdiin))
-			write(2, "failed\n", 7);
-		// printf("am here\n");
+		printf("am here\n");
+		dup2(pipes->fd[pipes->f0][0], pipes->stdiin);
 	}
 	else if (list->infile < 2 && list->next)
 	{
@@ -89,8 +88,10 @@ void	pipex(t_mini *list, char **env, t_pipe *pipes)
 			last_child(list, env, pipes);
 	}
 	// dprintf(2, "$$$$$$$$$$%s/n", get_next_line(pipes->fd[0][0]));
-	close(pipes->fd[0][0]);
-	close(pipes->fd[0][1]);
+	// close(pipes->fd[0][0]);
+	// close(pipes->fd[0][1]);
+	close(pipes->fd[pipes->f0][0]);
+	close(pipes->fd[pipes->f0][1]);
 	close(pipes->fd[pipes->f1][0]);
 	close(pipes->fd[pipes->f1][1]);
 	while (wait(NULL) != -1)

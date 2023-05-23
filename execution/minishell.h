@@ -36,6 +36,7 @@ typedef struct s_pipe
 {
 	int	fd[2][2];
 	int	stdiin;
+	int	stdouut;
 	int	f0;
 	int	f1;
 }				t_pipe;
@@ -77,7 +78,7 @@ void	fill_list(t_env **list, char **env);
 int		check_agr(char **av, t_env **env);
 
 void	child_process_one(t_mini *list, char **env, t_pipe *pipes);
-void	child_process_two(t_mini *list, char **env, t_pipe *pipes);
+void	child_process_two(t_mini *list, char **env, t_pipe *pipes, int check);
 void	last_child(t_mini *list, char **env, t_pipe *pipes);
 char	*check_access(char **ps_path, char *av);
 char	**pathfinder(char **env);
