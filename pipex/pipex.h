@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 22:22:57 by werrahma          #+#    #+#             */
-/*   Updated: 2023/02/22 16:34:04 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/21 21:18:46 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 void	child_process_one(char **av, char **env, int *fd);
 char	*check_access(char **ps_path, char *av);

@@ -35,6 +35,7 @@ typedef struct s_env
 typedef struct s_pipe
 {
 	int	fd[2][2];
+	int	stdiin;
 	int	f0;
 	int	f1;
 }				t_pipe;
