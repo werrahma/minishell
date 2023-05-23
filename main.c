@@ -16,6 +16,8 @@ int main(int ac, char **av, char **env)
 
 	create_list(&list, env);
 	fill_list(&list, env);
+	// pipes.stdiin = dup(0);
+	// pipes.stdoout = dup(1);
 	pipes.f0 = 0;
 	pipes.f1 = 1;
 	// exit(1);
@@ -26,12 +28,14 @@ int main(int ac, char **av, char **env)
 		li = fill_last_list(lexer_split_cmdline(line));
 		while(li)
 		{
+				// dup2(pipes.stdiin, 0);
+				// dup2(pipes.stdoout, 1);
 			if(!check_agr(li->cmd, &list))
 				pipex(li, env, &pipes);
 			// printf("f0 === %d,,,, f1 == %d", pipes.f0, pipes.f1);
-			// exit(1);
 			li = li->next;
 		}
+			// exit(1);
 		// i = 0;
 		// while(li->cmd[i])
 		// 	printf("%s\n", li->cmd[i++]);
