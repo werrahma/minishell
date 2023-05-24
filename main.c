@@ -22,6 +22,7 @@ int main(int ac, char **av, char **env)
 	pipes.f0 = 0;
 	pipes.f1 = 1;
 	pipes.stdiin = dup(0);
+	pipes.stdouut = dup(1);
 	// printf("%d\n", pipes.stdiin);
 				// pipe(pipes.fd[1]);
 	// exit(1);

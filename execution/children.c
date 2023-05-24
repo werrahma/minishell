@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   children.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/23 16:02:36 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/23 23:26:29 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,22 +104,26 @@ void	last_child(t_mini *list, char **env, t_pipe *pipes)
 	// printf("%s\n", acs2);
 	// printf("%d\n", list->infile);
 	// printf("%d\n", list->outfile);
-	if (list->infile == -3)
+	if (list->infile == -3 && list->next)
 	{
-		// printf("am here for duping inf\n");
+		printf("am here for duping inf\n");
 		// printf("f0 == %d\n", pipes->fd[0][0]);
 		dup2(pipes->stdiin, 0);
 	}
+	printf("c-----heck%d\n", pipes->check);
 	if (list->outfile != -3)
 	{
 		// printf("am here for duping pipe with outf\n");
 		// fprintf(stderr, "outfile %d\n", pipes->fd[0][0 ]);
 		// printf("%d\n", list->outfile);
+		// printf("duping out with pipe\n");
+		pipes->check++;
+		printf("check%d\n", pipes->check);
 		dup2(list->outfile, 1);
 	}
 	if(list->outfile != 1)
 	{
-		// printf("am closed the file\n");
+		printf("am closed the file\n");
 		close(list->outfile);
 	}
 	// close(pipes->stdiin);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 13:15:07 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/23 19:44:02 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/23 23:12:19 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	pipex(t_mini *list, char **env, t_pipe *pipes)
 	int		chld_o;
 	int		chld_t;
 	int		flag;
+	static int check;
 	int a;
 
 	a = 0;
@@ -53,6 +54,8 @@ void	pipex(t_mini *list, char **env, t_pipe *pipes)
 	// while(list->cmd[i])
 	// 	printf("%s\n", list->cmd[i++]);
 	// return ;
+	printf("%dn", list->infile);
+	printf("\n*******************\n");
 	if(list->infile > 2)
 	{
 		a++;
@@ -73,15 +76,16 @@ void	pipex(t_mini *list, char **env, t_pipe *pipes)
 		printf("multiple\n");
 		multiple_pipe(list, env, pipes);
 	}
-	if (!list->next && list->outfile < 2)
+	else if (!list->next && list->outfile < 2)
 	{
 		// printf("am here\n");
 		flag = 1;
-		list->outfile = 1;
+		list->outfile = pipes->stdouut;
 	}
 	if (list->outfile > 2 || flag == 1)
 	{
 		// dprintf (2, "^^^%s\n", get_next_line(pipes->fd[0][1]));
+		pipes->check = 0;
 		printf("i have outfile\n");
 		chld_t = fork();
 		if (chld_t == 0)
