@@ -4,5 +4,10 @@ else check it is a outfile for writing
 
 
 
-< TODO cat | cat -e > ou | cat
-< TODO cat | > ou
+< TODO cat | cat -e > ou | cat √
+< TODO cat | > ou  √
+
+cat < TODO
+
+
+ls | < TODO cat
