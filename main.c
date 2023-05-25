@@ -21,6 +21,8 @@ int main(int ac, char **av, char **env)
 	// pipes.stdoout = dup(1);
 	pipes.f0 = 0;
 	pipes.f1 = 1;
+	int strin_main = dup(0);
+	int strout_main = dup(1);
 	pipes.stdiin = dup(0);
 	pipes.stdouut = dup(1);
 	// printf("%d\n", pipes.stdiin);
@@ -52,6 +54,8 @@ int main(int ac, char **av, char **env)
 			// printf("f0 === %d,,,, f1 == %d", pipes.f0, pipes.f1);
 			li = li->next;
 		}
+		dup2(0, strin_main);
+		dup2(1, strout_main);
 			// exit(1);
 		// i = 0;
 		// while(li->cmd[i])
