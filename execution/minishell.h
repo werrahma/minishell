@@ -37,6 +37,8 @@ typedef struct s_pipe
 	int	fd[2][2];
 	int	stdiin;
 	int	stdouut;
+	int strin_main;
+	int check;
 	int	f0;
 	int	f1;
 }				t_pipe;

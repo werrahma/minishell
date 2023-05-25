@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/24 13:14:48 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/25 13:25:10 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,18 @@ void	child_process_two(t_mini *list, char **env, t_pipe *pipes, int check)
 	if (!ps_path)
 		exit(1);
 	acs2 = check_access(ps_path, list->cmd[0]);
-	dup2(pipes->fd[pipes->f0][0], 0);
-	if (check > 0)
+	if (check == 0)
 	{
-		// printf("am here for strinn\n");
-		dup2(pipes->stdiin, 0);
+		check++;
+		dup2(pipes->fd[pipes->f0][0], 0);
 	}
+	else
+		dup2(pipes->strin_main, 0);
+	// if (check > 0)
+	// {
+	// 	printf("am here for strinn\n");
+	// 	dup2(pipes->stdiin, 0);
+	// }
 	dup2(pipes->fd[pipes->f1][1], 1);
 	close(pipes->fd[pipes->f0][0]);
 	close(pipes->fd[pipes->f0][1]);
@@ -83,11 +89,13 @@ void	last_child(t_mini *list, char **env, t_pipe *pipes)
 		// printf("am here for duping pipe with outf\n");
 		// fprintf(stderr, "outfile %d\n", pipes->fd[0][0 ]);
 		// printf("%d\n", list->outfile);
+		// printf("duping out with pipe\n");
+		// printf("check%d\n", pipes->check);
 		dup2(list->outfile, 1);
 	}
 	if(list->outfile != 1)
 	{
-		// write(2, "am closed the file\n", 19);
+		write(2, "am closed the file\n", 19);
 		close(list->outfile);
 	}
 	close(pipes->fd[pipes->f0][0]);
