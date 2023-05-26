@@ -6,7 +6,7 @@
 /*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 13:15:07 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/24 15:29:18 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:38:46 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	pipex(t_mini *list, char **env, t_pipe *pipes)
 	int		chld_o;
 	int		chld_t;
 	int		flag;
-	static int check;
 	int a;
 
 	a = 0;

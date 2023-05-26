@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:05:52 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/23 15:03:52 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/25 13:25:19 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	multiple_pipe(t_mini *list, char **env, t_pipe *pipes)
 		// return ;
 		close(pipes->fd[pipes->f0][0]);
 		close(pipes->fd[pipes->f0][1]);
-		dup2(pipes->fd[pipes->f1][0], pipes->stdiin);
+		dup2(pipes->fd[pipes->f1][0], pipes->strin_main);
 		pipe(pipes->fd[pipes->f0]);
 		check++;
 		swap(&pipes->f0, &pipes->f1);
