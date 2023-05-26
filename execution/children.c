@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   children.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/25 21:28:42 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/26 12:34:19 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void	child_process_one(t_mini *list, char **env, t_pipe *pipes)
 	if (list->outfile != -3)
 		dup2(list->outfile, 1);
 	else
-		dup2(pipes->fd[0][1], 1);
-	close(pipes->fd[0][1]);
-	close(pipes->fd[1][0]);
-	close(pipes->fd[1][1]);
+		dup2(pipes->fd[pipes->f0][1], 1);
+	close(pipes->fd[pipes->f0][1]);
+	close(pipes->fd[pipes->f1][0]);
+	close(pipes->fd[pipes->f1][1]);
 	execve(acs1, list->cmd, env);
 	ft_fail('e');
 }
