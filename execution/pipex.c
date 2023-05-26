@@ -6,7 +6,7 @@
 /*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 13:15:07 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/25 16:38:46 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/26 21:17:15 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	pipex(t_mini *list, char **env, t_pipe *pipes)
 	if (a > 0)
 	{
 		printf("am here\n");
-		dup2(pipes->fd[pipes->f0][0], pipes->stdiin);
+		dup2(pipes->fd[pipes->f0][0], pipes->strin_main);
 	}
 	else if (list->infile < 2 && list->next && list->outfile < 2)
 	{

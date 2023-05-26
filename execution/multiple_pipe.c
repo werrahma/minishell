@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiple_pipe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:05:52 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/25 13:25:19 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/26 22:03:40 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	multiple_pipe(t_mini *list, char **env, t_pipe *pipes)
 		close(pipes->fd[pipes->f0][0]);
 		close(pipes->fd[pipes->f0][1]);
 		dup2(pipes->fd[pipes->f1][0], pipes->strin_main);
-		pipe(pipes->fd[pipes->f0]);
+		// pipe(pipes->fd[pipes->f0]);
 		check++;
 		swap(&pipes->f0, &pipes->f1);
 	// 	i++;

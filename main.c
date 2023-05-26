@@ -44,8 +44,10 @@ int main(int ac, char **av, char **env)
 		// lst = lexer_split_cmdline(line);
 		//li = fill_last_list(lexer_split_cmdline(line));
 		//printf("***********\n");
-	pipes.f0 = 0;
-	pipes.f1 = 1;
+		pipes.f0 = 0;
+		pipes.f1 = 1;
+		// dup2(stdin_main, 0);
+		// dup2(strout_main, 1);
 		while(li)
 		{
 			// if(!check_agr(li->cmd, &list))
@@ -57,8 +59,6 @@ int main(int ac, char **av, char **env)
 			// printf("f0 === %d,,,, f1 == %d", pipes.f0, pipes.f1);
 			li = li->next;
 		}
-		dup2(stdin_main, 0);
-		dup2(strout_main, 1);
 			// exit(1);
 		// i = 0;
 		// while(li->cmd[i])
