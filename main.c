@@ -17,6 +17,7 @@ int main(int ac, char **av, char **env)
 
 	create_list(&list, env);
 	fill_list(&list, env);
+	pipes.env = env;
 	// pipes.stdiin = dup(0);
 	// pipes.stdoout = dup(1);
 	// pipes.f0 = 0;
@@ -52,9 +53,10 @@ int main(int ac, char **av, char **env)
 		{
 			// if(!check_agr(li->cmd, &list))
 			// {
-				pipe(pipes.fd[0]);
-				pipe(pipes.fd[1]);
-				pipex(li, env, &pipes);
+				check_agr(li->cmd, &list, li, &pipes);
+				// pipe(pipes.fd[0]);
+				// pipe(pipes.fd[1]);
+				// pipex(li, env, &pipes);
 			// }
 			// printf("f0 === %d,,,, f1 == %d", pipes.f0, pipes.f1);
 			li = li->next;

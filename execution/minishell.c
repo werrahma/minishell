@@ -6,7 +6,7 @@
 /*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 12:22:26 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/25 23:10:18 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/27 21:56:57 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	fill_list(t_env **list, char **env)
 	(*list) = tmp;
 }
 
-int	check_agr(char **av, t_env **env)
+int	check_agr(char **av, t_env **env, t_mini *list, t_pipe *pipes)
 {
 	int	i;
 	int	hold;
@@ -55,8 +55,8 @@ int	check_agr(char **av, t_env **env)
 	// while(av[i])
 	// 	printf("%s\n", av[i++]);
 	// exit(1);
-	while(av[i])
-	{
+	// while(av[i])
+	// {
 		if (ft_strcmp("pwd", av[i]) == 0)
 			pwd();
 		else if (ft_strcmp("env", av[i]) == 0)
@@ -86,8 +86,14 @@ int	check_agr(char **av, t_env **env)
 			// sort_list(env);
 			// exit(1);
 		}
-		i++;
-	}
+		else
+		{
+			pipe(pipes->fd[0]);
+			pipe(pipes->fd[1]);
+			pipex(list, pipes->env, pipes);
+		}
+	// 	i++;
+	// }
 	// exit(1);
 	return (0);
 }

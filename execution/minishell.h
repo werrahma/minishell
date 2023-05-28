@@ -38,6 +38,7 @@ typedef struct s_pipe
 	int	stdiin;
 	int	stdouut;
 	int strin_main;
+	char **env;
 	int check;
 	int	f0;
 	int	f1;
@@ -77,7 +78,7 @@ void	my_export(t_env **env, char **av);
 int		cmp_env(char *str1, char *str2);
 void	sort_list(t_env **env);
 void	fill_list(t_env **list, char **env);
-int		check_agr(char **av, t_env **env);
+int		check_agr(char **av, t_env **env, t_mini *list, t_pipe *pipe);
 
 void	child_process_one(t_mini *list, char **env, t_pipe *pipes);
 void	child_process_two(t_mini *list, char **env, t_pipe *pipes, int check);
