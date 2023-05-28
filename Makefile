@@ -12,6 +12,7 @@ SRC = \
 		execution/multiple_pipe.c\
 		execution/pipex.c\
 		execution/size_limiter.c\
+		execution/ft_lstsize.c
 
 NAME = minishell
 LIBFT = execution/libft/libft.a

@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 12:22:26 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/27 21:56:57 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/28 18:38:13 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	have_builtins(char **cmd)
+{
+	if (ft_strcmp("pwd", cmd[0]) || ft_strcmp("env", cmd[0]) || ft_strcmp("cd", cmd[0]) || ft_strcmp("unset", cmd[0]) || ft_strcmp("ex0t", cmd[0])
+	|| ft_strcmp("export", cmd[0]))
+		return (1);
+	return (0);
+}
 
 void	fill_list(t_env **list, char **env)
 {
@@ -40,7 +48,7 @@ void	fill_list(t_env **list, char **env)
 	(*list) = tmp;
 }
 
-int	check_agr(char **av, t_env **env, t_mini *list, t_pipe *pipes)
+int	check_arg(char **av, t_env **env)
 {
 	int	i;
 	int	hold;
@@ -86,12 +94,12 @@ int	check_agr(char **av, t_env **env, t_mini *list, t_pipe *pipes)
 			// sort_list(env);
 			// exit(1);
 		}
-		else
-		{
-			pipe(pipes->fd[0]);
-			pipe(pipes->fd[1]);
-			pipex(list, pipes->env, pipes);
-		}
+		// else
+		// {
+		// 	pipe(pipes->fd[0]);
+		// 	pipe(pipes->fd[1]);
+		// 	pipex(list, pipes->env, pipes);
+		// }
 	// 	i++;
 	// }
 	// exit(1);

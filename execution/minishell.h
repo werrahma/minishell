@@ -78,19 +78,19 @@ void	my_export(t_env **env, char **av);
 int		cmp_env(char *str1, char *str2);
 void	sort_list(t_env **env);
 void	fill_list(t_env **list, char **env);
-int		check_agr(char **av, t_env **env, t_mini *list, t_pipe *pipe);
+int		check_arg(char **av, t_env **env);
 
-void	child_process_one(t_mini *list, char **env, t_pipe *pipes);
-void	child_process_two(t_mini *list, char **env, t_pipe *pipes, int check);
-void	last_child(t_mini *list, char **env, t_pipe *pipes);
+void	child_process_one(t_mini *list, t_pipe *pipes, t_env **env);
+void	child_process_two(t_mini *list, t_pipe *pipes, t_env **env);
+void	last_child(t_mini *list, t_pipe *pipes, t_env **env);
 char	*check_access(char **ps_path, char *av);
 char	**pathfinder(char **env);
 void	swap(int *a, int *b);
-void	multiple_pipe(t_mini *list, char **env, t_pipe *pipes);
+void	multiple_pipe(t_mini *list, t_env **env, t_pipe *pipes);
 void	ft_fail(char av);
 int		size_lim(char *str, char *av);
 int		ft_checker(int ac, char *av);
-void	pipex(t_mini *list, char **env, t_pipe *pipes);
+void	pipex(t_mini *list, t_pipe *pipes, t_env **env);
 
 // ***** parsing 
 // typedef	struct s_tokens
@@ -125,10 +125,12 @@ char		*ft_chrjoin(char *dst, char c);
 void		*ft_calloc(size_t count, size_t size);
 void		ft_lstadd_backp(t_tokens **lst, t_tokens *new);
 int			lexer_openqts(char	*line, int indx);
-char	*get_next_line(int fd);
-int		ft_strcmp(const char *s1, const char *s2);
-void    open_herfiles(t_tokens *tokens);
-void    do_expand_tokens(t_tokens **tokens, t_env *env);
+char		*get_next_line(int fd);
+int			ft_strcmp(const char *s1, const char *s2);
+void    	open_herfiles(t_tokens *tokens);
+void    	do_expand_tokens(t_tokens **tokens, t_env *env);
+int			have_builtins(char **cmd);
+int			ft_lstsize(t_mini *lst);
 
 # define INFILE 0
 # define OUTFILE 1

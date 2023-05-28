@@ -6,6 +6,7 @@ else check it is a outfile for writing
 
 < TODO cat | cat -e > ou | cat √
 < TODO cat | > ou  √
+
 <TODO cat | cat | cat | cat | cat > outfile
 cat TODO | grep cat
 cat < TODO

@@ -53,10 +53,19 @@ int main(int ac, char **av, char **env)
 		{
 			// if(!check_agr(li->cmd, &list))
 			// {
-				check_agr(li->cmd, &list, li, &pipes);
-				// pipe(pipes.fd[0]);
-				// pipe(pipes.fd[1]);
-				// pipex(li, env, &pipes);
+					printf("hereaa\n");
+				if (have_builtins(li->cmd) && ft_lstsize(li) == 1)
+				{
+					
+					check_arg(li->cmd, &list);
+				}
+				else
+				{
+					write(2, "hrere\n", 6);
+					pipe(pipes.fd[0]);
+					pipe(pipes.fd[1]);
+					pipex(li, &pipes, &list);
+				}
 			// }
 			// printf("f0 === %d,,,, f1 == %d", pipes.f0, pipes.f1);
 			li = li->next;
