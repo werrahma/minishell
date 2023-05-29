@@ -18,10 +18,6 @@ int main(int ac, char **av, char **env)
 	create_list(&list, env);
 	fill_list(&list, env);
 	pipes.env = env;
-	// pipes.stdiin = dup(0);
-	// pipes.stdoout = dup(1);
-	// pipes.f0 = 0;
-	// pipes.f1 = 1;
 	pipes.strin_main = dup(0);
 	int strout_main = dup(1);
 	int stdin_main = dup(0);
@@ -61,7 +57,7 @@ int main(int ac, char **av, char **env)
 				}
 				else
 				{
-					write(2, "hrere\n", 6);
+					// write(2, "hrere\n", 6);
 					pipe(pipes.fd[0]);
 					pipe(pipes.fd[1]);
 					pipex(li, &pipes, &list);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 13:15:07 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/28 18:43:12 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/29 21:31:00 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	swap(int *a, int *b)
 
 void	pipex(t_mini *list, t_pipe *pipes, t_env **env)
 {
-	// t_pipe	pipes;
 	int		chld_o;
 	int		chld_t;
 	int		flag;
