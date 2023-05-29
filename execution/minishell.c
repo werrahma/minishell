@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 12:22:26 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/28 18:38:13 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/29 15:45:02 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 int	have_builtins(char **cmd)
 {
-	if (ft_strcmp("pwd", cmd[0]) || ft_strcmp("env", cmd[0]) || ft_strcmp("cd", cmd[0]) || ft_strcmp("unset", cmd[0]) || ft_strcmp("ex0t", cmd[0])
-	|| ft_strcmp("export", cmd[0]))
+	if (!cmd[0])
+		return (0);
+	if (!ft_strcmp("pwd", cmd[0]) || !ft_strcmp("env", cmd[0]) || !ft_strcmp("cd", cmd[0]) || !ft_strcmp("unset", cmd[0]) || !ft_strcmp("exit", cmd[0])
+	|| !ft_strcmp("export", cmd[0]) || !ft_strcmp("echo", cmd[0]))
 		return (1);
 	return (0);
 }
@@ -70,7 +72,10 @@ int	check_arg(char **av, t_env **env)
 		else if (ft_strcmp("env", av[i]) == 0)
 			ft_env(*env);
 		else if (ft_strcmp("echo", av[i]) == 0)
+		{
+			printf("am in echo \n");
 			echo(av);
+		}
 		else if (ft_strcmp("cd", av[i]) == 0)
 		{
 			if (!av[i + 1])

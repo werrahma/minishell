@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/28 18:48:26 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/29 15:10:29 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	child_process_one(t_mini *list, t_pipe *pipes, t_env **env)
 	ps_path = pathfinder(pipes->env);
 	if (!ps_path)
 		exit (1);
-	acs1 = check_access(ps_path, list->cmd[0]);
+	if (list->cmd[0])
+		acs1 = check_access(ps_path, list->cmd[0]);
 	if (list->infile != -3)
 		dup2(list->infile, 0);
 	if (list->outfile != -3)
@@ -43,7 +44,7 @@ void	child_process_one(t_mini *list, t_pipe *pipes, t_env **env)
 	close(pipes->fd[pipes->f1][0]);
 	close(pipes->fd[pipes->f1][1]);
 	if (flag == 1)
-		return ;
+		exit (0);
 	execve(acs1, list->cmd, pipes->env);
 	ft_fail('e');
 }
@@ -63,7 +64,8 @@ void	child_process_two(t_mini *list, t_pipe *pipes, t_env **env)
 		);
 		exit(1);
 	}
-	acs2 = check_access(ps_path, list->cmd[0]);
+	if (list->cmd[0])
+		acs2 = check_access(ps_path, list->cmd[0]);
 	dup2(pipes->strin_main, 0);
 	dup2(pipes->fd[pipes->f1][1], 1);
 	if (have_builtins(list->cmd))
@@ -76,7 +78,7 @@ void	child_process_two(t_mini *list, t_pipe *pipes, t_env **env)
 	close(pipes->fd[pipes->f1][0]);
 	close(pipes->fd[pipes->f1][1]);
 	if (flag == 1)
-		return ;
+		exit (0);
 	execve(acs2, list->cmd, pipes->env);
 	ft_fail('e');
 }
@@ -95,7 +97,8 @@ void	last_child(t_mini *list, t_pipe *pipes, t_env **env)
 	ps_path = pathfinder(pipes->env);
 	if (!ps_path)
 		exit(1);
-	acs2 = check_access(ps_path, list->cmd[0]);
+	if (list->cmd[0])
+		acs2 = check_access(ps_path, list->cmd[0]);
 	dup2(pipes->strin_main, 0);
 	if (list->outfile != -3)
 	{
@@ -116,7 +119,8 @@ void	last_child(t_mini *list, t_pipe *pipes, t_env **env)
 	close(pipes->fd[pipes->f1][0]);
 	close(pipes->fd[pipes->f1][1]);
 	if (flag == 1)
-		return ;
-	execve(acs2, list->cmd, pipes->env);
+		exit (0);
+	// if (list->cmd[0])
+		execve(acs2, list->cmd, pipes->env);
 	ft_fail('e');
 }

@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 12:46:05 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/28 18:23:45 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/29 14:58:26 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ int	my_exit(char **av)
 		write(1, "too many arguments\n", 19);
 		return (-1);
 	}
-	else if(!check_exit_arg(av[0]))
+	else if(!check_exit_arg(av[1]))
 	{
 		status = 255;
 	}
 	else
-		status = ft_atoi(av[0]);
+		status = ft_atoi(av[1]);
 	if (status > 255)
 		status = status % 256;
 	else if (status < 0)

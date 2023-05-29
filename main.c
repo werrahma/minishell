@@ -53,7 +53,7 @@ int main(int ac, char **av, char **env)
 		{
 			// if(!check_agr(li->cmd, &list))
 			// {
-					printf("hereaa\n");
+					// printf("hereaa\n");
 				if (have_builtins(li->cmd) && ft_lstsize(li) == 1)
 				{
 					
