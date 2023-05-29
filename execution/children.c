@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/29 15:10:29 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/29 20:17:39 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	child_process_one(t_mini *list, t_pipe *pipes, t_env **env)
 	close(pipes->fd[pipes->f0][1]);
 	close(pipes->fd[pipes->f1][0]);
 	close(pipes->fd[pipes->f1][1]);
-	if (flag == 1)
+	if (flag == 1 || !list->cmd[0])
 		exit (0);
 	execve(acs1, list->cmd, pipes->env);
 	ft_fail('e');
@@ -77,7 +77,7 @@ void	child_process_two(t_mini *list, t_pipe *pipes, t_env **env)
 	close(pipes->fd[pipes->f0][1]);
 	close(pipes->fd[pipes->f1][0]);
 	close(pipes->fd[pipes->f1][1]);
-	if (flag == 1)
+	if (flag == 1 || !list->cmd[0])
 		exit (0);
 	execve(acs2, list->cmd, pipes->env);
 	ft_fail('e');
@@ -118,9 +118,8 @@ void	last_child(t_mini *list, t_pipe *pipes, t_env **env)
 	close(pipes->fd[pipes->f0][1]);
 	close(pipes->fd[pipes->f1][0]);
 	close(pipes->fd[pipes->f1][1]);
-	if (flag == 1)
+	if (flag == 1 || !list->cmd[0])
 		exit (0);
-	// if (list->cmd[0])
 		execve(acs2, list->cmd, pipes->env);
 	ft_fail('e');
 }
