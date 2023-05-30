@@ -17,12 +17,10 @@ int main(int ac, char **av, char **env)
 
 	create_list(&list, env);
 	fill_list(&list, env);
-	// pipes.stdiin = dup(0);
-	// pipes.stdoout = dup(1);
-	pipes.f0 = 0;
-	pipes.f1 = 1;
+	pipes.env = env;
 	pipes.strin_main = dup(0);
 	int strout_main = dup(1);
+	int stdin_main = dup(0);
 	pipes.stdiin = dup(0);
 	pipes.stdouut = dup(1);
 	// printf("%d\n", pipes.stdiin);
@@ -43,26 +41,31 @@ int main(int ac, char **av, char **env)
 		// lst = lexer_split_cmdline(line);
 		//li = fill_last_list(lexer_split_cmdline(line));
 		//printf("***********\n");
-		int j = 0;
-		while(li)
-		{
-			printf("%s\n", li->cmd[0]);
-			li = li->next;
-		}
-		exit(1);
+		pipes.f0 = 0;
+		pipes.f1 = 1;
+		// dup2(stdin_main, 0);
+		// dup2(strout_main, 1);
 		while(li)
 		{
 			// if(!check_agr(li->cmd, &list))
 			// {
-				pipe(pipes.fd[0]);
-				pipe(pipes.fd[1]);
-				pipex(li, env, &pipes);
+					// printf("hereaa\n");
+				if (have_builtins(li->cmd) && ft_lstsize(li) == 1)
+				{
+					
+					check_arg(li->cmd, &list);
+				}
+				else
+				{
+					// write(2, "hrere\n", 6);
+					pipe(pipes.fd[0]);
+					pipe(pipes.fd[1]);
+					pipex(li, &pipes, &list);
+				}
 			// }
 			// printf("f0 === %d,,,, f1 == %d", pipes.f0, pipes.f1);
 			li = li->next;
 		}
-		// dup2(0, strin_main);
-		// dup2(1, strout_main);
 			// exit(1);
 		// i = 0;
 		// while(li->cmd[i])

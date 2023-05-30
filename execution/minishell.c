@@ -6,11 +6,21 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 12:22:26 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/19 16:57:09 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/29 15:45:02 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	have_builtins(char **cmd)
+{
+	if (!cmd[0])
+		return (0);
+	if (!ft_strcmp("pwd", cmd[0]) || !ft_strcmp("env", cmd[0]) || !ft_strcmp("cd", cmd[0]) || !ft_strcmp("unset", cmd[0]) || !ft_strcmp("exit", cmd[0])
+	|| !ft_strcmp("export", cmd[0]) || !ft_strcmp("echo", cmd[0]))
+		return (1);
+	return (0);
+}
 
 void	fill_list(t_env **list, char **env)
 {
@@ -40,7 +50,7 @@ void	fill_list(t_env **list, char **env)
 	(*list) = tmp;
 }
 
-int	check_agr(char **av, t_env **env)
+int	check_arg(char **av, t_env **env)
 {
 	int	i;
 	int	hold;
@@ -55,14 +65,17 @@ int	check_agr(char **av, t_env **env)
 	// while(av[i])
 	// 	printf("%s\n", av[i++]);
 	// exit(1);
-	while(av[i])
-	{
+	// while(av[i])
+	// {
 		if (ft_strcmp("pwd", av[i]) == 0)
 			pwd();
 		else if (ft_strcmp("env", av[i]) == 0)
 			ft_env(*env);
 		else if (ft_strcmp("echo", av[i]) == 0)
+		{
+			printf("am in echo \n");
 			echo(av);
+		}
 		else if (ft_strcmp("cd", av[i]) == 0)
 		{
 			if (!av[i + 1])
@@ -86,8 +99,14 @@ int	check_agr(char **av, t_env **env)
 			// sort_list(env);
 			// exit(1);
 		}
-		i++;
-	}
+		// else
+		// {
+		// 	pipe(pipes->fd[0]);
+		// 	pipe(pipes->fd[1]);
+		// 	pipex(list, pipes->env, pipes);
+		// }
+	// 	i++;
+	// }
 	// exit(1);
 	return (0);
 }

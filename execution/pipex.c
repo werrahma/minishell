@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 13:15:07 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/25 12:59:46 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/29 21:31:00 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,8 @@ void	swap(int *a, int *b)
 	*b = tmp;
 }
 
-void	pipex(t_mini *list, char **env, t_pipe *pipes)
+void	pipex(t_mini *list, t_pipe *pipes, t_env **env)
 {
-	// t_pipe	pipes;
 	int		chld_o;
 	int		chld_t;
 	int		flag;
@@ -44,12 +43,12 @@ void	pipex(t_mini *list, char **env, t_pipe *pipes)
 		printf("i have infile\n");
 		chld_o = fork();
 		if (chld_o == 0)
-			child_process_one(list, env, pipes);
+			child_process_one(list, pipes, env);
 	}
 	if (a > 0)
 	{
 		printf("am here\n");
-		dup2(pipes->fd[pipes->f0][0], pipes->stdiin);
+		dup2(pipes->fd[pipes->f0][0], pipes->strin_main);
 	}
 	else if (list->infile < 2 && list->next && list->outfile < 2)
 	{
@@ -61,7 +60,7 @@ void	pipex(t_mini *list, char **env, t_pipe *pipes)
 		printf("i have outfile\n");
 		chld_t = fork();
 		if (chld_t == 0)
-			last_child(list, env, pipes);
+			last_child(list, pipes, env);
 	}
 	close(pipes->fd[pipes->f0][0]);
 	close(pipes->fd[pipes->f0][1]);
