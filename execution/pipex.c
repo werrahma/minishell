@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 13:15:07 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/29 21:31:00 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/30 15:21:17 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	pipex(t_mini *list, t_pipe *pipes, t_env **env)
 	int i = 0;
 	if (!list->next && list->outfile < 2)
 	{
-		printf("am here for flag\n");
+		// printf("am here for flag\n");
 		flag = 1;
 		list->outfile = 1;
 	}
@@ -66,6 +66,6 @@ void	pipex(t_mini *list, t_pipe *pipes, t_env **env)
 	close(pipes->fd[pipes->f0][1]);
 	close(pipes->fd[pipes->f1][0]);
 	close(pipes->fd[pipes->f1][1]);
-	while (wait(NULL) != -1)
-		continue;
+	// while (wait(NULL) != -1)
+	// 	continue;
 }
