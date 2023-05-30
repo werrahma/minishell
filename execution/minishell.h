@@ -37,6 +37,8 @@ typedef struct s_pipe
 	int	fd[2][2];
 	int	stdiin;
 	int	stdouut;
+	int strin_main;
+	int check;
 	int	f0;
 	int	f1;
 }				t_pipe;
@@ -107,7 +109,7 @@ void	pipex(t_mini *list, char **env, t_pipe *pipes);
 // 	struct s_mini *next;
 // }	t_mini;
 
-
+void    stxe(t_tokens *to);
 t_tokens	*lexer_split_cmdline(char *line);
 t_mini  *fill_last_list(t_tokens *token);
 t_mini	*ft_lstlastl(t_mini *lst);

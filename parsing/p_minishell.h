@@ -11,9 +11,7 @@
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
-# include "../execution/minishell.h"
-//# include "../get_next_line/get_next_line.h
+#include "../execution/minishell.h"
 #include "../execution/libft/libft.h"
 
 typedef	struct s_tokens
@@ -63,6 +61,9 @@ void    expand_tokens(t_tokens *token, t_env *env);
 # define OUTPUT 7
 # define APPEND 8
 
- 
+// enum type {
+// 	infile,
+// 	outfile,
+// }
 
 #endif
