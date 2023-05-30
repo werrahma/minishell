@@ -66,6 +66,8 @@ int main(int ac, char **av, char **env)
 			// printf("f0 === %d,,,, f1 == %d", pipes.f0, pipes.f1);
 			li = li->next;
 		}
+		while (wait(NULL) != -1)
+			continue;
 			// exit(1);
 		// i = 0;
 		// while(li->cmd[i])
