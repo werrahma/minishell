@@ -1,5 +1,7 @@
 #include "execution/minishell.h"
 
+t_glo global;
+int stx = 1;
 
 int main(int ac, char **av, char **env)
 {

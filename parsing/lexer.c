@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 18:44:16 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/05/30 13:25:07 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/05/30 15:32:58 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_tokens	*lexer_definetype(t_tokens *token)
 	while(token)
 	{
 		token->type = definetype_helper(token);
-		printf("%d\n", token->type);
+		//printf("%d\n", token->type);
 		token = token->next;
 	}
 	token = tmp;
@@ -104,7 +104,7 @@ char	*lexer_collect_str(char *line, int *i)
 			str = ft_chrjoin(str, line[*i]);
 		(*i)++;
 	}
-	printf("***%s*****", str);
+//	printf("***%s*****", str);
 	return (str);
 }
 
