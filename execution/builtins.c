@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:18:00 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/29 21:47:30 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/30 16:01:55 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	check_echo(char *s)
 	int	i;
 
 	i = 1;
-	if (s[0] == '-' && ft_strlen(s) == 1)
+	if ((s[0] == '-' && ft_strlen(s) == 1) || ft_strlen(s) == 1)
 			return (0);
 	while (i < ft_strlen(s))
 	{
@@ -46,14 +46,11 @@ void	print_cho(char **s, int i, int check)
 				printf("%s", s[i]);
 			}
 		}
-		// if (flag2 == 1)
-		// 	printf("%s", s[i]);
 		else
 			printf("%s", s[i]);
 		i++;
 		if (s[i] && !check_echo(s[i - 1]))
 			printf(" ");
-		// if ((s[i] || !check_echo(s[i - 1])))
 	}
 	if (check == 0)
 		printf("\n");

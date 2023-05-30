@@ -13,3 +13,6 @@ cat < TODO
 
 
 ls | < TODO cat
+export hh=
+echo taha > taha
+cat | cat | cat Makefile
