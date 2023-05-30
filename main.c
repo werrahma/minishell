@@ -43,8 +43,6 @@ int main(int ac, char **av, char **env)
 		//printf("***********\n");
 		pipes.f0 = 0;
 		pipes.f1 = 1;
-		// dup2(stdin_main, 0);
-		// dup2(strout_main, 1);
 		while(li)
 		{
 			// if(!check_agr(li->cmd, &list))
@@ -62,6 +60,8 @@ int main(int ac, char **av, char **env)
 					pipe(pipes.fd[1]);
 					pipex(li, &pipes, &list);
 				}
+				dup2(stdin_main, 0);
+				dup2(strout_main, 1);
 			// }
 			// printf("f0 === %d,,,, f1 == %d", pipes.f0, pipes.f1);
 			li = li->next;
