@@ -110,7 +110,7 @@ void	pipex(t_mini *list, t_pipe *pipes, t_env **env);
 // 	struct s_mini *next;
 // }	t_mini;
 
-
+void    stxe(t_tokens *to);
 t_tokens	*lexer_split_cmdline(char *line);
 t_mini  *fill_last_list(t_tokens *token);
 t_mini	*ft_lstlastl(t_mini *lst);

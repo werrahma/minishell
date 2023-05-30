@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 18:44:16 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/05/20 14:56:09 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/05/30 13:25:07 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int sep(char s)
 {
-	if (s == '<' || s == '>')
+	if (s == '<' || s == '>' || s == '|')
 		return (1);
 	else if (s == ' ' || s == '\n')
 		return (1);
@@ -55,6 +55,7 @@ t_tokens	*lexer_definetype(t_tokens *token)
 	while(token)
 	{
 		token->type = definetype_helper(token);
+		printf("%d\n", token->type);
 		token = token->next;
 	}
 	token = tmp;
@@ -86,9 +87,7 @@ int	lexer_openqts(char	*line, int indx)
 char	*lexer_collect_str(char *line, int *i)
 {
 	char *str = NULL;
-	// while(line[*i])
-	// 	printf("here %d", (*i)++);
-	// exit(1);
+
 	while(line[*i])
 	{
 		if (sep(line[*i]) && lexer_openqts(line, *i) == 0)
@@ -101,11 +100,11 @@ char	*lexer_collect_str(char *line, int *i)
 			str = ft_chrjoin(str, line[*i]);
 		else if (lexer_openqts(line, *i ) == 2 && line[*i] == '\"')
 			str = ft_chrjoin(str, line[*i]);
-		else /*if (line[*i] != '\"' && line[*i] != '\'')*/
+		else
 			str = ft_chrjoin(str, line[*i]);
 		(*i)++;
 	}
-	//printf("%s\n", str);
+	printf("***%s*****", str);
 	return (str);
 }
 
@@ -161,7 +160,6 @@ t_tokens	*lexer_split_cmdline(char *line)
 		else if (!sep(line[i]))
 		{
 			ft_lstadd_backp(&token, ft_lstnewp(lexer_collect_str(line, &i)));
-			
 		}
 		else if (sep(line[i]))
 		{
@@ -169,5 +167,6 @@ t_tokens	*lexer_split_cmdline(char *line)
 		}
 	}
 	lexer_definetype(token);
+	stxe(token);
 	return (token);
 }
