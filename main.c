@@ -1,5 +1,7 @@
 #include "execution/minishell.h"
 
+t_glo global;
+int stx = 1;
 
 int main(int ac, char **av, char **env)
 {
@@ -48,14 +50,14 @@ int main(int ac, char **av, char **env)
 			// if(!check_agr(li->cmd, &list))
 			// {
 					// printf("hereaa\n");
-				if (have_builtins(li->cmd) && ft_lstsize(li) == 1)
+				if (have_builtins(li->cmd) && ft_lstsize(li) == 1 && li->infile == -3 && li->outfile == -3)
 				{
-					
+					printf("am in builtin\n");
 					check_arg(li->cmd, &list);
 				}
 				else
 				{
-					// write(2, "hrere\n", 6);
+					write(2, "hrere\n", 6);
 					pipe(pipes.fd[0]);
 					pipe(pipes.fd[1]);
 					pipex(li, &pipes, &list);
@@ -66,6 +68,8 @@ int main(int ac, char **av, char **env)
 			// printf("f0 === %d,,,, f1 == %d", pipes.f0, pipes.f1);
 			li = li->next;
 		}
+		while (wait(NULL) != -1)
+			continue;
 			// exit(1);
 		// i = 0;
 		// while(li->cmd[i])

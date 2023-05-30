@@ -33,23 +33,35 @@ char    *expand_tokens(t_tokens *token, t_env *env)
 	char *str = NULL;
 	char *s = NULL;
 	int j;
-
+	extern int stx;
 	while(token->cont[i])
 	{
-		if(token->cont[i] == '$' && lexer_openqts(token->cont, i) != 2)
+		if(token->cont[i] == '$' &&  token->cont[i + 1] == '?' && lexer_openqts(token->cont, i) != 2)
+		{
+			i ++;
+			str = ft_strjoin(str, ft_itoa(stx));
+		}
+		else if(token->cont[i] == '$' && lexer_openqts(token->cont, i) != 2)
 		{
 			j = i + 1;
 			i = j;
-			while (i)
+			if (!(ft_isalnum(token->cont[i])))
 			{
-				if (token->cont[i] == '\0' || !(ft_isalnum(token->cont[i])))
+				str = ft_chrjoin(str, token->cont[i - 1]);
+			}
+			else 
+			{
+				while (i)
 				{
-					s = ft_substr(token->cont, j , (i - j));
-					str = ft_strjoin(str, expenv(s, env));
-					i--;
-					break;
+					if (token->cont[i] == '\0' || !(ft_isalnum(token->cont[i])))
+					{
+						s = ft_substr(token->cont, j , (i - j));
+						str = ft_strjoin(str, expenv(s, env));
+						i--;
+						break;
+					}
+					i++;
 				}
-				i++;
 			}
 		}
 		else if (lexer_openqts(token->cont , i) == 0 && token->cont[i] != '\'' && token->cont[i] != '\"')
@@ -74,6 +86,7 @@ void    do_expand_tokens(t_tokens **tokens, t_env *env)
 
 	while (*tokens)
 	{
+
 		if (qoutesordlr(*tokens))
 		{
 			str = expand_tokens(*tokens, env);
