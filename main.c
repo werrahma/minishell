@@ -75,9 +75,9 @@ int main(int ac, char **av, char **env)
 		// while(waitpid())
 		// while (wait(NULL) != -1)
 		// 	continue;
-		int i = 0;
+		int i = 1;
 		while(i <= ft_lstsize(li))
-			waitpid(pipes.pid[i++], NULL, 0);
+			waitpid(pipes.pid[i], NULL, 0);
 			// exit(1);
 		// i = 0;
 		// while(li->cmd[i])

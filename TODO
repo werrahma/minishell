@@ -16,3 +16,5 @@ ls | < TODO cat
 export hh=
 echo taha > taha
 cat | cat | cat Makefile
+
+cat /dev/random | head -n 10
