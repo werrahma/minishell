@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 13:15:07 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/30 19:00:55 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/31 16:22:44 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int *tab_pid(t_mini *list)
+{
+	int *tab;
+
+	tab = malloc(sizeof(int) * ft_lstsize(list));
+	return (tab);
+}
 
 void	swap(int *a, int *b)
 {
@@ -30,7 +38,7 @@ void	pipex(t_mini *list, t_pipe *pipes, t_env **env)
 
 	a = 0;
 	flag = 0;
-	int i = 0;
+	// int i = 0;
 	if (!list->next && list->outfile < 2)
 	{
 		// printf("am here for flag\n");
@@ -41,9 +49,11 @@ void	pipex(t_mini *list, t_pipe *pipes, t_env **env)
 	{
 		a++;
 		printf("i have infile\n");
-		chld_o = fork();
-		if (chld_o == 0)
+		pipes->pid[pipes->index] = fork();
+		// pipes->index++;
+		if (pipes->pid[pipes->index] == 0)
 			child_process_one(list, pipes, env);
+		
 	}
 	if (a > 0)
 	{
@@ -54,12 +64,14 @@ void	pipex(t_mini *list, t_pipe *pipes, t_env **env)
 	{
 		printf("multiple\n");
 		multiple_pipe(list, env, pipes);
+		// pipes->index++;
 	}
 	else if (list->outfile > 2 || flag == 1)
 	{
 		printf("i have outfile\n");
-		chld_t = fork();
-		if (chld_t == 0)
+		pipes->pid[pipes->index] = fork();
+		// pipes->index++;
+		if (pipes->pid[pipes->index] == 0)
 			last_child(list, pipes, env);
 	}
 	close(pipes->fd[pipes->f0][0]);

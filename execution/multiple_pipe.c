@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiple_pipe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:05:52 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/28 18:50:49 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/31 15:23:33 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	multiple_pipe(t_mini *list, t_env **env, t_pipe *pipes)
 	i = 3;
 	// while (list->infile == 0)
 	// {
-		id1 = fork();
-		if (id1 == 0)
+		pipes->pid[pipes->index] = fork();
+		if (pipes->pid[pipes->index] == 0)
 			child_process_two(list, pipes, env);
 	// printf("hna\n");
 		// return ;

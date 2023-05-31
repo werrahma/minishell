@@ -25,6 +25,7 @@ int main(int ac, char **av, char **env)
 	int stdin_main = dup(0);
 	pipes.stdiin = dup(0);
 	pipes.stdouut = dup(1);
+	pipes.index = 0;
 	// printf("%d\n", pipes.stdiin);
 				// pipe(pipes.fd[1]);
 	// exit(1);
@@ -34,6 +35,7 @@ int main(int ac, char **av, char **env)
 		tokens = lexer_split_cmdline(line);
 		do_expand_tokens(&tokens, list);
 		li = fill_last_list(tokens);
+		pipes.pid = tab_pid(li);
 		// while(li)
 		// {
 		// 	printf("jhsd\n");
@@ -50,6 +52,7 @@ int main(int ac, char **av, char **env)
 			// if(!check_agr(li->cmd, &list))
 			// {
 					// printf("hereaa\n");
+				printf("cmd  === %s\n", li->cmd[0]);
 				if (have_builtins(li->cmd) && ft_lstsize(li) == 1 && li->infile == -3 && li->outfile == -3)
 				{
 					printf("am in builtin\n");
@@ -66,10 +69,15 @@ int main(int ac, char **av, char **env)
 				dup2(strout_main, 1);
 			// }
 			// printf("f0 === %d,,,, f1 == %d", pipes.f0, pipes.f1);
+			pipes.index++;
 			li = li->next;
 		}
-		while (wait(NULL) != -1)
-			continue;
+		// while(waitpid())
+		// while (wait(NULL) != -1)
+		// 	continue;
+		int i = 0;
+		while(i <= ft_lstsize(li))
+			waitpid(pipes.pid[i++], NULL, 0);
 			// exit(1);
 		// i = 0;
 		// while(li->cmd[i])
