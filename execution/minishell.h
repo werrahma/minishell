@@ -70,6 +70,7 @@ typedef struct s_pipe
 // #include <readline/readline.h>
 // #include <readline/history.h>
 
+void	create_env(t_env **list);
 void	create_list(t_env **list, char **env);
 void	ft_lstadd_back(t_env **lst, t_env *new);
 t_env	*ft_lstnew(int content);

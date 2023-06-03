@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:07:11 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/17 11:19:18 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/03 16:21:15 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,28 +73,6 @@ void	dup_key(char *str, t_env *lst)
 	// printf("---%s\n", lst->key);
 	
 }
-
-// void	split_byequals(t_env *env, char *str)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	// while(str[i] && str[i] != '=')
-// 	// {
-// 		env->key = ft_strdup(str - ft_strlen(str));
-// 	// }
-// 		printf("%s\n", env->key);
-// 		exit(1);
-// 	while(str[i])
-// 	{
-// 		env->value = ft_strdup(str + ft_strlen(str));
-// 		i++;
-// 	}
-// }
-
-// void	export_arg(char *av)
-// {	
-// }
 
 void	if_plus(char *arg, t_env *env)
 {

@@ -17,11 +17,21 @@ int main(int ac, char **av, char **env)
 	t_mini	*li;
 	t_pipe pipes;
 
+	// create_env(&list);
+	// while(list)
+	// {
+	// 	printf("%s", (list)->key);
+	// 	printf("=");
+	// 	printf("%s\n", (list)->value);
+	// 	(list) = (list)->next;
+	// }
 	create_list(&list, env);
 	fill_list(&list, env);
+	if (!list)
+		create_env(&list);
 	pipes.env = env;
 	pipes.strin_main = dup(0);
-	int strout_main = dup(1);
+	int stdout_main = dup(1);
 	int stdin_main = dup(0);
 	pipes.stdiin = dup(0);
 	pipes.stdouut = dup(1);
@@ -52,7 +62,6 @@ int main(int ac, char **av, char **env)
 			// if(!check_agr(li->cmd, &list))
 			// {
 					// printf("hereaa\n");
-				printf("cmd  === %s\n", li->cmd[0]);
 				if (have_builtins(li->cmd) && ft_lstsize(li) == 1 && li->infile == -3 && li->outfile == -3)
 				{
 					printf("am in builtin\n");
@@ -65,8 +74,6 @@ int main(int ac, char **av, char **env)
 					pipe(pipes.fd[1]);
 					pipex(li, &pipes, &list);
 				}
-				dup2(stdin_main, 0);
-				dup2(strout_main, 1);
 			// }
 			// printf("f0 === %d,,,, f1 == %d", pipes.f0, pipes.f1);
 			pipes.index++;
@@ -75,9 +82,12 @@ int main(int ac, char **av, char **env)
 		// while(waitpid())
 		// while (wait(NULL) != -1)
 		// 	continue;
-		int i = 1;
-		while(i <= ft_lstsize(li))
-			waitpid(pipes.pid[i], NULL, 0);
+		// printf("\ndup in the last time == %d\n",  stdin_main);
+		dup2(pipes.strin_main, stdin_main);
+		// dup2(pipes->strin_main, stdout_main);
+		// int i = 1;
+		// while(i <= ft_lstsize(li))
+		// 	waitpid(pipes.pid[i], NULL, 0);
 			// exit(1);
 		// i = 0;
 		// while(li->cmd[i])
