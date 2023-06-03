@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:07:11 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/03 16:21:15 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/03 23:24:07 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,14 +108,17 @@ void	my_export(t_env **env, char **av)
 {
 	int	i;
 	int	j;
-    t_env *tmp;
+    t_env	*tmp;
+	t_env	*c_env;
 
 	i = 1;
 	j = 0;
 	tmp = *env;
 	if(str_len(av) == 1)
 	{
-		sort_list(env);
+		copy_env(env, &c_env);
+		exit(1);
+		sort_list(&c_env);
 		while((*env))
 		{
 			// if ((*env)->value)

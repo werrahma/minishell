@@ -16,15 +16,6 @@ int main(int ac, char **av, char **env)
 	// t_tokens     *lst;
 	t_mini	*li;
 	t_pipe pipes;
-
-	// create_env(&list);
-	// while(list)
-	// {
-	// 	printf("%s", (list)->key);
-	// 	printf("=");
-	// 	printf("%s\n", (list)->value);
-	// 	(list) = (list)->next;
-	// }
 	create_list(&list, env);
 	fill_list(&list, env);
 	if (!list)
