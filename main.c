@@ -76,8 +76,8 @@ int main(int ac, char **av, char **env)
 		// while (wait(NULL) != -1)
 		// 	continue;
 		// printf("\ndup in the last time == %d\n",  stdin_main);
-		// dup2(pipes.strin_main, stdin_main);
-		// dup2(pipes->strin_main, stdout_main);
+		dup2(stdin_main, pipes.strin_main);
+		// dup2(stdout_main, pipes.stdouut);
 		int i = 0;
 		while(i < size_list)
 			waitpid(pipes.pid[i++], &stx, 0);

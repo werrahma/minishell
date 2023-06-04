@@ -6,7 +6,7 @@
 /*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 13:15:07 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/31 16:22:44 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/04 16:51:49 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	pipex(t_mini *list, t_pipe *pipes, t_env **env)
 	if(list->infile > 2)
 	{
 		a++;
-		printf("i have infile\n");
+		// printf("i have infile\n");
 		pipes->pid[pipes->index] = fork();
 		// pipes->index++;
 		if (pipes->pid[pipes->index] == 0)
@@ -57,18 +57,18 @@ void	pipex(t_mini *list, t_pipe *pipes, t_env **env)
 	}
 	if (a > 0)
 	{
-		printf("am here\n");
+		// printf("am here\n");
 		dup2(pipes->fd[pipes->f0][0], pipes->strin_main);
 	}
 	else if (list->infile < 2 && list->next && list->outfile < 2)
 	{
-		printf("multiple\n");
+		// printf("multiple\n");
 		multiple_pipe(list, env, pipes);
 		// pipes->index++;
 	}
 	else if (list->outfile > 2 || flag == 1)
 	{
-		printf("i have outfile\n");
+		// printf("i have outfile\n");
 		pipes->pid[pipes->index] = fork();
 		// pipes->index++;
 		if (pipes->pid[pipes->index] == 0)
