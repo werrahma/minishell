@@ -1,13 +1,14 @@
 #include "execution/minishell.h"
 
 t_glo global;
-int stx = 1;
+int stx = 0;
 
 int main(int ac, char **av, char **env)
 {
     int i = 0;
     int j;
     char **hold;
+	int	size_list;
     t_env   *list = NULL;
 	t_tokens	*tokens;
     // t_env   *tmp = NULL;
@@ -26,7 +27,6 @@ int main(int ac, char **av, char **env)
 	int stdin_main = dup(0);
 	pipes.stdiin = dup(0);
 	pipes.stdouut = dup(1);
-	pipes.index = 0;
 	// printf("%d\n", pipes.stdiin);
 				// pipe(pipes.fd[1]);
 	// exit(1);
@@ -36,7 +36,9 @@ int main(int ac, char **av, char **env)
 		tokens = lexer_split_cmdline(line);
 		do_expand_tokens(&tokens, list);
 		li = fill_last_list(tokens);
+		size_list = ft_lstsize(li);
 		pipes.pid = tab_pid(li);
+		pipes.index = 0;
 		// while(li)
 		// {
 		// 	printf("jhsd\n");
@@ -74,11 +76,11 @@ int main(int ac, char **av, char **env)
 		// while (wait(NULL) != -1)
 		// 	continue;
 		// printf("\ndup in the last time == %d\n",  stdin_main);
-		dup2(pipes.strin_main, stdin_main);
+		// dup2(pipes.strin_main, stdin_main);
 		// dup2(pipes->strin_main, stdout_main);
-		// int i = 1;
-		// while(i <= ft_lstsize(li))
-		// 	waitpid(pipes.pid[i], NULL, 0);
+		int i = 0;
+		while(i < size_list)
+			waitpid(pipes.pid[i++], &stx, 0);
 			// exit(1);
 		// i = 0;
 		// while(li->cmd[i])
@@ -86,14 +88,6 @@ int main(int ac, char **av, char **env)
 		add_history(line);
 		free(line);
 	}
-	// while(list)
-	// {
-	// 	printf("%s == ", list->key);
-	// 	printf("%s\n", list->value);
-	// 	list = list->next;
-
-
-	
-	// }
+	// exit (stx);
 
 }

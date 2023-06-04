@@ -5,19 +5,15 @@ void	copy_env(t_env **env, t_env **c_env)
 {
 	t_env *c_tmp;
 	t_env *tmp;
-	t_env *cc;
 
 	tmp = *env;
-	printf("here\n");
-		ft_lstadd_back(&cc, ft_lstnew(1));
-	while(1);
-	while (*env && (*env)->next)
+	while (tmp)
 	{
-		*env = (*env)->next;
+		ft_lstadd_back(c_env, ft_lstnew(1));
+		tmp = (tmp)->next;
 	}
-	while(1);
 	c_tmp = *c_env;
-	while (c_env && env)
+	while (*c_env && *env)
 	{
 		(*c_env)->key = ft_strdup((*env)->key);
 		(*c_env)->value = ft_strdup((*env)->value);

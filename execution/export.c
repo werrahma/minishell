@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:07:11 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/03 23:24:07 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/04 12:39:00 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_env(t_env **env)
+{
+	t_env *tmp;
+
+	while (*env)
+	{
+		tmp = *env;
+		free((*env)->key);
+		free((*env)->value);
+		*env = (*env)->next;
+		free(tmp);
+	}
+	// free(env);
+}
 
 t_env	*fond_key(t_env *list, char *str)
 {
@@ -114,26 +129,27 @@ void	my_export(t_env **env, char **av)
 	i = 1;
 	j = 0;
 	tmp = *env;
+	c_env = NULL;
 	if(str_len(av) == 1)
 	{
 		copy_env(env, &c_env);
-		exit(1);
 		sort_list(&c_env);
-		while((*env))
+		while((c_env))
 		{
-			// if ((*env)->value)
+			// if ((c_env)->value)
 			// {
 			printf("declare -x ");
-			printf("%s", (*env)->key);
-			if ((*env)->value)
+			printf("%s", (c_env)->key);
+			if ((c_env)->value)
 			{
 				printf("=");
-				printf("%s\n", (*env)->value);
+				printf("%s\n", (c_env)->value);
 			}
 			else
 				printf("\n");
-			(*env) = (*env)->next;
+			(c_env) = (c_env)->next;
 		}
+		free_env(&c_env);
 	}
 	else
 	{
