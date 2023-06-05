@@ -84,7 +84,7 @@ char    *expand_tokens(t_tokens *token, t_env *env)
 	if (str && str[0] == '\0' && (token->perv->type == 6 || token->perv->type == 7 || token->perv->type == 8))
 	{
 		//exit( 0);
-		printf("hehehe\n"); 
+		//printf("hehehe\n"); 
 		ft_putstr_fd(ft_strjoin(token->cont, ": ") , 2);
 		ft_putstr_fd("ambiguous redirect\n", 2);
 		stx = 1;

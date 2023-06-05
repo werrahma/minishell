@@ -3,13 +3,13 @@
 t_glo global;
 int stx = 0;
 
-// void handle_signal(int sig)
-// {
-// 	printf("\n");
-// 	rl_on_new_line();
-// 	rl_replace_line("", 0);
-// 	rl_redisplay();
-// }
+void handle_signal(int sig)
+{
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
 
 int main(int ac, char **av, char **env)
 {
@@ -39,10 +39,10 @@ int main(int ac, char **av, char **env)
 				// pipe(pipes.fd[1]);
 	// exit(1);
 	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, handle_signal);
 	while (1)
 	{
 		line = readline("minishell$ ");
-		// signal(SIGINT, handle_signal);
 		if (!line)
 		{
 			printf("exit\n");
@@ -105,5 +105,4 @@ int main(int ac, char **av, char **env)
 		free(line);
 	}
 	// exit (stx);
-
 }

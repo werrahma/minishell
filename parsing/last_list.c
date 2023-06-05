@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:46:33 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/05 11:48:14 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/05 15:04:36 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ t_mini	*ft_lstlastl(t_mini *lst)
 
 int openfd(char *file, int i)
 {
+	extern int stx;
 	int fd;
 	if (i == 0)
 	{
@@ -63,13 +64,17 @@ int openfd(char *file, int i)
 		{
 			ft_putstr_fd(ft_strjoin(file , " :"), 2);
 			ft_putstr_fd(" no such file or directory\n", 2);
+			stx = 1;
 		}
 	}
 	else if (i == 1)
 	{
 		fd = open(file , O_CREAT | O_RDWR | O_TRUNC, 0777);
 		if (fd == -1)
+		{
 			ft_putstr_fd(" : no such file or directory\n", 2);
+			stx = 1;
+		}
 	}
 	else if (i == 2)
 	{
@@ -78,6 +83,7 @@ int openfd(char *file, int i)
 		{
 			ft_putstr_fd(ft_strjoin(file , " :"), 2);
 			ft_putstr_fd(" no such file or directory\n", 2);
+			stx = 1;
 		}
 	}
 	else if (i == 3)
@@ -135,7 +141,7 @@ t_mini	*fill_last_list(t_tokens *token)
 		else if (token->next && token->type == HEREDOC)
 			list->infile = openfd(token->next->cont, 3);
 		else if (token->next && token->type == INPUT)
-			list->infile = openfd(token->next->cont, 0);	
+			list->infile = openfd(token->next->cont, 0);
 		else if (token->next &&  token->type == OUTPUT)
 			list->outfile = openfd(token->next->cont, 1);
 		else if (token->next && token->type == APPEND)
