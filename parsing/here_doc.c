@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 21:20:11 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/05/23 18:03:04 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/03 13:29:35 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ void    here_doc(char *name, char *li)
 		ft_putstr_fd("heredoc> ", 1);
 		line = get_next_line(0);
 		if(!line)
+		{
+			printf("\n");
 			break;
+		}
 		if(!ft_strncmp(line, li, ft_strlen(line) - 1) && ft_strlen(line) - 1 == ft_strlen(li))
 		{
 			free(line);

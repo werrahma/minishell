@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 13:15:07 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/30 19:00:55 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/05/31 12:12:11 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,24 @@ void	pipex(t_mini *list, t_pipe *pipes, t_env **env)
 	if(list->infile > 2)
 	{
 		a++;
-		printf("i have infile\n");
+		//printf("i have infile\n");
 		chld_o = fork();
 		if (chld_o == 0)
 			child_process_one(list, pipes, env);
 	}
 	if (a > 0)
 	{
-		printf("am here\n");
+		//printf("am here\n");
 		dup2(pipes->fd[pipes->f0][0], pipes->strin_main);
 	}
 	else if (list->infile < 2 && list->next && list->outfile < 2)
 	{
-		printf("multiple\n");
+		//printf("multiple\n");
 		multiple_pipe(list, env, pipes);
 	}
 	else if (list->outfile > 2 || flag == 1)
 	{
-		printf("i have outfile\n");
+		//printf("i have outfile\n");
 		chld_t = fork();
 		if (chld_t == 0)
 			last_child(list, pipes, env);

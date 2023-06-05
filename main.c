@@ -1,7 +1,15 @@
 #include "execution/minishell.h"
 
 t_glo global;
-int stx = 1;
+int stx = 0;
+
+void handle_signal(int sig)
+{
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
 
 int main(int ac, char **av, char **env)
 {
@@ -28,9 +36,16 @@ int main(int ac, char **av, char **env)
 	// printf("%d\n", pipes.stdiin);
 				// pipe(pipes.fd[1]);
 	// exit(1);
+	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
 		line = readline("minishell$ ");
+		signal(SIGINT, handle_signal);
+		if (!line)
+		{
+			printf("exit\n");
+			exit (1);
+		}
 		tokens = lexer_split_cmdline(line);
 		do_expand_tokens(&tokens, list);
 		li = fill_last_list(tokens);
@@ -59,7 +74,7 @@ int main(int ac, char **av, char **env)
 				}
 				else
 				{
-					write(2, "hrere\n", 6);
+					// write(2, "hrere\n", 6);
 					pipe(pipes.fd[0]);
 					pipe(pipes.fd[1]);
 					pipex(li, &pipes, &list);
@@ -74,7 +89,8 @@ int main(int ac, char **av, char **env)
 		// i = 0;
 		// while(li->cmd[i])
 		// 	printf("%s\n", li->cmd[i++]);
-		add_history(line);
+		if (line[0])
+			add_history(line);
 		free(line);
 	}
 	// while(list)

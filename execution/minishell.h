@@ -54,6 +54,7 @@ typedef struct s_pipe
 # include <limits.h>
 # include <strings.h>
 # include <sys/wait.h>
+# include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 // # include "../pipex_bonus/pipex.h"
@@ -92,6 +93,8 @@ int		size_lim(char *str, char *av);
 int		ft_checker(int ac, char *av);
 void	pipex(t_mini *list, t_pipe *pipes, t_env **env);
 
+//void	rl_replace_line(const char *, int);
+void	rl_replace_line(const char* text, int clear_undo);
 // ***** parsing 
 // typedef	struct s_tokens
 // {
