@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   last_list.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:46:33 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/05/24 23:31:57 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/05 10:55:29 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,14 @@ t_mini	*ft_lstlastl(t_mini *lst)
 int openfd(char *file, int i)
 {
 	int fd;
-	if (i == 0) 
+	if (i == 0)
 		fd = open(file, O_RDONLY);
 	else if (i == 1)
+	{
 		fd = open(file , O_CREAT | O_RDWR | O_TRUNC, 0777);
+		if (fd == -1)
+			printf("fd mrid\n");
+	}
 	else if (i == 2)
 		fd = open(file , O_CREAT | O_RDWR | O_APPEND, 0777);
 	else if (i == 3)

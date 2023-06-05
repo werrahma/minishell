@@ -20,7 +20,7 @@ char *expenv(char *str, t_env *env)
 	while(env)
 	{
 		if (ft_strcmp(str, env->key) == 0)
-			return (env->value);
+			return (ft_strdup(env->value));
 		env = env->next;
 	}
 	env = rmp;
@@ -34,6 +34,7 @@ char    *expand_tokens(t_tokens *token, t_env *env)
 	char *s = NULL;
 	int j;
 	extern int stx;
+	char *strr = NULL; 
 	while(token->cont[i])
 	{
 		if(token->cont[i] == '$' &&  token->cont[i + 1] == '?' && lexer_openqts(token->cont, i) != 2)
@@ -57,6 +58,12 @@ char    *expand_tokens(t_tokens *token, t_env *env)
 					{
 						s = ft_substr(token->cont, j , (i - j));
 						str = ft_strjoin(str, expenv(s, env));
+						// if (str[0] == '\0' && (token->perv->type == 6 || token->perv->type == 7 || token->perv->type == 8))
+						// {
+						// 	ft_putstr_fd(ft_strjoin(token->cont, ": ") , 2);
+						// 	ft_putstr_fd("ambiguous redirect\n", 2);
+						// 	stx = 1;
+						// }
 						i--;
 						break;
 					}
@@ -74,6 +81,14 @@ char    *expand_tokens(t_tokens *token, t_env *env)
  			str = ft_chrjoin(str, token->cont[i]);
 		i++;
 	}
+	if (str && str[0] == '\0' && (token->perv->type == 6 || token->perv->type == 7 || token->perv->type == 8))
+	{
+		//exit( 0);
+		printf("hehehe\n"); 
+		ft_putstr_fd(ft_strjoin(token->cont, ": ") , 2);
+		ft_putstr_fd("ambiguous redirect\n", 2);
+		stx = 1;
+	}
 	return (str);
 }
 
@@ -84,9 +99,9 @@ void    do_expand_tokens(t_tokens **tokens, t_env *env)
 
 	tmp = *tokens;
 
+	// ambiguous_stx(*tokens, env);
 	while (*tokens)
 	{
-
 		if (qoutesordlr(*tokens))
 		{
 			str = expand_tokens(*tokens, env);

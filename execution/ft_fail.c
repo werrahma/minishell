@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 22:28:55 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/20 13:34:29 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/05 11:32:09 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_fail(char av)
 	}
 	else if (av == 'e')
 	{
-		write(2, "\nexecve->fail\n", 14);
+		// write(2, "\nexecve->fail\n", 14);
 		exit(1);
 	}
 	else if (av == 'a')
