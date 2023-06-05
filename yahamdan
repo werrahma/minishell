@@ -1,0 +1,24 @@
+total 184
+drwxr-xr-x  23 yahamdan  2019    782 Jun  5 10:42 .
+drwxr-xr-x   6 yahamdan  2019    204 Jun  4 18:03 ..
+drwxr-xr-x  15 yahamdan  2019    510 Jun  5 07:36 .git
+-rw-r--r--   1 yahamdan  2019     35 May 20 12:15 .gitignore
+drwxr-xr-x   4 yahamdan  2019    136 May 20 13:13 .vscode
+-rw-r--r--   1 yahamdan  2019   1193 Jun  1 19:15 Makefile
+-rw-r--r--   1 yahamdan  2019    116 Jun  5 08:41 R
+-rw-r--r--   1 yahamdan  2019    344 Jun  5 07:30 TODO
+-rwxr-xr-x   1 yahamdan  2019   8568 Jun  5 07:30 a.out
+-rwxr-xr-x   1 yahamdan  2019    109 Jun  5 07:30 e
+drwxr-xr-x  48 yahamdan  2019   1632 Jun  5 10:42 execution
+drwxr-xr-x   7 yahamdan  2019    238 Jun  5 10:42 get_next_line
+-rwxr-xr-x   1 yahamdan  2019      9 Jun  5 07:30 ls
+-rw-r--r--   1 yahamdan  2019   2236 Jun  5 07:36 main.c
+-rw-r--r--   1 yahamdan  2019   2688 Jun  5 10:42 main.o
+-rwxr-xr-x   1 yahamdan  2019  34572 Jun  5 10:42 minishell
+-rwxr-xr-x   1 yahamdan  2019    262 May 30 13:26 outfile
+drwxr-xr-x  15 yahamdan  2019    510 Jun  5 10:42 parsing
+drwxr-xr-x  10 yahamdan  2019    340 May 30 13:26 pipex_bonus
+-rwxr-xr-x   1 yahamdan  2019     17 May 30 16:10 taha
+-rwxr-xr-x   1 yahamdan  2019     92 May 30 13:26 walid
+-rwxr-xr-x   1 yahamdan  2019      0 Jun  5 10:43 yahamdan
+-rwxr-xr-x   1 yahamdan  2019      0 Jun  3 13:24 |

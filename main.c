@@ -41,8 +41,8 @@ int main(int ac, char **av, char **env)
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
-		line = readline("minishell$ ");
 		signal(SIGINT, handle_signal);
+		line = readline("minishell$ ");
 		if (!line)
 		{
 			printf("exit\n");
