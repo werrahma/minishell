@@ -1,0 +1,15 @@
+Makefile
+TODO
+e
+execution
+get_next_line
+ll
+ls
+main.c
+main.o
+minishell
+outfile
+parsing
+pipex_bonus
+taha
+walid

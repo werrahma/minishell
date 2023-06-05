@@ -18,6 +18,12 @@ typedef struct s_mini
 	struct s_mini *next;
 }	t_mini;
 
+typedef struct s_pid
+{
+	int		pid;
+	struct s_pid *next;
+}				t_pid;
+
 
 typedef struct s_list
 {
@@ -42,6 +48,9 @@ typedef struct s_pipe
 	int check;
 	int	f0;
 	int	f1;
+	int *pid;
+	int	index;
+	
 }				t_pipe;
 
 // #include "../parsing/p_minishell.h"
@@ -62,6 +71,8 @@ typedef struct s_pipe
 // #include <readline/readline.h>
 // #include <readline/history.h>
 
+void	copy_env(t_env **env, t_env **c_env);
+void	create_env(t_env **list);
 void	create_list(t_env **list, char **env);
 void	ft_lstadd_back(t_env **lst, t_env *new);
 t_env	*ft_lstnew(int content);
@@ -92,6 +103,7 @@ void	ft_fail(char av);
 int		size_lim(char *str, char *av);
 int		ft_checker(int ac, char *av);
 void	pipex(t_mini *list, t_pipe *pipes, t_env **env);
+int		*tab_pid(t_mini *list);
 
 //void	rl_replace_line(const char *, int);
 void	rl_replace_line(const char* text, int clear_undo);

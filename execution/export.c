@@ -6,11 +6,26 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:07:11 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/17 11:19:18 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/04 12:39:00 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_env(t_env **env)
+{
+	t_env *tmp;
+
+	while (*env)
+	{
+		tmp = *env;
+		free((*env)->key);
+		free((*env)->value);
+		*env = (*env)->next;
+		free(tmp);
+	}
+	// free(env);
+}
 
 t_env	*fond_key(t_env *list, char *str)
 {
@@ -74,28 +89,6 @@ void	dup_key(char *str, t_env *lst)
 	
 }
 
-// void	split_byequals(t_env *env, char *str)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	// while(str[i] && str[i] != '=')
-// 	// {
-// 		env->key = ft_strdup(str - ft_strlen(str));
-// 	// }
-// 		printf("%s\n", env->key);
-// 		exit(1);
-// 	while(str[i])
-// 	{
-// 		env->value = ft_strdup(str + ft_strlen(str));
-// 		i++;
-// 	}
-// }
-
-// void	export_arg(char *av)
-// {	
-// }
-
 void	if_plus(char *arg, t_env *env)
 {
 	int i;
@@ -130,29 +123,33 @@ void	my_export(t_env **env, char **av)
 {
 	int	i;
 	int	j;
-    t_env *tmp;
+    t_env	*tmp;
+	t_env	*c_env;
 
 	i = 1;
 	j = 0;
 	tmp = *env;
+	c_env = NULL;
 	if(str_len(av) == 1)
 	{
-		sort_list(env);
-		while((*env))
+		copy_env(env, &c_env);
+		sort_list(&c_env);
+		while((c_env))
 		{
-			// if ((*env)->value)
+			// if ((c_env)->value)
 			// {
 			printf("declare -x ");
-			printf("%s", (*env)->key);
-			if ((*env)->value)
+			printf("%s", (c_env)->key);
+			if ((c_env)->value)
 			{
 				printf("=");
-				printf("%s\n", (*env)->value);
+				printf("%s\n", (c_env)->value);
 			}
 			else
 				printf("\n");
-			(*env) = (*env)->next;
+			(c_env) = (c_env)->next;
 		}
+		free_env(&c_env);
 	}
 	else
 	{

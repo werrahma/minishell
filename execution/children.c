@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   children.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/30 15:39:57 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/04 16:37:57 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	child_process_one(t_mini *list, t_pipe *pipes, t_env **env)
 		check_arg(list->cmd, env);
 	}
 	close(pipes->fd[pipes->f0][1]);
+	close(pipes->fd[pipes->f0][0]);
 	close(pipes->fd[pipes->f1][0]);
 	close(pipes->fd[pipes->f1][1]);
 	if (flag == 1 || !list->cmd[0])

@@ -16,6 +16,7 @@ int main(int ac, char **av, char **env)
     int i = 0;
     int j;
     char **hold;
+	int	size_list;
     t_env   *list = NULL;
 	t_tokens	*tokens;
     // t_env   *tmp = NULL;
@@ -24,12 +25,13 @@ int main(int ac, char **av, char **env)
 	// t_tokens     *lst;
 	t_mini	*li;
 	t_pipe pipes;
-
 	create_list(&list, env);
 	fill_list(&list, env);
+	if (!list)
+		create_env(&list);
 	pipes.env = env;
 	pipes.strin_main = dup(0);
-	int strout_main = dup(1);
+	int stdout_main = dup(1);
 	int stdin_main = dup(0);
 	pipes.stdiin = dup(0);
 	pipes.stdouut = dup(1);
@@ -49,6 +51,9 @@ int main(int ac, char **av, char **env)
 		tokens = lexer_split_cmdline(line);
 		do_expand_tokens(&tokens, list);
 		li = fill_last_list(tokens);
+		size_list = ft_lstsize(li);
+		pipes.pid = tab_pid(li);
+		pipes.index = 0;
 		// while(li)
 		// {
 		// 	printf("jhsd\n");
@@ -60,8 +65,6 @@ int main(int ac, char **av, char **env)
 		//printf("***********\n");
 		pipes.f0 = 0;
 		pipes.f1 = 1;
-		// dup2(stdin_main, 0);
-		// dup2(strout_main, 1);
 		while(li)
 		{
 			// if(!check_agr(li->cmd, &list))
@@ -81,10 +84,18 @@ int main(int ac, char **av, char **env)
 				}
 			// }
 			// printf("f0 === %d,,,, f1 == %d", pipes.f0, pipes.f1);
+			pipes.index++;
 			li = li->next;
 		}
-		while (wait(NULL) != -1)
-			continue;
+		// while(waitpid())
+		// while (wait(NULL) != -1)
+		// 	continue;
+		// printf("\ndup in the last time == %d\n",  stdin_main);
+		dup2(stdin_main, pipes.strin_main);
+		// dup2(stdout_main, pipes.stdouut);
+		int i = 0;
+		while(i < size_list)
+			waitpid(pipes.pid[i++], &stx, 0);
 			// exit(1);
 		// i = 0;
 		// while(li->cmd[i])
@@ -93,14 +104,6 @@ int main(int ac, char **av, char **env)
 			add_history(line);
 		free(line);
 	}
-	// while(list)
-	// {
-	// 	printf("%s == ", list->key);
-	// 	printf("%s\n", list->value);
-	// 	list = list->next;
-
-
-	
-	// }
+	// exit (stx);
 
 }
