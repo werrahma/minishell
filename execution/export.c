@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:07:11 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/04 12:39:00 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/05 19:06:15 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,10 @@ void	if_plus(char *arg, t_env *env)
 	{
 		if (arg[i] == '+' && arg[i + 1] == '=')
 		{
+			printf("last value is ->> %s\n", env->value);
+			printf("arg is === %s\n", arg);
 			env->value = ft_strjoin(env->value, arg);
+			printf("new value is ->> %s\n", env->value);
 			return ;
 		}
 		i++;
