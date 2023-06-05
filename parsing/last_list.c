@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:46:33 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/05 10:55:29 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/05 11:48:14 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,31 @@ int openfd(char *file, int i)
 {
 	int fd;
 	if (i == 0)
+	{
 		fd = open(file, O_RDONLY);
+		if (fd == -1)
+		{
+			ft_putstr_fd(ft_strjoin(file , " :"), 2);
+			ft_putstr_fd(" no such file or directory\n", 2);
+		}
+	}
 	else if (i == 1)
 	{
 		fd = open(file , O_CREAT | O_RDWR | O_TRUNC, 0777);
 		if (fd == -1)
-			printf("fd mrid\n");
+			ft_putstr_fd(" : no such file or directory\n", 2);
 	}
 	else if (i == 2)
+	{
 		fd = open(file , O_CREAT | O_RDWR | O_APPEND, 0777);
+		if (fd == -1)
+		{
+			ft_putstr_fd(ft_strjoin(file , " :"), 2);
+			ft_putstr_fd(" no such file or directory\n", 2);
+		}
+	}
 	else if (i == 3)
-		fd = open(file , O_RDWR | O_APPEND, 0777);
+		fd = open(file , O_RDWR | O_APPEND , 0777);
 	return (fd);
 }
 
