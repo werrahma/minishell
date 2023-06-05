@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   children.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/04 16:37:57 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/05 11:21:09 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	child_process_one(t_mini *list, t_pipe *pipes, t_env **env)
 	int		flag;
 
 	flag = 0;
+	printf("infile ===  %d\n",list->infile);
 	if (list->infile == -1)
 		ft_fail('f');
 	ps_path = pathfinder(pipes->env);
@@ -93,6 +94,7 @@ void	last_child(t_mini *list, t_pipe *pipes, t_env **env)
 	int		flag;
 
 	flag = 0;
+	printf("out === %d\n", list->outfile);
 	if (list->outfile == -1)
 		ft_fail('f');
 	ps_path = pathfinder(pipes->env);
