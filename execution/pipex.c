@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 13:15:07 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/05 11:25:20 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/05 13:28:35 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,19 @@ void	pipex(t_mini *list, t_pipe *pipes, t_env **env)
 	int		chld_o;
 	int		chld_t;
 	int		flag;
-	int a;
+	int		have_file;
 
-	a = 0;
+	have_file = 0;
 	flag = 0;
-	// int i = 0;
 	if (!list->next && list->outfile == -3)
 	{
-		printf("am here for flag\n");
+		// printf("am here for flag\n");
 		flag = 1;
 		list->outfile = 1;
 	}
 	if(list->infile > 2)
 	{
-		a++;
+		have_file++;
 		// printf("i have infile\n");
 		pipes->pid[pipes->index] = fork();
 		// pipes->index++;
@@ -55,7 +54,7 @@ void	pipex(t_mini *list, t_pipe *pipes, t_env **env)
 			child_process_one(list, pipes, env);
 		
 	}
-	if (a > 0)
+	if (have_file > 0)
 	{
 		// printf("am here\n");
 		dup2(pipes->fd[pipes->f0][0], pipes->strin_main);

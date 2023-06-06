@@ -3,6 +3,18 @@
 t_glo global;
 int stx = 0;
 
+int	syntax_checker(t_mini *list)
+{
+	while (list)
+	{
+		printf ("infile ==== %d\n", list->infile);
+		if (list->infile == -1 || list->outfile == -1)
+			return (0);
+		list = list->next;
+	}
+	return (1);
+}
+
 void handle_signal(int sig)
 {
 	printf("\n");
@@ -17,6 +29,7 @@ int main(int ac, char **av, char **env)
     int j;
     char **hold;
 	int	size_list;
+	int	finale_exit;
     t_env   *list = NULL;
 	t_tokens	*tokens;
     // t_env   *tmp = NULL;
@@ -65,27 +78,31 @@ int main(int ac, char **av, char **env)
 		//printf("***********\n");
 		pipes.f0 = 0;
 		pipes.f1 = 1;
-		while(li)
+		if (!syntax_checker(li));
+		else
 		{
-			// if(!check_agr(li->cmd, &list))
-			// {
-					// printf("hereaa\n");
-				if (have_builtins(li->cmd) && ft_lstsize(li) == 1 && li->infile == -3 && li->outfile == -3)
+			while(li)
 				{
-					printf("am in builtin\n");
-					check_arg(li->cmd, &list);
+					// if(!check_agr(li->cmd, &list))
+					// {
+							// printf("hereaa\n");
+						if (have_builtins(li->cmd) && ft_lstsize(li) == 1 && li->infile == -3 && li->outfile == -3)
+						{
+							printf("am in builtin\n");
+							check_arg(li->cmd, &list);
+						}
+						else
+						{
+							// write(2, "hrere\n", 6);
+							pipe(pipes.fd[0]);
+							pipe(pipes.fd[1]);
+							pipex(li, &pipes, &list);
+						}
+					// }
+					// printf("f0 === %d,,,, f1 == %d", pipes.f0, pipes.f1);
+					pipes.index++;
+					li = li->next;
 				}
-				else
-				{
-					// write(2, "hrere\n", 6);
-					pipe(pipes.fd[0]);
-					pipe(pipes.fd[1]);
-					pipex(li, &pipes, &list);
-				}
-			// }
-			// printf("f0 === %d,,,, f1 == %d", pipes.f0, pipes.f1);
-			pipes.index++;
-			li = li->next;
 		}
 		// while(waitpid())
 		// while (wait(NULL) != -1)
@@ -94,6 +111,7 @@ int main(int ac, char **av, char **env)
 		dup2(stdin_main, pipes.strin_main);
 		// dup2(stdout_main, pipes.stdouut);
 		int i = 0;
+		waitpid(pipes.pid[size_list - 1], &finale_exit, 0);
 		while(i < size_list)
 			waitpid(pipes.pid[i++], &stx, 0);
 			// exit(1);
@@ -105,4 +123,5 @@ int main(int ac, char **av, char **env)
 		free(line);
 	}
 	// exit (stx);
+
 }

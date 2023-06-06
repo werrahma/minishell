@@ -151,7 +151,6 @@ void    	open_herfiles(t_tokens *tokens);
 void    	do_expand_tokens(t_tokens **tokens, t_env *env);
 int			have_builtins(char **cmd);
 int			ft_lstsize(t_mini *lst);
-
 # define INFILE 0
 # define OUTFILE 1
 # define PIPE 2
