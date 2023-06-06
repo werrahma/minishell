@@ -16,7 +16,10 @@ void	copy_env(t_env **env, t_env **c_env)
 	while (*c_env && *env)
 	{
 		(*c_env)->key = ft_strdup((*env)->key);
-		(*c_env)->value = ft_strdup((*env)->value);
+		if (!(*env)->value)
+			(*c_env)->value = NULL;
+		else
+			(*c_env)->value = ft_strdup((*env)->value);
 		*env = (*env)->next;
 		*c_env = (*c_env)->next;
 	}

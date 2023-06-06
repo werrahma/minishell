@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:07:11 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/05 19:06:15 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/06 15:21:20 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ void	dup_key(char *str, t_env *lst)
 	j = 0;
 	while (str[j] && str[j] != '=')
 		j++;
+	if (str[j] && !str[j + 1])
+		j++;
 	lst->key = malloc(j + 1);
-	i = 0;
-	// exit(1);
 	while (str && i < j)
 	{
 		lst->key[i] = str[i];
@@ -89,7 +89,7 @@ void	dup_key(char *str, t_env *lst)
 	
 }
 
-void	if_plus(char *arg, t_env *env)
+int	has_plus_equal(char *arg, t_env *env)
 {
 	int i;
 
@@ -100,29 +100,42 @@ void	if_plus(char *arg, t_env *env)
 		{
 			printf("last value is ->> %s\n", env->value);
 			printf("arg is === %s\n", arg);
-			env->value = ft_strjoin(env->value, arg);
+			env->value = ft_strjoin(env->value, &arg[i + 2]);
 			printf("new value is ->> %s\n", env->value);
-			return ;
+			return (1);
 		}
 		i++;
 	}
+	return (0);
 }
 
-int	check_exporting(t_env *env, char *arg)
+int	is_plus_equal_inlist(t_env *env, char *arg)
 {
 	while(env)
 	{
 		if (!ft_strncmp(env->key, arg, ft_strlen(env->key)))
 		{
-			if_plus(arg, env);
-			return (1);
+			if(has_plus_equal(arg, env))
+				return (1);
+			else
+				return (0);
 		}
 		env = env->next;
 	}
 	return (0);
 }
+int	is_string_inlist(t_env *env, char *arg)
+{
+	while(env)
+	{
+		if (!ft_strncmp(env->key, arg, ft_strlen(env->key)))
+			return (1);
+		env = env->next;
+	}
+	return (0);
+}
 
-void	my_export(t_env **env, char **av)
+void	our_export(t_env **env, char **av)
 {
 	int	i;
 	int	j;
@@ -143,7 +156,7 @@ void	my_export(t_env **env, char **av)
 			// {
 			printf("declare -x ");
 			printf("%s", (c_env)->key);
-			if ((c_env)->value)
+			if ((c_env)->value != NULL)
 			{
 				printf("=");
 				printf("%s\n", (c_env)->value);
@@ -158,7 +171,8 @@ void	my_export(t_env **env, char **av)
 	{
 		while(av[i])
 		{
-			if(check_exporting(*env, av[i]))
+			if (is_plus_equal_inlist(*env, av[i]));
+			else if(is_string_inlist(*env, av[i]))
 			{
 				// printf("am here\n");
 				// printf("%s\n", av[i]);

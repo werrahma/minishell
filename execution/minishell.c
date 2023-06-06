@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 12:22:26 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/03 16:40:23 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/06 13:21:25 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	check_arg(char **av, t_env **env)
 		}
 		else if (!ft_strcmp("export", av[i]))
 		{
-			my_export(env, av);
+			our_export(env, av);
 			// sort_list(env);
 			// exit(1);
 		}
