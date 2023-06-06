@@ -78,31 +78,32 @@ int main(int ac, char **av, char **env)
 		//printf("***********\n");
 		pipes.f0 = 0;
 		pipes.f1 = 1;
-		if (!syntax_checker(li));
-		else
+		while(li)
 		{
-			while(li)
+			// if(!check_agr(li->cmd, &list))
+			// {
+					// printf("hereaa\n");
+				// if (!syntax_checker(li))
+				// {
+				// 	printf("for syntax\n");
+				// 	break ;
+				// }
+				if (have_builtins(li->cmd) && ft_lstsize(li) == 1 && li->infile == -3 && li->outfile == -3)
 				{
-					// if(!check_agr(li->cmd, &list))
-					// {
-							// printf("hereaa\n");
-						if (have_builtins(li->cmd) && ft_lstsize(li) == 1 && li->infile == -3 && li->outfile == -3)
-						{
-							printf("am in builtin\n");
-							check_arg(li->cmd, &list);
-						}
-						else
-						{
-							// write(2, "hrere\n", 6);
-							pipe(pipes.fd[0]);
-							pipe(pipes.fd[1]);
-							pipex(li, &pipes, &list);
-						}
-					// }
-					// printf("f0 === %d,,,, f1 == %d", pipes.f0, pipes.f1);
-					pipes.index++;
-					li = li->next;
+					printf("am in builtin\n");
+					check_arg(li->cmd, &list);
 				}
+				else
+				{
+					// write(2, "hrere\n", 6);
+					pipe(pipes.fd[0]);
+					pipe(pipes.fd[1]);
+					pipex(li, &pipes, &list);
+				}
+			// }
+			// printf("f0 === %d,,,, f1 == %d", pipes.f0, pipes.f1);
+			pipes.index++;
+			li = li->next;
 		}
 		// while(waitpid())
 		// while (wait(NULL) != -1)
