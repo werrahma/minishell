@@ -135,8 +135,6 @@ t_tokens	*lexer_split_cmdline(char *line);
 t_mini  *fill_last_list(t_tokens *token);
 t_mini	*ft_lstlastl(t_mini *lst);
 void	ft_lstadd_backl(t_mini **lst, t_mini *new);
-void	ambiguous_stx(t_tokens *tokens, t_env *env);
-char *expenv(char *str, t_env *env);
 // parsinghelperf
 
 t_tokens	*ft_lstnewp(char *content);
@@ -153,7 +151,6 @@ void    	open_herfiles(t_tokens *tokens);
 void    	do_expand_tokens(t_tokens **tokens, t_env *env);
 int			have_builtins(char **cmd);
 int			ft_lstsize(t_mini *lst);
-
 # define INFILE 0
 # define OUTFILE 1
 # define PIPE 2

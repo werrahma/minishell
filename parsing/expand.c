@@ -7,7 +7,7 @@ int qoutesordlr(t_tokens *token)
 	{
 		if (token->cont[i] == '\'' || token->cont[i] == '\"')
 			return (1);
-		if (token->cont[i] == '$')
+		if (token->cont[i] == '$' || token->cont[i] == '~')
 			return (2);
 		i++;
 	}
@@ -37,9 +37,14 @@ char    *expand_tokens(t_tokens *token, t_env *env)
 	char *strr = NULL; 
 	while(token->cont[i])
 	{
-		if(token->cont[i] == '$' &&  token->cont[i + 1] == '?' && lexer_openqts(token->cont, i) != 2)
+		if (token->cont[0] == '~' && token->cont[1] == '\0')
 		{
-			i++;
+			//i++;
+			str = ft_strjoin(str, expenv("HOME", env));
+		}
+		else if(token->cont[i] == '$' &&  token->cont[i + 1] == '?' && lexer_openqts(token->cont, i) != 2)
+		{
+			//i++;
 			str = ft_strjoin(str, ft_itoa(stx));
 		}
 		else if(token->cont[i] == '$' && lexer_openqts(token->cont, i) != 2)
@@ -47,9 +52,7 @@ char    *expand_tokens(t_tokens *token, t_env *env)
 			j = i + 1;
 			i = j;
 			if (!(ft_isalnum(token->cont[i])))
-			{
 				str = ft_chrjoin(str, token->cont[i - 1]);
-			}
 			else 
 			{
 				while (i)
@@ -58,12 +61,6 @@ char    *expand_tokens(t_tokens *token, t_env *env)
 					{
 						s = ft_substr(token->cont, j , (i - j));
 						str = ft_strjoin(str, expenv(s, env));
-						// if (str[0] == '\0' && (token->perv->type == 6 || token->perv->type == 7 || token->perv->type == 8))
-						// {
-						// 	ft_putstr_fd(ft_strjoin(token->cont, ": ") , 2);
-						// 	ft_putstr_fd("ambiguous redirect\n", 2);
-						// 	stx = 1;
-						// }
 						i--;
 						break;
 					}
@@ -83,8 +80,6 @@ char    *expand_tokens(t_tokens *token, t_env *env)
 	}
 	if (str && str[0] == '\0' && (token->perv->type == 6 || token->perv->type == 7 || token->perv->type == 8))
 	{
-		//exit( 0);
-		printf("hehehe\n"); 
 		ft_putstr_fd(ft_strjoin(token->cont, ": ") , 2);
 		ft_putstr_fd("ambiguous redirect\n", 2);
 		stx = 1;
@@ -98,8 +93,6 @@ void    do_expand_tokens(t_tokens **tokens, t_env *env)
 	char	*str;
 
 	tmp = *tokens;
-
-	// ambiguous_stx(*tokens, env);
 	while (*tokens)
 	{
 		if (qoutesordlr(*tokens))
