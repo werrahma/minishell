@@ -7,7 +7,7 @@ int qoutesordlr(t_tokens *token)
 	{
 		if (token->cont[i] == '\'' || token->cont[i] == '\"')
 			return (1);
-		if (token->cont[i] == '$')
+		if (token->cont[i] == '$' || token->cont[i] == '~')
 			return (2);
 		i++;
 	}
@@ -37,9 +37,14 @@ char    *expand_tokens(t_tokens *token, t_env *env)
 	char *strr = NULL; 
 	while(token->cont[i])
 	{
-		if(token->cont[i] == '$' &&  token->cont[i + 1] == '?' && lexer_openqts(token->cont, i) != 2)
+		if (token->cont[0] == '~' && token->cont[1] == '\0')
 		{
-			i++;
+			//i++;
+			str = ft_strjoin(str, expenv("HOME", env));
+		}
+		else if(token->cont[i] == '$' &&  token->cont[i + 1] == '?' && lexer_openqts(token->cont, i) != 2)
+		{
+			//i++;
 			str = ft_strjoin(str, ft_itoa(stx));
 		}
 		else if(token->cont[i] == '$' && lexer_openqts(token->cont, i) != 2)

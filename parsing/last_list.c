@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:46:33 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/06 10:23:45 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/06 12:32:21 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,6 @@ void	*ft_realloc(void *ptr, size_t size)
 	if (!nptr)
 		return (NULL);
 	len = size;
-	if (size > sizeof(ptr))
-		len = sizeof(ptr);
 	ft_memcpy(nptr, ptr, len);
 	free(ptr);
 	return (nptr);
@@ -149,7 +147,6 @@ t_mini	*fill_last_list(t_tokens *token)
 	open_herfiles(token);
 	while (token)
 	{
-		printf("============%s\n", token->cont);
 		if(token->type == PIPE)
 		{
 			list->cmd = ft_realloc(list->cmd, (i + 1) * sizeof(char *));
@@ -169,15 +166,12 @@ t_mini	*fill_last_list(t_tokens *token)
 			list->infile = openfd(token->next->cont, 0);
 		else if (token->next &&  token->type == OUTPUT)
 		{
-			printf("ls\n");
 			list->outfile = openfd(token->next->cont, 1);
-
 		}
 		else if (token->next && token->type == APPEND)
 			list->outfile = openfd(token->next->cont, 2);
 		else if ((token->type == INPUT || token->type == OUTPUT) && !token->next)
 		{
-			printf("hdhdh\n");
 			list->outfile = -1;
 		}
 		token = token->next;
