@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:07:11 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/06 15:21:20 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:42:39 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,10 @@ int	has_plus_equal(char *arg, t_env *env)
 	{
 		if (arg[i] == '+' && arg[i + 1] == '=')
 		{
-			printf("last value is ->> %s\n", env->value);
-			printf("arg is === %s\n", arg);
+			// printf("last value is ->> %s\n", env->value);
+			// printf("arg is === %s\n", arg);
 			env->value = ft_strjoin(env->value, &arg[i + 2]);
-			printf("new value is ->> %s\n", env->value);
+			// printf("new value is ->> %s\n", env->value);
 			return (1);
 		}
 		i++;
@@ -126,10 +126,24 @@ int	is_plus_equal_inlist(t_env *env, char *arg)
 }
 int	is_string_inlist(t_env *env, char *arg)
 {
+	int	i;
+	int	flag;
+
+	i = 0;
+	flag = 0;
+	while(arg[i] && arg[i] != '=')
+		i++;
+	if (arg[i] && !arg[i + 1])
+		flag = 1;
 	while(env)
 	{
 		if (!ft_strncmp(env->key, arg, ft_strlen(env->key)))
+		{
+			free(env->key);
+			if (flag == 1)
+				env->key = ft_strdup(arg);
 			return (1);
+		}
 		env = env->next;
 	}
 	return (0);
