@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/05 13:23:47 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/07 12:58:03 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,19 @@ void	child_process_one(t_mini *list, t_pipe *pipes, t_env **env)
 	char	*acs1;
 	char	**args;
 	int		flag;
+	int		i;
 
 	flag = 0;
-	// printf("infile ===  %d\n",list->infile);
+	i = 0;
 	if (list->infile == -1)
 		ft_fail('f');
-	ps_path = pathfinder(pipes->env);
+	ps_path = pathfinder(*env);
 	if (!ps_path)
+	{
+		while (list->cmd[i])
+			printf("miinishell: %s No such file or directory\n", list->cmd[i++]);
 		exit (1);
+	}
 	if (list->cmd[0])
 		acs1 = check_access(ps_path, list->cmd[0]);
 	if (list->infile != -3)
@@ -57,13 +62,15 @@ void	child_process_two(t_mini *list, t_pipe *pipes, t_env **env)
 	char	*acs2;
 	char	**args;
 	int		flag;
+	int		i;
 
 	flag = 0;
-	ps_path = pathfinder(pipes->env);
+	i = 0;
+	ps_path = pathfinder(*env);
 	if (!ps_path)
 	{
-		printf("am failed\n"
-		);
+		while (list->cmd[i])
+			printf("miinishell: %s No such file or directory\n", list->cmd[i++]);
 		exit(1);
 	}
 	if (list->cmd[0])
@@ -92,21 +99,24 @@ void	last_child(t_mini *list, t_pipe *pipes, t_env **env)
 	char	**args;
 	int		fd2;
 	int		flag;
+	int		i;
 
 	flag = 0;
-	// printf("out === %d\n", list->outfile);
+	i = 0;
 	if (list->outfile == -1)
 		ft_fail('f');
-	ps_path = pathfinder(pipes->env);
+	ps_path = pathfinder(*env);
 	if (!ps_path)
-		exit(1);
+	{
+		while (list->cmd[i])
+			printf("miinishell: %s No such file or directory\n", list->cmd[i++]);
+		exit (1);
+	}
 	if (list->cmd[0])
 		acs2 = check_access(ps_path, list->cmd[0]);
 	dup2(pipes->strin_main, 0);
 	if (list->outfile != -3)
-	{
 		dup2(list->outfile, 1);
-	}
 	if(list->outfile != 1)
 	{
 		// write(2, "am closed the file\n", 19);

@@ -96,7 +96,7 @@ void	child_process_one(t_mini *list, t_pipe *pipes, t_env **env);
 void	child_process_two(t_mini *list, t_pipe *pipes, t_env **env);
 void	last_child(t_mini *list, t_pipe *pipes, t_env **env);
 char	*check_access(char **ps_path, char *av);
-char	**pathfinder(char **env);
+char	**pathfinder(t_env *env);
 void	swap(int *a, int *b);
 void	multiple_pipe(t_mini *list, t_env **env, t_pipe *pipes);
 void	ft_fail(char av);

@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 11:36:22 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/20 13:40:06 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/07 12:33:30 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,27 @@ char	**pass_split(char *path)
 	return (sp);
 }
 
-char	**pathfinder(char **env)
+char	**pathfinder(t_env *env)
 {
-	int	i;
-
-	i = 0;
-	while (env[i])
+	while(env)
 	{
-		if (ft_strncmp("PATH=", env[i], 5) == 0)
-			return (pass_split(env[i]));
-		i++;
+		if (!ft_strncmp("PATH", env->key, 4))
+			return (pass_split(env->value));
+		env = env->next;
 	}
 	return (NULL);
 }
+
+// char	**pathfinder(char **env)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (env[i])
+// 	{
+// 		if (ft_strncmp("PATH=", env[i], 5) == 0)
+// 			return (pass_split(env[i]));
+// 		i++;
+// 	}
+// 	return (NULL);
+// }

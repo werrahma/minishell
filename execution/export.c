@@ -6,11 +6,25 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:07:11 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/07 10:42:39 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/07 17:11:52 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	is_spas_instring(char *str)
+{
+	int	i;
+
+	i = 0;
+	while(str[i])
+	{
+		if (str[i] == ' ')
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 void	free_env(t_env **env)
 {
@@ -131,6 +145,7 @@ int	is_string_inlist(t_env *env, char *arg)
 
 	i = 0;
 	flag = 0;
+	// printf("arg ->>>> %s\n", arg);
 	while(arg[i] && arg[i] != '=')
 		i++;
 	if (arg[i] && !arg[i + 1])
@@ -139,7 +154,7 @@ int	is_string_inlist(t_env *env, char *arg)
 	{
 		if (!ft_strncmp(env->key, arg, ft_strlen(env->key)))
 		{
-			free(env->key);
+			// free(env->key);
 			if (flag == 1)
 				env->key = ft_strdup(arg);
 			return (1);
@@ -196,6 +211,8 @@ void	our_export(t_env **env, char **av)
 			}
 			else
 			{
+				if (!is_spas_instring(av[i]))
+					printf("minishell: export: %s: not a valid identifier\n", av[i]);
 				ft_lstadd_back(env, ft_lstnew(1));
 				*env = ft_lstlast(*env);
 				dup_key(av[i], *env);
