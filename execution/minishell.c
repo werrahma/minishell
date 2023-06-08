@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 12:22:26 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/06 13:21:25 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/08 12:32:59 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	check_arg(char **av, t_env **env)
 		if (ft_strcmp("pwd", av[i]) == 0)
 			pwd();
 		else if (ft_strcmp("env", av[i]) == 0)
-			ft_env(*env);
+			print_env(*env);
 		else if (ft_strcmp("echo", av[i]) == 0)
 		{
 			printf("am in echo \n");
@@ -79,9 +79,9 @@ int	check_arg(char **av, t_env **env)
 		else if (ft_strcmp("cd", av[i]) == 0)
 		{
 			if (!av[i + 1])
-				ft_cd(*env, av[i]);
+				our_cd(*env, av[i]);
 			else
-				ft_cd(*env, av[i + 1]);
+				our_cd(*env, av[i + 1]);
 		}
 		else if (!ft_strcmp("unset", av[i]))
 		{
