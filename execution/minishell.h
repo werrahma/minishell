@@ -71,6 +71,7 @@ typedef struct s_pipe
 // #include <readline/readline.h>
 // #include <readline/history.h>
 
+int		is_spas_instring(char *str);
 void	copy_env(t_env **env, t_env **c_env);
 void	create_env(t_env **list);
 void	create_list(t_env **list, char **env);
