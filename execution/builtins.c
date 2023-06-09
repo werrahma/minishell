@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:18:00 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/08 14:33:21 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/09 11:22:47 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,7 @@ int	echo(char **str)
 
 	i = 0;
 	j = 0;
-	while(str[i])
-		printf("%s\n", str[i++]);
-while(1);
-	if (str_len(str) <= 1 || (str_len(str) == 2 && !check_echo(str[1])))
+	if (str_len(str) <= 1)
 		printf("\n");
 	else if (str[1][0] == '-')
 	{
