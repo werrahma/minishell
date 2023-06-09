@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:07:11 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/07 17:11:52 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/08 11:33:49 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	is_spas_instring(char *str)
 	int	i;
 
 	i = 0;
-	while(str[i])
+	while(str[i] && str[i] != '=')
 	{
 		if (str[i] == ' ')
 			return (0);
@@ -187,6 +187,7 @@ void	our_export(t_env **env, char **av)
 			printf("%s", (c_env)->key);
 			if ((c_env)->value != NULL)
 			{
+				// printf("");
 				printf("=");
 				printf("%s\n", (c_env)->value);
 			}
@@ -212,7 +213,10 @@ void	our_export(t_env **env, char **av)
 			else
 			{
 				if (!is_spas_instring(av[i]))
+				{
 					printf("minishell: export: %s: not a valid identifier\n", av[i]);
+					break ;
+				}
 				ft_lstadd_back(env, ft_lstnew(1));
 				*env = ft_lstlast(*env);
 				dup_key(av[i], *env);

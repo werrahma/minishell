@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:18:00 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/07 17:38:18 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/09 11:22:47 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	check_echo(char *s)
 
 	i = 1;
 	if ((s[0] == '-' && ft_strlen(s) == 1) || ft_strlen(s) == 1)
-			return (0);
+		return (0);
 	while (i < ft_strlen(s))
 	{
 		if (s[i] != 'n')
@@ -40,7 +40,7 @@ void	print_cho(char **s, int i, int check)
 	{
 		if (flag == 1)
 		{
-			if(!check_echo(s[i]))
+			if (!check_echo(s[i]))
 			{
 				flag = 0;
 				printf("%s", s[i]);
@@ -56,19 +56,18 @@ void	print_cho(char **s, int i, int check)
 		printf("\n");
 }
 
-
 void	pwd(void)
 {
-    char	str[PATH_MAX];
+	char	str[PATH_MAX];
 
 	printf("%s\n", getcwd(str, PATH_MAX));
 }
-void	ft_env(t_env *env)
+void	print_env(t_env *env)
 {
 	int	i;
 
 	i = 0;
-	while(env)
+	while (env)
 	{
 		if (env->value)
 		{
@@ -86,19 +85,18 @@ int	echo(char **str)
 
 	i = 0;
 	j = 0;
-	if (str_len(str) <= 1 || (str_len(str) == 2 && !check_echo(str[i])))
+	if (str_len(str) <= 1)
 		printf("\n");
 	else if (str[1][0] == '-')
 	{
-		if(!check_echo(str[i + 1]))
+		if (!check_echo(str[i + 1]))
 			return (print_cho(str, i + 1, 0), 0);
 		else
 			return (print_cho(str, i + 2, 1), 0);
 	}
 	else
-			return (print_cho(str, i + 1, 0), 0);
+		return (print_cho(str, i + 1, 0), 0);
 	return (0);
-	
 }
 
 int	check_oldpwd(t_env *env, int *flag)
@@ -114,18 +112,19 @@ int	check_oldpwd(t_env *env, int *flag)
 	return (0);
 }
 
-void	ft_cd(t_env *env, char *file)
+void	our_cd(t_env *env, char *file)
 {
-	char	str[PATH_MAX];
-	char	*path;
-	char	*oldpwd;
-	t_env	*tmp;
-	int		flag;
+	char		str[PATH_MAX];
+	char		*path;
+	char		*oldpwd;
+	t_env		*tmp;
+	int			flag;
 	static int	check;
 
 	tmp = env;
 	flag = 0;
-	if (check_oldpwd(env, &flag));
+	if (check_oldpwd(env, &flag))
+		;
 	else if (check == 0)
 	{
 		ft_lstadd_back(&env, ft_lstnew(1));
@@ -148,18 +147,18 @@ void	ft_cd(t_env *env, char *file)
 		write(1, file, ft_strlen(file));
 		write(2, ": No such file or directory\n", 28);
 	}
-	while(env)
+	while (env)
 	{
-		if (ft_strcmp(env->key, "PWD") == 0)
+		if (!ft_strcmp(env->key, "PWD"))
 		{
 			env->value = getcwd(NULL, 0);
 			// printf("new pwd == %s\n", env->value);
 			check = 1;
 		}
-		else if (ft_strcmp(env->key, "OLDPWD") == 0)
+		else if (!ft_strcmp(env->key, "OLDPWD"))
 		{
-			env->value = oldpwd;
-			// free(oldpwd);
+			env->value = ft_strdup(oldpwd);
+			free(oldpwd);
 			// printf("oldpwd == %s\n", oldpwd);
 		}
 		env = env->next;
