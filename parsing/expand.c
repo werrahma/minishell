@@ -34,8 +34,9 @@ char    *expand_tokens(t_tokens *token, t_env *env)
 	char *s = NULL;
 	int j;
 	extern int stx;
-	char *strr = NULL; 
-	while(token->cont[i])
+	char *strr = NULL;
+	
+	while(token->cont && token->cont[i])
 	{
 		if (token->cont[0] == '~' && token->cont[1] == '\0')
 		{
@@ -47,7 +48,7 @@ char    *expand_tokens(t_tokens *token, t_env *env)
 			i++;
 			str = ft_strjoin(str, ft_itoa(stx));
 		}
-		else if(token->cont[i] == '$' && lexer_openqts(token->cont, i) != 2)
+		else if(token->cont[i] == '$' && lexer_openqts(token->cont, i) != 2 && token->type != 4)
 		{
 			j = i + 1;
 			i = j;
@@ -61,6 +62,8 @@ char    *expand_tokens(t_tokens *token, t_env *env)
 					{
 						s = ft_substr(token->cont, j , (i - j));
 						str = ft_strjoin(str, expenv(s, env));
+						if (!str[0] && token->cont[i] == '\0')
+							return (str);
 						i--;
 						break;
 					}
