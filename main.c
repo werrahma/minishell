@@ -90,7 +90,7 @@ int main(int ac, char **av, char **env)
 				// }
 				if (have_builtins(li->cmd) && ft_lstsize(li) == 1 && li->infile == -3 && li->outfile == -3)
 				{
-					printf("am in builtin\n");
+					// printf("am in builtin\n");
 					check_arg(li->cmd, &list);
 				}
 				else

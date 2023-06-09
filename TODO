@@ -21,3 +21,4 @@ cat /dev/random | head -n 10
 unset Path
 cat << ""
 export "hh ii" : bash: export: `hh ii': not a valid identifier
+env | grep PATH  bash: env: No such file or directory bash: grep: No such file or directory

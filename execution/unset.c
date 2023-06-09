@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:15:35 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/15 12:38:04 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:08:36 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ void	unset(t_env **env, char **remove)
 	tmp = *env;
 	flag = 0;
 	i = 1;
+	printf("%s\n", remove[i]);
+	printf("%s\n", (*env)->key);
+	exit(1);
 	while(remove[i])
 	{
 		if (flag == 1)
