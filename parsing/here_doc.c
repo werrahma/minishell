@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 21:20:11 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/10 13:29:07 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/10 15:45:59 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void    here_doc(char *name, char *li)
 		line = readline("> ");
 		if(!line)
 		{
-			printf("\n");
+			//printf("\n");
 			break;
 		}
 		if(!ft_strncmp(line, li, ft_strlen(line)) && ft_strlen(line) == ft_strlen(li))
@@ -72,6 +72,7 @@ void handle_signal2(int sig)
 void    open_herfiles(t_tokens *tokens)
 {
 	int id;
+	extern int stx;
 	char	*name;
 
 	while(tokens)
@@ -87,6 +88,7 @@ void    open_herfiles(t_tokens *tokens)
 				name = ft_gethername();
 				here_doc(name, tokens->next->cont);
 				tokens->next->cont = name;
+				exit(0);
 			}
 			waitpid(id, 0, 0);
 		}

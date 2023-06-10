@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/10 13:38:41 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/10 15:41:50 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	child_process_one(t_mini *list, t_pipe *pipes, t_env **env)
 	if (flag == 1 || !list->cmd[0])
 		exit (0);
 	execve(acs1, list->cmd, pipes->env);
-	exit(0);
 	ft_fail('e');
 }
 
@@ -90,7 +89,6 @@ void	child_process_two(t_mini *list, t_pipe *pipes, t_env **env)
 	if (flag == 1 || !list->cmd[0])
 		exit (0);
 	execve(acs2, list->cmd, pipes->env);
-	exit(0);
 	ft_fail('e');
 }
 
@@ -136,6 +134,5 @@ void	last_child(t_mini *list, t_pipe *pipes, t_env **env)
 	if (flag == 1 || !list->cmd[0])
 		exit (0);
 	execve(acs2, list->cmd, pipes->env);
-	exit(0);
 	ft_fail('e');
 }
