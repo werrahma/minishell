@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 21:20:11 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/07 13:31:22 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/10 13:29:07 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,33 @@ void    here_doc(char *name, char *li)
 	f = open(name, O_CREAT | O_RDWR | O_TRUNC, 0777);
 	while (1)
 	{
-		ft_putstr_fd("heredoc> ", 1);
-		line = get_next_line(0);
+		//signal(SIGINT, SIG_DFL);
+		// ft_putstr_fd("heredoc> ", 1);
+		// line = get_next_line(0);
+		line = readline("> ");
 		if(!line)
 		{
 			printf("\n");
 			break;
 		}
-		if(!ft_strncmp(line, li, ft_strlen(line) - 1) && ft_strlen(line) - 1 == ft_strlen(li))
+		if(!ft_strncmp(line, li, ft_strlen(line)) && ft_strlen(line) == ft_strlen(li))
 		{
 			free(line);
 			break;
 		}
 		else
+		{
 			ft_putstr_fd(line, f);
+			ft_putchar_fd('\n', f);
+		}
 		free (line);
 	}
+}
+
+void handle_signal2(int sig)
+{
+	printf("\n");
+	exit(0);
 }
 
 void    open_herfiles(t_tokens *tokens)
@@ -66,15 +77,18 @@ void    open_herfiles(t_tokens *tokens)
 	while(tokens)
 	{
 		if(tokens->type == HEREDOC)
-		{
-			//id = fork();
-			//if (id == 0)
-			//{
+		{	
+			signal(SIGINT, SIG_IGN);
+			id = fork();
+			if (id == 0)
+			{
+				signal(SIGINT, handle_signal2);
+				signal(SIGQUIT, SIG_DFL);
 				name = ft_gethername();
 				here_doc(name, tokens->next->cont);
 				tokens->next->cont = name;
-			//}
-			//waitpid(id, 0, 0);
+			}
+			waitpid(id, 0, 0);
 		}
 		tokens = tokens->next;
 	}

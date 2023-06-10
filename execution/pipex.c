@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 13:15:07 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/06 10:48:06 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/10 13:25:44 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	pipex(t_mini *list, t_pipe *pipes, t_env **env)
 	flag = 0;
 	if (!list->next && list->outfile == -3)
 	{
-		printf("am here for flag\n");
+		//printf("am here for flag\n");
 		flag = 1;
 		list->outfile = 1;
 	}
@@ -49,9 +49,14 @@ void	pipex(t_mini *list, t_pipe *pipes, t_env **env)
 		have_file++;
 		// printf("i have infile\n");
 		pipes->pid[pipes->index] = fork();
+		// signal(SIGINT, SIG_IGN);
 		// pipes->index++;
 		if (pipes->pid[pipes->index] == 0)
+		{
+			// signal(SIGINT, SIG_DFL);
+			// signal(SIGQUIT, SIG_DFL);
 			child_process_one(list, pipes, env);
+		}
 		
 	}
 	if (have_file > 0)
@@ -67,11 +72,16 @@ void	pipex(t_mini *list, t_pipe *pipes, t_env **env)
 	}
 	else if (list->outfile > 2 || flag == 1)
 	{
-		printf("i have outfile\n");
+		//printf("i have outfile\n");
 		pipes->pid[pipes->index] = fork();
+		// signal(SIGINT, SIG_IGN);
 		// pipes->index++;
 		if (pipes->pid[pipes->index] == 0)
+		{
+			// signal(SIGINT, SIG_DFL);
+			// signal(SIGQUIT, SIG_DFL);
 			last_child(list, pipes, env);
+		}
 	}
 	close(pipes->fd[pipes->f0][0]);
 	close(pipes->fd[pipes->f0][1]);
