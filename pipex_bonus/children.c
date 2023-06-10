@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   children.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/27 21:27:52 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/10 15:15:42 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipes_monitor.h"
 // # include "../execution/minishille.h"
 
-void	child_process_one(t_mini *list, char **env, t_pipe *pipes)
+void	first_child(t_mini *list, char **env, t_pipe *pipes)
 {
 	int		fd1;
 	char	**ps_path;
@@ -27,7 +27,7 @@ void	child_process_one(t_mini *list, char **env, t_pipe *pipes)
 		ft_fail('f');
 	ps_path = pathfinder(env);
 	if (!ps_path)
-		exit (1);
+		exit(1);
 	// args = ft_split(av[1], ' ');
 	acs1 = check_access(ps_path, list->cmd[0]);
 	dup2(fd1, 0);
@@ -40,7 +40,7 @@ void	child_process_one(t_mini *list, char **env, t_pipe *pipes)
 	ft_fail('e');
 }
 
-void	child_process_two(t_mini *list, char **env, t_pipe *pipes)
+void	second_child(t_mini *list, char **env, t_pipe *pipes)
 {
 	char	**ps_path;
 	char	*acs2;
@@ -82,7 +82,7 @@ void	last_child(t_mini *list, char **env, t_pipe *pipes)
 	close(pipes->fd[pipes->f0][1]);
 	close(pipes->fd[pipes->f1][0]);
 	close(pipes->fd[pipes->f1][1]);
-	if(list->outfile > 2)
+	if (list->outfile > 2)
 		close(list->outfile);
 	// return ;
 	execve(acs2, list->cmd, env);

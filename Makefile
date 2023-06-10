@@ -12,7 +12,7 @@ SRC = \
 		execution/final_path.c\
 		execution/ft_fail.c\
 		execution/multiple_pipe.c\
-		execution/pipex.c\
+		execution/pipes_monitor.c\
 		execution/size_limiter.c\
 		execution/ft_lstsize.c
 
