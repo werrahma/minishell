@@ -31,7 +31,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	cd execution/libft && $(MAKE)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) -lreadline
+	$(CC) $(CFLAGS) $(READLINE) $(OBJ) $(LIBFT) -o $(NAME)
 
 clean:
 	rm -rf $(OBJ)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_monitor.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 13:15:07 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/09 11:34:52 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/10 13:45:06 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	pipes_monitor(t_mini *list, t_pipe *pipes, t_env **env)
 		have_file++;
 		// printf("i have infile\n");
 		pipes->pid[pipes->index] = fork();
+		// signal(SIGINT, SIG_IGN);
 		// pipes->index++;
 		if (pipes->pid[pipes->index] == 0)
 			first_child(list, pipes, env);
@@ -68,9 +69,14 @@ void	pipes_monitor(t_mini *list, t_pipe *pipes, t_env **env)
 	{
 		// printf("i have outfile\n");
 		pipes->pid[pipes->index] = fork();
+		// signal(SIGINT, SIG_IGN);
 		// pipes->index++;
 		if (pipes->pid[pipes->index] == 0)
+		{
+			// signal(SIGINT, SIG_DFL);
+			// signal(SIGQUIT, SIG_DFL);
 			last_child(list, pipes, env);
+		}
 	}
 	close(pipes->fd[pipes->f0][0]);
 	close(pipes->fd[pipes->f0][1]);

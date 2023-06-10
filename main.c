@@ -52,9 +52,9 @@ int	main(int ac, char **av, char **env)
 	// pipe(pipes.fd[1]);
 	// exit(1);
 	signal(SIGQUIT, SIG_IGN);
-	// signal(SIGINT, handle_signal);
 	while (1)
 	{
+		// signal(SIGINT, handle_signal);
 		line = readline("minishell$ ");
 		if (!line)
 		{
@@ -116,6 +116,7 @@ int	main(int ac, char **av, char **env)
 		waitpid(pipes.pid[size_list - 1], &finale_exit, 0);
 		while (i < size_list)
 			waitpid(pipes.pid[i++], &stx, 0);
+		finale_exit = WEXITSTATUS(stx);
 		// exit(1);
 		// i = 0;
 		// while(li->cmd[i])
