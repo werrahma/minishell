@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:46:33 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/11 16:55:23 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/11 19:15:26 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void	*ft_realloc(void *ptr, size_t size)
 	return (nptr);
 }
 
-t_mini	*fill_last_list(t_tokens *token)
+t_mini	*fill_last_list(t_tokens *token, t_env *lis)
 {
 	t_mini *list;
 	t_mini	*tmp;
@@ -145,7 +145,7 @@ t_mini	*fill_last_list(t_tokens *token)
 
 	i = 0;
 	int flag = 0;
-	open_herfiles(token);
+	open_herfiles(token, lis);
 	while (token)
 	{
 		if (!token->cont && !token->next && token->type == ARG)

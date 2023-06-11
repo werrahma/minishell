@@ -27,6 +27,7 @@ t_tokens	*ft_lstnewp( char *content)
 	if (!lst)
 		return (NULL);
 	lst->cont = content;
+	lst->qh = 0;
 	lst->next = NULL;
 	lst->perv = NULL;
 	return (lst);

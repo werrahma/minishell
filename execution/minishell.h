@@ -5,6 +5,7 @@ typedef struct s_tokens
 {
 	int				type;
 	char			*cont;
+	int				qh;
 	struct s_tokens	*next;
 	struct s_tokens	*perv;
 }					t_tokens;
@@ -130,9 +131,10 @@ typedef struct glo
 
 void				stxe(t_tokens *to);
 t_tokens			*lexer_split_cmdline(char *line);
-t_mini				*fill_last_list(t_tokens *token);
+t_mini				*fill_last_list(t_tokens *token, t_env *list);
 t_mini				*ft_lstlastl(t_mini *lst);
 void				ft_lstadd_backl(t_mini **lst, t_mini *new);
+char *expenv(char *str, t_env *env);
 // parsinghelperf
 
 t_tokens			*ft_lstnewp(char *content);
@@ -145,7 +147,7 @@ void				ft_lstadd_backp(t_tokens **lst, t_tokens *new);
 int					lexer_openqts(char *line, int indx);
 char				*get_next_line(int fd);
 int					ft_strcmp(const char *s1, const char *s2);
-void				open_herfiles(t_tokens *tokens);
+void				open_herfiles(t_tokens *tokens, t_env *list);
 void				do_expand_tokens(t_tokens **tokens, t_env *env);
 int					have_builtins(char **cmd);
 int					ft_lstsize(t_mini *lst);

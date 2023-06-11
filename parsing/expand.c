@@ -40,7 +40,6 @@ char    *expand_tokens(t_tokens *token, t_env *env)
 	{
 		if (token->cont[0] == '~' && token->cont[1] == '\0')
 		{
-			//i++;
 			str = ft_strjoin(str, expenv("HOME", env));
 		}
 		else if(token->cont[i] == '$' &&  token->cont[i + 1] == '?' && lexer_openqts(token->cont, i) != 2)
@@ -98,6 +97,8 @@ void    do_expand_tokens(t_tokens **tokens, t_env *env)
 	tmp = *tokens;
 	while (*tokens)
 	{
+		if ((*tokens)->type == LIMETER && qoutesordlr(*tokens) == 1)
+			(*tokens)->qh = 1;
 		if (qoutesordlr(*tokens))
 		{
 			str = expand_tokens(*tokens, env);

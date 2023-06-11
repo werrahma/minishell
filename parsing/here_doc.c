@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 21:20:11 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/11 15:56:33 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/11 20:07:49 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,44 @@ char	*ft_gethername()
 		name = ft_strjoin("/tmp/here_doc", ii);
 	}
 	return (name);
-
 }
+char	*expand_her(char *line, t_env *env)
+{
+	int i;
+	int j;
+	char *s = NULL;
+	char *str = NULL;
 
-
-void    here_doc(char *name, char *li)
+	i = 0;
+	while(line[i])
+	{
+		if (line[i] == '$' && !(ft_isalnum(line[i + 1])))
+				str = ft_chrjoin(str, line[i]);
+		else if(line[i] == '$')
+		{
+			j = i + 1;
+			i = j;
+			while (i)
+			{
+				if (line[i] == '\0' || !(ft_isalnum(line[i])))
+				{
+					s = ft_substr(line, j , (i - j));
+					str = ft_strjoin(str, expenv(s, env));
+					if (!str[0] && line[i] == '\0')
+						return (str);
+					i--;
+					break;
+				}
+				i++;
+			}
+		}
+		else
+ 			str = ft_chrjoin(str, line[i]);
+		i++;
+	}
+	return (str);
+}
+void    here_doc(char *name, char *li, int qh, t_env *env)
 {
 	char    *line;
 	int     f;
@@ -45,12 +78,15 @@ void    here_doc(char *name, char *li)
 			break;
 		if(!ft_strncmp(line, li, ft_strlen(line)) && ft_strlen(line) == ft_strlen(li))
 		{
-			printf("here\n");
+			//printf("here\n");
 			free(line);
 			break;
 		}
 		else
 		{
+			if (qh == 1 || !ft_strchr(line, '$'));
+			else
+				line = expand_her(line, env);
 			ft_putstr_fd(line, f);
 			ft_putchar_fd('\n', f);
 		}
@@ -64,7 +100,7 @@ void handle_signal2(int sig)
 	exit(0);
 }
 
-void    open_herfiles(t_tokens *tokens)
+void    open_herfiles(t_tokens *tokens, t_env *list)
 {
 	int id;
 	extern int stx;
@@ -81,7 +117,7 @@ void    open_herfiles(t_tokens *tokens)
 			{
 				signal(SIGINT, handle_signal2);
 				signal(SIGQUIT, SIG_DFL);
-				here_doc(name, tokens->next->cont);
+				here_doc(name, tokens->next->cont, tokens->next->qh, list);
 				exit(0);
 			}
 			waitpid(id, 0, 0);
