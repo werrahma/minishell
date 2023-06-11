@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:46:33 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/09 11:21:47 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/11 12:24:11 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,34 +144,37 @@ t_mini	*fill_last_list(t_tokens *token)
 	tmp = list;
 
 	i = 0;
+	int flag = 0;
 	open_herfiles(token);
 	while (token)
 	{
-		if(token->type == ARG && !token->cont[0]);
-		else if(token->type == PIPE)
+
+		if(token && token->type == ARG && !token->cont);
+		else if(token && token->type == PIPE)
 		{
 			list->cmd = ft_realloc(list->cmd, (i + 1) * sizeof(char *));
 			list->cmd[i] = NULL;
 			list = list->next;
 			i = 0;
 		}
-		else if (token->type == ARG)
+		else if (token && token->type == ARG && token->cont)
 		{
+
 			list->cmd = ft_realloc(list->cmd, (i + 1) * sizeof(char *));
 			list->cmd[i] = ft_strdup(token->cont);
 			i++;
 		}
-		else if (token->next && token->type == HEREDOC)
+		else if (token && token->next && token->type == HEREDOC)
 			list->infile = openfd(token->next->cont, 3);
-		else if (token->next && token->type == INPUT)
+		else if (token && token->next && token->type == INPUT)
 			list->infile = openfd(token->next->cont, 0);
-		else if (token->next &&  token->type == OUTPUT)
+		else if (token && token->next &&  token->type == OUTPUT)
 		{
 			list->outfile = openfd(token->next->cont, 1);
 		}
-		else if (token->next && token->type == APPEND)
+		else if (token && token->next && token->type == APPEND)
 			list->outfile = openfd(token->next->cont, 2);
-		else if ((token->type == INPUT || token->type == OUTPUT) && !token->next)
+		else if (token && (token->type == INPUT || token->type == OUTPUT) && !token->next)
 		{
 			list->outfile = -1;
 		}

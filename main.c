@@ -61,9 +61,16 @@ int main(int ac, char **av, char **env)
 			printf("exit\n");
 			exit (1);
 		}
+		if(lexer_openqts(line, ft_strlen(line)))
+		{
+			ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
+			stx = 1;
+		}
 		tokens = lexer_split_cmdline(line);
 		do_expand_tokens(&tokens, list);
+		//write(2, "gg\n", 3);
 		li = fill_last_list(tokens);
+		//puts("fffff");
 		size_list = ft_lstsize(li);
 		pipes.pid = tab_pid(li);
 		pipes.index = 0;
