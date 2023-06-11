@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/10 15:49:08 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/11 12:27:49 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	first_child(t_mini *list, t_pipe *pipes, t_env **env)
 	flag = 0;
 	i = 0;
 	if (list->infile == -1)
-		ft_fail('f');
+		exit(1);
 	ps_path = pathfinder(*env);
-	if (!ps_path)
+	if (!ps_path && list->cmd[0][0] != '/')
 	{
 		while (list->cmd[i])
 			printf("miinishell: %s No such file or directory\n",
@@ -54,7 +54,7 @@ void	first_child(t_mini *list, t_pipe *pipes, t_env **env)
 	if (flag == 1 || !list->cmd[0])
 		exit(0);
 	execve(acs1, list->cmd, pipes->env);
-	ft_fail('e');
+	exit(1);
 }
 
 void	second_child(t_mini *list, t_pipe *pipes, t_env **env)
@@ -68,7 +68,7 @@ void	second_child(t_mini *list, t_pipe *pipes, t_env **env)
 	flag = 0;
 	i = 0;
 	ps_path = pathfinder(*env);
-	if (!ps_path)
+	if (!ps_path && list->cmd[0][0] != '/')
 	{
 		while (list->cmd[i])
 			printf("miinishell: %s No such file or directory\n",
@@ -91,7 +91,7 @@ void	second_child(t_mini *list, t_pipe *pipes, t_env **env)
 	if (flag == 1 || !list->cmd[0])
 		exit(0);
 	execve(acs2, list->cmd, pipes->env);
-	ft_fail('e');
+	exit(1);
 }
 
 void	last_child(t_mini *list, t_pipe *pipes, t_env **env)
@@ -106,9 +106,9 @@ void	last_child(t_mini *list, t_pipe *pipes, t_env **env)
 	flag = 0;
 	i = 0;
 	if (list->outfile == -1)
-		ft_fail('f');
+		exit(1);
 	ps_path = pathfinder(*env);
-	if (!ps_path)
+	if (!ps_path && list->cmd[0][0] != '/')
 	{
 		while (list->cmd[i])
 			printf("miinishell: %s No such file or directory\n",
@@ -137,5 +137,5 @@ void	last_child(t_mini *list, t_pipe *pipes, t_env **env)
 	if (flag == 1 || !list->cmd[0])
 		exit(0);
 	execve(acs2, list->cmd, pipes->env);
-	ft_fail('e');
+	exit(1);
 }

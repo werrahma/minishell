@@ -21,4 +21,12 @@ cat /dev/random | head -n 10
 unset Path
 cat << ""
 export "hh ii" : bash: export: `hh ii': not a valid identifier
-env | grep PATH  bash: env: No such file or directory bash: grep: No such file or directory
+env | grep PATH  bash: env: No such file or directory bash: grep: No such file or directory 
+
+
+/bin/ls  | /usr/bin/wc | export | wc
+echo -n
+/bin/ls
+" '
+\t
+./minishell inside ./minishell

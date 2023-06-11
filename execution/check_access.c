@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 11:33:48 by werrahma          #+#    #+#             */
-/*   Updated: 2023/05/20 13:33:21 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/11 12:27:42 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*check_access(char **ps_path, char *av)
 	int	i;
 
 	i = 0;
-	if (av[0] == '/')
+	if (av[0] == '/' || (av[0] == '.' && av[1] == '/'))
 		return (av);
 	av = ft_strjoin("/", av);
 	while (ps_path[i])
