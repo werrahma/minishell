@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 12:22:26 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/09 11:34:27 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/10 15:12:53 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	check_arg(char **av, t_env **env)
 		// {
 		// 	pipe(pipes->fd[0]);
 		// 	pipe(pipes->fd[1]);
-		// 	pipex(list, pipes->env, pipes);
+		// 	pipes_monitor(list, pipes->env, pipes);
 		// }
 	// 	i++;
 	// }

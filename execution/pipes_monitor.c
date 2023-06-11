@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipes_monitor.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,9 +12,9 @@
 
 #include "minishell.h"
 
-int *tab_pid(t_mini *list)
+int	*tab_pid(t_mini *list)
 {
-	int *tab;
+	int	*tab;
 
 	tab = malloc(sizeof(int) * ft_lstsize(list));
 	return (tab);
@@ -29,12 +29,12 @@ void	swap(int *a, int *b)
 	*b = tmp;
 }
 
-void	pipex(t_mini *list, t_pipe *pipes, t_env **env)
+void	pipes_monitor(t_mini *list, t_pipe *pipes, t_env **env)
 {
-	int		chld_o;
-	int		chld_t;
-	int		flag;
-	int		have_file;
+	int	chld_o;
+	int	chld_t;
+	int	flag;
+	int	have_file;
 
 	have_file = 0;
 	flag = 0;
@@ -44,7 +44,7 @@ void	pipex(t_mini *list, t_pipe *pipes, t_env **env)
 		flag = 1;
 		list->outfile = 1;
 	}
-	if(list->infile > 2)
+	if (list->infile > 2)
 	{
 		have_file++;
 		// printf("i have infile\n");
@@ -52,12 +52,7 @@ void	pipex(t_mini *list, t_pipe *pipes, t_env **env)
 		// signal(SIGINT, SIG_IGN);
 		// pipes->index++;
 		if (pipes->pid[pipes->index] == 0)
-		{
-			// signal(SIGINT, SIG_DFL);
-			// signal(SIGQUIT, SIG_DFL);
-			child_process_one(list, pipes, env);
-		}
-		
+			first_child(list, pipes, env);
 	}
 	if (have_file > 0)
 	{
@@ -88,5 +83,5 @@ void	pipex(t_mini *list, t_pipe *pipes, t_env **env)
 	close(pipes->fd[pipes->f1][0]);
 	close(pipes->fd[pipes->f1][1]);
 	// while (wait(NULL) != -1)
-	// 	continue;
+	// 	continue ;
 }

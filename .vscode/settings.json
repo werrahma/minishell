@@ -3,6 +3,6 @@
         "limits.h": "c",
         "minishell.h": "c",
         "p_minishell.h": "c",
-        "pipex.h": "c"
+        "pipes_monitor.h": "c"
     }
 }
