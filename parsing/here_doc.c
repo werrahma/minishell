@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 21:20:11 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/10 20:04:20 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/11 15:56:33 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,12 @@ void    here_doc(char *name, char *li)
 	f = open(name, O_CREAT | O_RDWR | O_TRUNC, 0777);
 	while (1)
 	{
-		//signal(SIGINT, SIG_DFL);
-		// ft_putstr_fd("heredoc> ", 1);
-		// line = get_next_line(0);
 		line = readline("> ");
 		if(!line)
-		{
-			//printf("\n");
 			break;
-		}
 		if(!ft_strncmp(line, li, ft_strlen(line)) && ft_strlen(line) == ft_strlen(li))
 		{
+			printf("here\n");
 			free(line);
 			break;
 		}
@@ -81,16 +76,17 @@ void    open_herfiles(t_tokens *tokens)
 		{	
 			signal(SIGINT, SIG_IGN);
 			id = fork();
+			name = ft_gethername();
 			if (id == 0)
 			{
 				signal(SIGINT, handle_signal2);
 				signal(SIGQUIT, SIG_DFL);
-				name = ft_gethername();
 				here_doc(name, tokens->next->cont);
-				tokens->next->cont = name;
 				exit(0);
 			}
 			waitpid(id, 0, 0);
+			free(tokens->next->cont);
+			tokens->next->cont = name;
 		}
 		tokens = tokens->next;
 	}

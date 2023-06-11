@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:46:33 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/11 12:24:11 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/11 16:55:23 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,8 +148,13 @@ t_mini	*fill_last_list(t_tokens *token)
 	open_herfiles(token);
 	while (token)
 	{
-
-		if(token && token->type == ARG && !token->cont);
+		if (!token->cont && !token->next && token->type == ARG)
+		{
+			list->cmd = ft_realloc(list->cmd, (i + 1) * sizeof(char *));
+			list->cmd[i] = ft_strdup(token->cont);
+			i++;
+		}
+		else if(token && token->type == ARG && !token->cont && token->next);
 		else if(token && token->type == PIPE)
 		{
 			list->cmd = ft_realloc(list->cmd, (i + 1) * sizeof(char *));
@@ -165,7 +170,9 @@ t_mini	*fill_last_list(t_tokens *token)
 			i++;
 		}
 		else if (token && token->next && token->type == HEREDOC)
+		{
 			list->infile = openfd(token->next->cont, 3);
+		}
 		else if (token && token->next && token->type == INPUT)
 			list->infile = openfd(token->next->cont, 0);
 		else if (token && token->next &&  token->type == OUTPUT)
