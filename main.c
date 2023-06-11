@@ -120,10 +120,11 @@ int	main(int ac, char **av, char **env)
 		dup2(stdin_main, pipes.strin_main);
 		// dup2(stdout_main, pipes.stdouut);
 		int i = 0;
-		waitpid(pipes.pid[size_list - 1], &finale_exit, 0);
+		// waitpid(pipes.pid[size_list - 1], &finale_exit, 0);
 		while (i < size_list)
 			waitpid(pipes.pid[i++], &stx, 0);
-		finale_exit = WEXITSTATUS(stx);
+		if (WIFEXITED(stx))
+			finale_exit = WEXITSTATUS(stx);
 		// exit(1);
 		// i = 0;
 		// while(li->cmd[i])

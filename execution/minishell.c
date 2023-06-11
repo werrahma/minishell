@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 12:22:26 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/10 15:12:53 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/11 15:37:52 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	have_builtins(char **cmd)
 {
+	printf("%s\n", cmd[0]);
 	if (!cmd[0])
 		return (0);
 	if (!ft_strcmp("pwd", cmd[0]) || !ft_strcmp("env", cmd[0]) || !ft_strcmp("cd", cmd[0]) || !ft_strcmp("unset", cmd[0]) || !ft_strcmp("exit", cmd[0])

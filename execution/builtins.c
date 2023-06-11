@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:18:00 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/10 00:19:15 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/11 13:25:49 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,9 @@ int	echo(char **str)
 	// while (str[i])	
 	// 	printf("%s\n", str[1]);
 	// exit(1);
-	if (str_len(str) <= 1 || (str_len(str) == 2 && check_echo(str[1])))
+	if (str_len(str) <= 1)
 		printf("\n");
+	else if (str_len(str) == 2 && check_echo(str[1]));
 	else if (str[1][0] == '-')
 	{
 		if (!check_echo(str[i + 1]))
