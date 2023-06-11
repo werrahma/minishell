@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 18:44:16 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/05/30 15:32:58 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/11 10:18:15 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int sep(char s)
 {
 	if (s == '<' || s == '>' || s == '|')
 		return (1);
-	else if (s == ' ' || s == '\n')
+	else if (s == ' ' || s == '\n' || s == '\t')
 		return (1);
 	return (0);
 }
@@ -104,7 +104,6 @@ char	*lexer_collect_str(char *line, int *i)
 			str = ft_chrjoin(str, line[*i]);
 		(*i)++;
 	}
-//	printf("***%s*****", str);
 	return (str);
 }
 
@@ -131,7 +130,7 @@ char * lexer_collect_op(char *line, int *i)
 {
 	char	*str = NULL;
 
-	if (sep(line[*i]) && (!sep(line[*i + 1]) || line[*i + 1] == ' '))
+	if (sep(line[*i]) && (!sep(line[*i + 1]) || (line[*i + 1] == ' ' || line[*i + 1] == '\t')))
 	{
 		str = ft_chrjoin(str, line[(*i)++]);
 	}
@@ -155,7 +154,7 @@ t_tokens	*lexer_split_cmdline(char *line)
 	token = NULL;
 	while(line[i])
 	{
-		if (line[i] == ' ')
+		if (line[i] == ' ' || line[i] == '\t')
 			i++; 
 		else if (!sep(line[i]))
 		{

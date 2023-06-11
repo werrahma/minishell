@@ -19,7 +19,7 @@ void    stxe(t_tokens *to)
 			ft_putstr_fd(ft_strjoin(to->next->cont, "\'\n"), 2);
 			stx = 1;
 			break;
-	   	} 
+	   	}
 		to = to->next;                                                                               
 	}
 }
