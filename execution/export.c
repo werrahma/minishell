@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:07:11 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/08 11:33:49 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/12 19:02:49 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,10 +166,11 @@ int	is_string_inlist(t_env *env, char *arg)
 
 void	our_export(t_env **env, char **av)
 {
-	int	i;
-	int	j;
-    t_env	*tmp;
-	t_env	*c_env;
+	int			i;
+	int			j;
+    t_env		*tmp;
+	t_env		*c_env;
+	static int	cnst;
 
 	i = 1;
 	j = 0;
@@ -183,8 +184,11 @@ void	our_export(t_env **env, char **av)
 		{
 			// if ((c_env)->value)
 			// {
-			printf("declare -x ");
-			printf("%s", (c_env)->key);
+			// if(c_env->key != NULL)
+			// {
+				printf("declare -x ");
+				printf("%s", (c_env)->key);
+			// }
 			if ((c_env)->value != NULL)
 			{
 				// printf("");
@@ -212,6 +216,7 @@ void	our_export(t_env **env, char **av)
 			}
 			else
 			{
+				printf("av--->>%s\n", av[i]);
 				if (!is_spas_instring(av[i]))
 				{
 					printf("minishell: export: %s: not a valid identifier\n", av[i]);
@@ -219,6 +224,11 @@ void	our_export(t_env **env, char **av)
 				}
 				ft_lstadd_back(env, ft_lstnew(1));
 				*env = ft_lstlast(*env);
+				if (!tmp && !cnst)
+				{
+					tmp = *env;
+					cnst++;
+				}
 				dup_key(av[i], *env);
 				dup_value(av[i], *env);
 			}

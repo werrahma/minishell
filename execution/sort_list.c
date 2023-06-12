@@ -15,6 +15,9 @@ void	copy_env(t_env **env, t_env **c_env)
 	c_tmp = *c_env;
 	while (*c_env && *env)
 	{
+		// if (!(*env)->key)
+		// 	(*c_env)->key = NULL;
+		// else
 		(*c_env)->key = ft_strdup((*env)->key);
 		if (!(*env)->value)
 			(*c_env)->value = NULL;

@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:18:00 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/11 13:25:49 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/12 18:31:16 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,11 @@ void	print_env(t_env *env)
 	int	i;
 
 	i = 0;
+	if (!env)
+	{
+		write(2, "env: No such file or directory\n", 31);
+		return ;
+	}
 	while (env)
 	{
 		if (env->value)
