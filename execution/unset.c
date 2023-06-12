@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:15:35 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/10 01:04:19 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/11 19:01:03 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ void	unset(t_env **env, char **remove)
 	i = 1;
 	while(remove[i])
 	{
+		if (!(*env)->next && !ft_strcmp((*env)->key, remove[i]))
+		{
+			// printf("here\n");
+			// printf("%s\n", (*env)->key);
+			(*env) = NULL;
+		}
 		while(*env && (*env)->next)
 		{
 			curent = *env;

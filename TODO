@@ -32,3 +32,4 @@ echo -n
 ./minishell inside ./minishell
 fdas
 fasfas
+check unset every key in the env the firt key is not unset
