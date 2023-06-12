@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/11 17:01:39 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/11 18:39:44 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	first_child(t_mini *list, t_pipe *pipes, t_env **env)
 {
 	int		fd1;
 	char	**ps_path;
-	char	*acs1;
+	char	*acs;
 	char	**args;
 	int		flag;
 	int		i;
@@ -37,8 +37,8 @@ void	first_child(t_mini *list, t_pipe *pipes, t_env **env)
 	if (have_builtins(list->cmd))
 		flag = 1;
 	else if (list->cmd[0])
-		acs1 = check_access(ps_path, list->cmd[0]);
-	if (!acs1)
+		acs = check_access(ps_path, list->cmd[0]);
+	if (!acs && !flag)
 		exit(127);
 	if (list->infile != -3)
 		dup2(list->infile, 0);
@@ -54,14 +54,14 @@ void	first_child(t_mini *list, t_pipe *pipes, t_env **env)
 	close(pipes->fd[pipes->f1][1]);
 	if (flag == 1 || !list->cmd[0])
 		exit(0);
-	execve(acs1, list->cmd, pipes->env);
+	execve(acs, list->cmd, pipes->env);
 	exit(127);
 }
 
 void	second_child(t_mini *list, t_pipe *pipes, t_env **env)
 {
 	char	**ps_path;
-	char	*acs2;
+	char	*acs;
 	char	**args;
 	int		flag;
 	int		i;
@@ -79,8 +79,8 @@ void	second_child(t_mini *list, t_pipe *pipes, t_env **env)
 	if (have_builtins(list->cmd))
 		flag = 1;
 	else if (list->cmd[0])
-		acs2 = check_access(ps_path, list->cmd[0]);
-	if (!acs2)
+		acs = check_access(ps_path, list->cmd[0]);
+	if (!acs && !flag)
 		exit(127);
 	dup2(pipes->strin_main, 0);
 	dup2(pipes->fd[pipes->f1][1], 1);
@@ -92,14 +92,14 @@ void	second_child(t_mini *list, t_pipe *pipes, t_env **env)
 	close(pipes->fd[pipes->f1][1]);
 	if (flag == 1 || !list->cmd[0])
 		exit(0);
-	execve(acs2, list->cmd, pipes->env);
+	execve(acs, list->cmd, pipes->env);
 	exit(127);
 }
 
 void	last_child(t_mini *list, t_pipe *pipes, t_env **env)
 {
 	char	**ps_path;
-	char	*acs2;
+	char	*acs;
 	char	**args;
 	int		fd2;
 	int		flag;
@@ -120,8 +120,8 @@ void	last_child(t_mini *list, t_pipe *pipes, t_env **env)
 	if (have_builtins(list->cmd))
 		flag = 1;
 	else if (list->cmd[0])
-		acs2 = check_access(ps_path, list->cmd[0]);
-	if (!acs2)
+		acs = check_access(ps_path, list->cmd[0]);
+	if (!acs && !flag)
 		exit(127);
 	dup2(pipes->strin_main, 0);
 	if (list->outfile != -3)
@@ -139,6 +139,6 @@ void	last_child(t_mini *list, t_pipe *pipes, t_env **env)
 	close(pipes->fd[pipes->f1][1]);
 	if (flag == 1 || !list->cmd[0])
 		exit(0);
-	execve(acs2, list->cmd, pipes->env);
+	execve(acs, list->cmd, pipes->env);
 	exit(127);
 }
