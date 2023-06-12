@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:07:11 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/12 19:02:49 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/12 21:56:01 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_spas_instring(char *str)
 	i = 0;
 	while(str[i] && str[i] != '=')
 	{
-		if (str[i] == ' ')
+		if (str[i] == ' ' || str[i] == '-')
 			return (0);
 		i++;
 	}
@@ -191,9 +191,11 @@ void	our_export(t_env **env, char **av)
 			// }
 			if ((c_env)->value != NULL)
 			{
-				// printf("");
+				// printf("/;;");
 				printf("=");
-				printf("%s\n", (c_env)->value);
+				printf("\"");
+				printf("%s", (c_env)->value);
+				printf("\"\n");
 			}
 			else
 				printf("\n");
@@ -216,7 +218,6 @@ void	our_export(t_env **env, char **av)
 			}
 			else
 			{
-				printf("av--->>%s\n", av[i]);
 				if (!is_spas_instring(av[i]))
 				{
 					printf("minishell: export: %s: not a valid identifier\n", av[i]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   children.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/12 16:23:01 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/12 20:49:34 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	first_child(t_mini *list, t_pipe *pipes, t_env **env)
 	close(pipes->fd[pipes->f1][1]);
 	if (flag == 1 || !list->cmd[0])
 		exit(0);
-	execve(acs, list->cmd, pipes->env);
+	execve(acs, list->cmd, get_env(*env));
 	exit(127);
 }
 
@@ -92,7 +92,7 @@ void	second_child(t_mini *list, t_pipe *pipes, t_env **env)
 	close(pipes->fd[pipes->f1][1]);
 	if (flag == 1 || !list->cmd[0])
 		exit(0);
-	execve(acs, list->cmd, pipes->env);
+	execve(acs, list->cmd, get_env(*env));
 	exit(127);
 }
 
@@ -139,6 +139,6 @@ void	last_child(t_mini *list, t_pipe *pipes, t_env **env)
 	close(pipes->fd[pipes->f1][1]);
 	if (flag == 1 || !list->cmd[0])
 		exit(0);
-	execve(acs, list->cmd, pipes->env);
+	execve(acs, list->cmd, get_env(*env));
 	exit(127);
 }

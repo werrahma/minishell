@@ -113,7 +113,7 @@ int	main(int ac, char **av, char **env)
 			// 	printf("for syntax\n");
 			// 	break ;
 			// }
-			if (have_builtins(li->cmd) && ft_lstsize(li) == 1 && li->infile ==
+			if (have_builtins(li->cmd) && size_list == 1 && li->infile ==
 				-3 && li->outfile == -3)
 			{
 				// printf("am in builtin\n");
