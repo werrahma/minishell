@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:46:33 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/11 19:15:26 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/12 11:19:35 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,56 +140,60 @@ t_mini	*fill_last_list(t_tokens *token, t_env *lis)
 	t_mini	*tmp;
 	int		i;
 
-	list = creat_list(token);
-	tmp = list;
 
 	i = 0;
 	int flag = 0;
-	open_herfiles(token, lis);
-	while (token)
+	ft_maxheropn(token);
+	if (!stxe(token))
 	{
-		if (!token->cont && !token->next && token->type == ARG)
+		list = creat_list(token);
+		tmp = list;
+		open_herfiles(token, lis);
+		while (token)
 		{
-			list->cmd = ft_realloc(list->cmd, (i + 1) * sizeof(char *));
-			list->cmd[i] = ft_strdup(token->cont);
-			i++;
-		}
-		else if(token && token->type == ARG && !token->cont && token->next);
-		else if(token && token->type == PIPE)
-		{
-			list->cmd = ft_realloc(list->cmd, (i + 1) * sizeof(char *));
-			list->cmd[i] = NULL;
-			list = list->next;
-			i = 0;
-		}
-		else if (token && token->type == ARG && token->cont)
-		{
+			if (!token->cont && !token->next && token->type == ARG)
+			{
+				list->cmd = ft_realloc(list->cmd, (i + 1) * sizeof(char *));
+				list->cmd[i] = ft_strdup(token->cont);
+				i++;
+			}
+			else if(token && token->type == ARG && !token->cont && token->next);
+			else if(token && token->type == PIPE)
+			{
+				list->cmd = ft_realloc(list->cmd, (i + 1) * sizeof(char *));
+				list->cmd[i] = NULL;
+				list = list->next;
+				i = 0;
+			}
+			else if (token && token->type == ARG && token->cont)
+			{
 
-			list->cmd = ft_realloc(list->cmd, (i + 1) * sizeof(char *));
-			list->cmd[i] = ft_strdup(token->cont);
-			i++;
+				list->cmd = ft_realloc(list->cmd, (i + 1) * sizeof(char *));
+				list->cmd[i] = ft_strdup(token->cont);
+				i++;
+			}
+			else if (token && token->next && token->type == HEREDOC && token->next->type == LIMETER)
+			{
+				list->infile = openfd(token->next->cont, 3);
+			}
+			else if (token && token->next && token->type == INPUT && token->next->type == INFILE)
+				list->infile = openfd(token->next->cont, 0);
+			else if (token && token->next &&  token->type == OUTPUT && token->next->type == OUTFILE)
+			{
+				list->outfile = openfd(token->next->cont, 1);
+			}
+			else if (token && token->next && token->type == APPEND && token->next->type == OUTFILE)
+				list->outfile = openfd(token->next->cont, 2);
+			else if (token && (token->type == INPUT || token->type == OUTPUT) && !token->next)
+			{
+				list->outfile = -1;
+			}
+			token = token->next;
 		}
-		else if (token && token->next && token->type == HEREDOC)
-		{
-			list->infile = openfd(token->next->cont, 3);
-		}
-		else if (token && token->next && token->type == INPUT)
-			list->infile = openfd(token->next->cont, 0);
-		else if (token && token->next &&  token->type == OUTPUT)
-		{
-			list->outfile = openfd(token->next->cont, 1);
-		}
-		else if (token && token->next && token->type == APPEND)
-			list->outfile = openfd(token->next->cont, 2);
-		else if (token && (token->type == INPUT || token->type == OUTPUT) && !token->next)
-		{
-			list->outfile = -1;
-		}
-		token = token->next;
+		list->cmd = ft_realloc(list->cmd, (i + 1) * sizeof(char *));
+		list->cmd[i] = NULL;
+		list = tmp;
+		return (list);
 	}
-	list->cmd = ft_realloc(list->cmd, (i + 1) * sizeof(char *));
-	list->cmd[i] = NULL;
-	list = tmp;
-	return (list);
-
+	return (NULL);
 }

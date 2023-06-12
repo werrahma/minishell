@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 21:20:11 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/11 20:07:49 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/12 10:53:39 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void    open_herfiles(t_tokens *tokens, t_env *list)
 
 	while(tokens)
 	{
-		if(tokens->type == HEREDOC)
+		if(tokens->type == HEREDOC && tokens->next->type == LIMETER)
 		{	
 			signal(SIGINT, SIG_IGN);
 			id = fork();

@@ -82,6 +82,7 @@ int	main(int ac, char **av, char **env)
 		{
 			ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
 			stx = 1;
+			continue;
 		}
 		tokens = lexer_split_cmdline(line);
 		do_expand_tokens(&tokens, list);
