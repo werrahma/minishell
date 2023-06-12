@@ -32,3 +32,6 @@ echo -n
 ./minishell inside ./minishell
 fdas
 fasfas
+
+
+ env | grep PATH
