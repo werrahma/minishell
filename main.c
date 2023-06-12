@@ -23,6 +23,23 @@ int	syntax_checker(t_mini *list)
 // 	rl_redisplay();
 // }
 
+void unlink_hf()
+{
+	char	*name;
+	int 	i;
+	char 	*ii;
+
+	i = 0;
+	ii = ft_itoa(i);
+	name = ft_strjoin("/tmp/here_doc", ii);
+	while (!access(name, F_OK))
+	{
+		i++;
+		unlink(name);
+		ii = ft_itoa(i);
+		name = ft_strjoin("/tmp/here_doc", ii);
+	}
+}
 int	main(int ac, char **av, char **env)
 {
 	int i = 0;
@@ -69,7 +86,7 @@ int	main(int ac, char **av, char **env)
 		tokens = lexer_split_cmdline(line);
 		do_expand_tokens(&tokens, list);
 		//write(2, "gg\n", 3);
-		li = fill_last_list(tokens);
+		li = fill_last_list(tokens, list);
 		//puts("fffff");
 		size_list = ft_lstsize(li);
 		pipes.pid = tab_pid(li);
@@ -132,6 +149,7 @@ int	main(int ac, char **av, char **env)
 		if (line[0])
 			add_history(line);
 		free(line);
+		unlink_hf();
 	}
 	exit(finale_exit);
 }
