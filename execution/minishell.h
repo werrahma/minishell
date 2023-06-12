@@ -129,7 +129,7 @@ typedef struct glo
 // 	struct s_mini *next;
 // }	t_mini;
 
-void				stxe(t_tokens *to);
+int				stxe(t_tokens *to);	
 t_tokens			*lexer_split_cmdline(char *line);
 t_mini				*fill_last_list(t_tokens *token, t_env *list);
 t_mini				*ft_lstlastl(t_mini *lst);
@@ -151,6 +151,8 @@ void				open_herfiles(t_tokens *tokens, t_env *list);
 void				do_expand_tokens(t_tokens **tokens, t_env *env);
 int					have_builtins(char **cmd);
 int					ft_lstsize(t_mini *lst);
+void	ft_maxheropn(t_tokens  *tokens);
+
 # define INFILE 0
 # define OUTFILE 1
 # define PIPE 2

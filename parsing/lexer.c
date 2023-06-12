@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 18:44:16 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/11 10:18:15 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/12 10:59:07 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,6 @@ t_tokens	*lexer_split_cmdline(char *line)
 		}
 	}
 	lexer_definetype(token);
-	stxe(token);
+	// stxe(token);
 	return (token);
 }
