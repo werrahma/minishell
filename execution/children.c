@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   children.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/12 20:49:34 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/13 11:47:12 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	last_child(t_mini *list, t_pipe *pipes, t_env **env)
 
 	flag = 0;
 	i = 0;
-	if (list->outfile == -1)
+	if (list->outfile == -1 || list->infile == -1)
 		exit(1);
 	ps_path = pathfinder(*env);
 	if (!ps_path && list->cmd[0] && list->cmd[0][0] != '/')

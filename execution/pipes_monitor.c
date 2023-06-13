@@ -44,7 +44,7 @@ void	pipes_monitor(t_mini *list, t_pipe *pipes, t_env **env)
 		flag = 1;
 		list->outfile = 1;
 	}
-	if (list->infile > 2)
+	if (list->infile > 2 || list->infile == -1)
 	{
 		have_file++;
 		// printf("i have infile\n");
@@ -59,7 +59,7 @@ void	pipes_monitor(t_mini *list, t_pipe *pipes, t_env **env)
 		// printf("am here\n");
 		dup2(pipes->fd[pipes->f0][0], pipes->strin_main);
 	}
-	else if (list->infile < 2 && list->next && list->outfile < 2)
+	else if (list->infile == -3 && list->next && list->outfile == -3)
 	{
 		// printf("multiple\n");
 		multiple_pipe(list, env, pipes);
