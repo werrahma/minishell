@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:07:11 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/08 11:33:49 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/12 21:56:01 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_spas_instring(char *str)
 	i = 0;
 	while(str[i] && str[i] != '=')
 	{
-		if (str[i] == ' ')
+		if (str[i] == ' ' || str[i] == '-')
 			return (0);
 		i++;
 	}
@@ -166,10 +166,11 @@ int	is_string_inlist(t_env *env, char *arg)
 
 void	our_export(t_env **env, char **av)
 {
-	int	i;
-	int	j;
-    t_env	*tmp;
-	t_env	*c_env;
+	int			i;
+	int			j;
+    t_env		*tmp;
+	t_env		*c_env;
+	static int	cnst;
 
 	i = 1;
 	j = 0;
@@ -183,13 +184,18 @@ void	our_export(t_env **env, char **av)
 		{
 			// if ((c_env)->value)
 			// {
-			printf("declare -x ");
-			printf("%s", (c_env)->key);
+			// if(c_env->key != NULL)
+			// {
+				printf("declare -x ");
+				printf("%s", (c_env)->key);
+			// }
 			if ((c_env)->value != NULL)
 			{
-				// printf("");
+				// printf("/;;");
 				printf("=");
-				printf("%s\n", (c_env)->value);
+				printf("\"");
+				printf("%s", (c_env)->value);
+				printf("\"\n");
 			}
 			else
 				printf("\n");
@@ -219,6 +225,11 @@ void	our_export(t_env **env, char **av)
 				}
 				ft_lstadd_back(env, ft_lstnew(1));
 				*env = ft_lstlast(*env);
+				if (!tmp && !cnst)
+				{
+					tmp = *env;
+					cnst++;
+				}
 				dup_key(av[i], *env);
 				dup_value(av[i], *env);
 			}

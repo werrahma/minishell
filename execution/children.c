@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   children.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/11 18:39:44 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/12 20:49:34 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	first_child(t_mini *list, t_pipe *pipes, t_env **env)
 	close(pipes->fd[pipes->f1][1]);
 	if (flag == 1 || !list->cmd[0])
 		exit(0);
-	execve(acs, list->cmd, pipes->env);
+	execve(acs, list->cmd, get_env(*env));
 	exit(127);
 }
 
@@ -92,7 +92,7 @@ void	second_child(t_mini *list, t_pipe *pipes, t_env **env)
 	close(pipes->fd[pipes->f1][1]);
 	if (flag == 1 || !list->cmd[0])
 		exit(0);
-	execve(acs, list->cmd, pipes->env);
+	execve(acs, list->cmd, get_env(*env));
 	exit(127);
 }
 
@@ -110,7 +110,7 @@ void	last_child(t_mini *list, t_pipe *pipes, t_env **env)
 	if (list->outfile == -1)
 		exit(1);
 	ps_path = pathfinder(*env);
-	if (!ps_path && list->cmd[0][0] != '/')
+	if (!ps_path && list->cmd[0] && list->cmd[0][0] != '/')
 	{
 		while (list->cmd[i])
 			printf("miinishell: %s No such file or directory\n",
@@ -139,6 +139,6 @@ void	last_child(t_mini *list, t_pipe *pipes, t_env **env)
 	close(pipes->fd[pipes->f1][1]);
 	if (flag == 1 || !list->cmd[0])
 		exit(0);
-	execve(acs, list->cmd, pipes->env);
+	execve(acs, list->cmd, get_env(*env));
 	exit(127);
 }

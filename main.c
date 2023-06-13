@@ -15,13 +15,13 @@ int	syntax_checker(t_mini *list)
 	return (1);
 }
 
-void handle_signal(int sig)
-{
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
+// void handle_signal(int sig)
+// {
+// 	printf("\n");
+// 	rl_on_new_line();
+// 	rl_replace_line("", 0);
+// 	rl_redisplay();
+// }
 
 void unlink_hf()
 {
@@ -68,10 +68,10 @@ int	main(int ac, char **av, char **env)
 	// printf("%d\n", pipes.stdiin);
 	// pipe(pipes.fd[1]);
 	// exit(1);
-	signal(SIGQUIT, SIG_IGN);
+	// signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
-		signal(SIGINT, handle_signal);
+		// signal(SIGINT, handle_signal);
 		line = readline("minishell$ ");
 		if (!line)
 		{
@@ -113,7 +113,7 @@ int	main(int ac, char **av, char **env)
 			// 	printf("for syntax\n");
 			// 	break ;
 			// }
-			if (have_builtins(li->cmd) && ft_lstsize(li) == 1 && li->infile ==
+			if (have_builtins(li->cmd) && size_list == 1 && li->infile ==
 				-3 && li->outfile == -3)
 			{
 				// printf("am in builtin\n");
