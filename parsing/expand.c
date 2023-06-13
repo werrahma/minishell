@@ -47,7 +47,7 @@ char    *expand_tokens(t_tokens *token, t_env *env)
 			i++;
 			str = ft_strjoin(str, ft_itoa(stx));
 		}
-		else if(token->cont[i] == '$' && lexer_openqts(token->cont, i) != 2 && token->type != 4)
+		else if(token->cont[i] == '$' && token->cont[i + 1] && lexer_openqts(token->cont, i) != 2 && token->type != 4)
 		{
 			j = i + 1;
 			i = j;

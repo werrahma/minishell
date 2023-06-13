@@ -35,3 +35,23 @@ fasfas
 
 
  env | grep PATH
+
+
+
+minishell$ unset PWD
+minishell$ cd ..
+minishell$ printenv PWD
+
+√
+ env kdlffk
+
+bash-3.2$ export khaili _kddh-djdkj ayyoub
+bash: export: `kddh-djdkj': not a valid identifier
+
+minishell$ unset PWD
+minishell$ cd ..
+minishell$ printenv PWD
+/Users/yahamdan/Desktop/dddd
+
+minishell$ export djkd | export djjkdk | export djk
+minishell$ export no changes

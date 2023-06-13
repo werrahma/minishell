@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 21:20:11 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/12 10:53:39 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/13 09:45:28 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ void    here_doc(char *name, char *li, int qh, t_env *env)
 			break;
 		if(!ft_strncmp(line, li, ft_strlen(line)) && ft_strlen(line) == ft_strlen(li))
 		{
-			//printf("here\n");
+			close(f);
 			free(line);
-			break;
+			exit(0);
 		}
 		else
 		{
@@ -92,12 +92,13 @@ void    here_doc(char *name, char *li, int qh, t_env *env)
 		}
 		free (line);
 	}
+	close (f);
 }
 
 void handle_signal2(int sig)
 {
 	printf("\n");
-	exit(0);
+	exit(1);
 }
 
 void    open_herfiles(t_tokens *tokens, t_env *list)
@@ -105,11 +106,12 @@ void    open_herfiles(t_tokens *tokens, t_env *list)
 	int id;
 	extern int stx;
 	char	*name;
+	int		status;
 
 	while(tokens)
 	{
-		if(tokens->type == HEREDOC && tokens->next->type == LIMETER)
-		{	
+		if(tokens->type == HEREDOC)
+		{
 			signal(SIGINT, SIG_IGN);
 			id = fork();
 			name = ft_gethername();
@@ -120,9 +122,16 @@ void    open_herfiles(t_tokens *tokens, t_env *list)
 				here_doc(name, tokens->next->cont, tokens->next->qh, list);
 				exit(0);
 			}
-			waitpid(id, 0, 0);
+			waitpid(id, &status, 0);
+			if (status != 0)
+			{
+				printf("here\n");
+				free(name);
+				break;
+			}
 			free(tokens->next->cont);
 			tokens->next->cont = name;
+			//free(name);
 		}
 		tokens = tokens->next;
 	}
