@@ -123,6 +123,7 @@ int	main(int ac, char **av, char **env)
 			{
 				// printf("am in builtin\n");
 				check_arg(li->cmd, &list);
+				// printf("stx === %d\n", stx);
 			}
 			else
 			{

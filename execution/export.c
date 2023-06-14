@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:07:11 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/12 21:56:01 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/14 18:01:17 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_spas_instring(char *str)
 	i = 0;
 	while(str[i] && str[i] != '=')
 	{
-		if (str[i] == ' ' || str[i] == '-')
+		if (str[i] == ' ' || str[i] == '-' || (str[0] >= '0' && str[0] <= '9'))
 			return (0);
 		i++;
 	}
@@ -176,19 +176,16 @@ void	our_export(t_env **env, char **av)
 	j = 0;
 	tmp = *env;
 	c_env = NULL;
+	if (!tmp)
+		cnst = 0;
 	if(str_len(av) == 1)
 	{
 		copy_env(env, &c_env);
 		sort_list(&c_env);
 		while((c_env))
 		{
-			// if ((c_env)->value)
-			// {
-			// if(c_env->key != NULL)
-			// {
 				printf("declare -x ");
 				printf("%s", (c_env)->key);
-			// }
 			if ((c_env)->value != NULL)
 			{
 				// printf("/;;");
