@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 21:20:11 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/13 16:56:09 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/14 17:23:30 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,9 @@ void	here_doc(char *name, char *li, int qh, t_env *env)
 				line = expand_her(line, env);
 			ft_putstr_fd(line, f);
 			ft_putchar_fd('\n', f);
+			free(line);
 		}
-		free(line);
+		//free(line);
 	}
 	close(f);
 }
@@ -130,6 +131,8 @@ void	open_herfiles(t_tokens *tokens, t_env *list)
 				exit(0);
 			}
 			waitpid(id, &status, 0);
+			//system("leaks minishell");
+			printf("[%d]\n" ,status);
 			if (status != 0)
 			{
 				printf("here\n");
@@ -138,7 +141,6 @@ void	open_herfiles(t_tokens *tokens, t_env *list)
 			}
 			free(tokens->next->cont);
 			tokens->next->cont = name;
-			free(name);
 		}
 		tokens = tokens->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:46:33 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/13 13:11:16 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:23:54 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,18 @@ void	*ft_realloc(void *ptr, size_t size)
 	free(ptr);
 	return (nptr);
 }
+void	free_tokens(t_tokens *t)
+{
+	t_tokens *tmp;
+	while(t)
+	{
+		tmp = t;
+		t = t->next;
+		free(tmp->cont);
+		// free(tmp->perv);
+		free(tmp);
+	}
+}
 
 t_mini	*fill_last_list(t_tokens *token, t_env *lis)
 {
@@ -142,15 +154,19 @@ t_mini	*fill_last_list(t_tokens *token, t_env *lis)
 	t_mini	*tmp;
 	int		i;
 	int		flag;
+	t_tokens *tm;
 
 	i = 0;
 	flag = 0;
+	tm = token;
 	ft_maxheropn(token);
 	if (!stxe(token))
 	{
 		list = creat_list(token);
 		tmp = list;
 		open_herfiles(token, lis);
+		//system("leaks minishell");
+	//	exit(0);
 		while (token)
 		{
 			if (!token->cont && !token->next && token->type == ARG)
@@ -184,6 +200,8 @@ t_mini	*fill_last_list(t_tokens *token, t_env *lis)
 				list->outfile = openfd(token->next->cont, 2);
 			token = token->next;
 		}
+		token = tm;
+		free_tokens(token);
 		list->cmd = ft_realloc(list->cmd, (i + 1) * sizeof(char *));
 		list->cmd[i] = NULL;
 		list = tmp;
