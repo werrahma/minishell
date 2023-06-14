@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/13 13:23:48 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/14 12:03:34 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	first_child(t_mini *list, t_pipe *pipes, t_env **env)
 	if (!ps_path && list->cmd[0][0] != '/')
 	{
 		while (list->cmd[i])
-			printf("miinishell: %s No such file or directory\n",
+			printf("minishell: %s No such file or directory\n",
 					list->cmd[i++]);
 		exit(1);
 	}

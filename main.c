@@ -82,7 +82,7 @@ int	main(int ac, char **av, char **env)
 	t_mini *t = li;
 	create_list(&list, env);
 	fill_list(&list, env);
-//	exit(0);
+	// while(1);
 	if (!list)
 		create_env(&list);
 	pipes.env = env;
@@ -182,6 +182,7 @@ int	main(int ac, char **av, char **env)
 		free(line);
 		free_li(li);
 		unlink_hf();
+		// system("leaks minishell");
 	}
 	exit(exit_status);
 }
