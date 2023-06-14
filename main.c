@@ -50,7 +50,7 @@ int	main(int ac, char **av, char **env)
 	int j;
 	char **hold;
 	int size_list;
-	int finale_exit;
+	int exit_status;
 	t_env *list = NULL;
 	t_tokens *tokens;
 	// t_env   *tmp = NULL;
@@ -142,11 +142,12 @@ int	main(int ac, char **av, char **env)
 		dup2(stdin_main, pipes.strin_main);
 		// dup2(stdout_main, pipes.stdouut);
 		int i = 0;
-		// waitpid(pipes.pid[size_list - 1], &finale_exit, 0);
+		// waitpid(pipes.pid[size_list - 1], &exit_status, 0);
 		while (i < size_list)
-			waitpid(pipes.pid[i++], &stx, 0);
-		if (WIFEXITED(stx))
-			finale_exit = WEXITSTATUS(stx);
+			waitpid(pipes.pid[i++], &exit_status, 0);
+		// printf("status == %d\n", stx);
+		if (WIFEXITED(exit_status))
+			stx = WEXITSTATUS(exit_status);
 		// exit(1);
 		// i = 0;
 		// while(li->cmd[i])
@@ -156,5 +157,5 @@ int	main(int ac, char **av, char **env)
 		free(line);
 		unlink_hf();
 	}
-	exit(finale_exit);
+	exit(exit_status);
 }
