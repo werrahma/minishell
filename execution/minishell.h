@@ -107,7 +107,6 @@ int					ft_checker(int ac, char *av);
 void				pipes_monitor(t_mini *list, t_pipe *pipes, t_env **env);
 int					*tab_pid(t_mini *list);
 
-//void	rl_replace_line(const char *, int);
 void				rl_replace_line(const char *text, int clear_undo);
 // ***** parsing
 // typedef	struct s_tokens
