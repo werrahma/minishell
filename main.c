@@ -36,9 +36,13 @@ void unlink_hf()
 	{
 		i++;
 		unlink(name);
+		free(name);
+		free(ii);
 		ii = ft_itoa(i);
 		name = ft_strjoin("/tmp/here_doc", ii);
 	}
+	free(name);
+	free(ii);
 }
 int	main(int ac, char **av, char **env)
 {

@@ -1,12 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stxe.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/13 13:19:35 by yahamdan          #+#    #+#             */
+/*   Updated: 2023/06/13 13:24:45 by yahamdan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-# include "../execution/minishell.h"
+#include "../execution/minishell.h"
 
-void	ft_maxheropn(t_tokens  *tokens)
+void	ft_maxheropn(t_tokens *tokens)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(tokens)
+	while (tokens)
 	{
 		if (tokens->type == HEREDOC)
 			i++;
@@ -19,27 +30,30 @@ void	ft_maxheropn(t_tokens  *tokens)
 	}
 }
 
-int   stxe(t_tokens *to)
+int	stxe(t_tokens *to)
 {
-	extern int stx;
+	extern int	stx;
 
-	while(to)
+	while (to)
 	{
-		if ((to->type == 6 || to->type == 7 || to->type == 2 || to->type == 3 || to->type == 8) && (!to->next)) 
+		if ((to->type == 6 || to->type == 7 || to->type == 2
+				|| to->type == 3 || to->type == 8) && (!to->next))
 		{
 			ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
-			stx = 1;
+			stx = 258;
 			return (1);
 		}
-		else if ((to->type == 3 && to->next->type != 4) || (to->type == 6 && to->next->type != 0) ||
-			(to->type == 7 && to->next->type != 1) || (to->type == 8 && to->next->type != 1))
-	   	{
-			write(2, "syntax error near unexpected token `", 37);	
+		else if ((to->type == 3 && to->next->type != 4)
+			|| (to->type == 6 && to->next->type != 0)
+			|| (to->type == 7 && to->next->type != 1)
+			|| (to->type == 8 && to->next->type != 1))
+		{
+			write(2, "syntax error near unexpected token `", 37);
 			ft_putstr_fd(ft_strjoin(to->next->cont, "\'\n"), 2);
-			stx = 1;
-			return(1);
-	   	}
-		to = to->next;                                                                               
+			stx = 258;
+			return (1);
+		}
+		to = to->next;
 	}
 	return (0);
 }
