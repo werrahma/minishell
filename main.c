@@ -36,9 +36,13 @@ void unlink_hf()
 	{
 		i++;
 		unlink(name);
+		free(name);
+		free(ii);
 		ii = ft_itoa(i);
 		name = ft_strjoin("/tmp/here_doc", ii);
 	}
+	free(name);
+	free(ii);
 }
 int	main(int ac, char **av, char **env)
 {
@@ -57,6 +61,7 @@ int	main(int ac, char **av, char **env)
 	t_pipe pipes;
 	create_list(&list, env);
 	fill_list(&list, env);
+	// while(1);
 	if (!list)
 		create_env(&list);
 	pipes.env = env;
@@ -152,6 +157,7 @@ int	main(int ac, char **av, char **env)
 			add_history(line);
 		free(line);
 		unlink_hf();
+		// system("leaks minishell");
 	}
 	exit(exit_status);
 }

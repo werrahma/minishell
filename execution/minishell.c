@@ -6,11 +6,22 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 12:22:26 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/11 18:36:23 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/14 17:12:39 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	out_free(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+		free(arr[i++]);
+	free(arr);
+		
+}
 
 int	have_builtins(char **cmd)
 {
@@ -21,6 +32,7 @@ int	have_builtins(char **cmd)
 		return (1);
 	return (0);
 }
+
 
 void	fill_list(t_env **list, char **env)
 {
@@ -36,14 +48,16 @@ void	fill_list(t_env **list, char **env)
 	while(env[i])
 	{
 		j = 0;
-		hold = ft_split(env[i], '=');
+		// hold = ft_split(env[i], '=');
+		hold = split_env (env[i]);
 		while (j < 2)
 		{
-			(*list)->key = hold[j];
+			(*list)->key = ft_strdup(hold[j]);
 			j++;
-			(*list)->value = hold[j];
+			(*list)->value = ft_strdup(hold[j]);
 			j++;
 		}
+		out_free(hold);
 		(*list) = (*list)->next;
 		i++;
 	}

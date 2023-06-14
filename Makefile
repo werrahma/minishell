@@ -14,7 +14,7 @@ SRC = \
 		execution/multiple_pipe.c\
 		execution/pipes_monitor.c\
 		execution/size_limiter.c\
-		execution/ft_lstsize.c execution/get_env.c
+		execution/ft_lstsize.c execution/get_env.c execution/split_env.c
 
 NAME = minishell
 LIBFT = execution/libft/libft.a
