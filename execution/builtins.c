@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:18:00 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/12 18:31:16 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/14 17:45:39 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,11 +129,11 @@ void	our_cd(t_env *env, char *file)
 	t_env		*tmp;
 	int			flag;
 	static int	check;
+	extern int	stx;
 
 	tmp = env;
 	flag = 0;
-	if (check_oldpwd(env, &flag))
-		;
+	if (check_oldpwd(env, &flag));
 	else if (check == 0)
 	{
 		ft_lstadd_back(&env, ft_lstnew(1));
@@ -147,6 +147,7 @@ void	our_cd(t_env *env, char *file)
 	{
 		write(1, "minishell: cd:", 14);
 		write(2, " HOME not set\n", 14);
+		stx = 1;
 		return ;
 	}
 	oldpwd = getcwd(NULL, 0);
