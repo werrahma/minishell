@@ -115,7 +115,6 @@ int	main(int ac, char **av, char **env)
 		do_expand_tokens(&tokens, list);
 		//write(2, "gg\n", 3);
 		li = fill_last_list(tokens, list);
-		//system("leaks minishell");
 		//puts("fffff");
 		size_list = ft_lstsize(li);
 		pipes.pid = tab_pid(li);
@@ -182,6 +181,7 @@ int	main(int ac, char **av, char **env)
 		free(line);
 		free_li(li);
 		unlink_hf();
+		system("leaks minishell");
 		// system("leaks minishell");
 	}
 	exit(exit_status);
