@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:13:22 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/13 13:19:06 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/16 09:14:00 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_lstadd_backp(t_tokens **lst, t_tokens *new)
 	new->perv = tmp;
 }
 
-t_tokens	*ft_lstnewp( char *content)
+t_tokens	*ft_lstnewp(char *content)
 {
 	t_tokens	*lst;
 
@@ -39,6 +39,7 @@ t_tokens	*ft_lstnewp( char *content)
 		return (NULL);
 	lst->cont = content;
 	lst->qh = 0;
+	lst->emg = 0;
 	lst->next = NULL;
 	lst->perv = NULL;
 	return (lst);

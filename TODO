@@ -57,3 +57,13 @@ minishell$ export djkd | export djjkdk | export djk
 minishell$ export no changes
 
 exit status ->> cd 3end fasiii
+
+minishell$ ./ls
+minishell$ //ls 
+
+minishell$ echo $?
+127
+minishell$ knksjdndk
+knksjdndk :command not found
+minishell$ echo $? |echo $?
+127

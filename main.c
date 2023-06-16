@@ -17,7 +17,8 @@ int	syntax_checker(t_mini *list)
 
 // void handle_signal(int sig)
 // {
-// 	stx = 1,
+// 	(void) sig;
+// 	stx = 1;
 // 	printf("\n");
 // 	rl_on_new_line();
 // 	rl_replace_line("", 0);
@@ -46,19 +47,26 @@ void unlink_hf()
 	free(ii);
 }
 
-void	free_li(t_mini *li)
+void	free_li(t_mini **li)
 {
 	t_mini *tmp;
 
-	tmp = li;
-	int i = 0;
- 
+	int i;
+	while(*li)
+	{
+		tmp = (*li);
+		i = 0;
+		while ((*li)->cmd[i])
+		{
+			free((*li)->cmd[i++]);
+		}
+		free((*li)->cmd);
+		(*li) = (*li)->next;
+		free((tmp));
+	}
 }
 int	main(int ac, char **av, char **env)
 {
-	int i = 0;
-	int j;
-	char **hold;
 	int size_list;
 	int exit_status;
 	t_env *list = NULL;
@@ -104,7 +112,8 @@ int	main(int ac, char **av, char **env)
 		tokens = lexer_split_cmdline(line);
 		do_expand_tokens(&tokens, list);
 		//write(2, "gg\n", 3);
-		li = fill_last_list(tokens, list);
+		fill_last_list(tokens, list, &li);
+		//system("leaks minishell");
 		t = li;
 		//system("leaks minishell");
 		//puts("fffff");
@@ -172,8 +181,8 @@ int	main(int ac, char **av, char **env)
 		if (line[0])
 			add_history(line);
 		free(line);
-		//free_li(li);
 		unlink_hf();
+		free_li(&li);
 		// system("leaks minishell");
 	}
 	exit(exit_status);

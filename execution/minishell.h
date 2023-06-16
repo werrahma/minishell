@@ -6,6 +6,7 @@ typedef struct s_tokens
 	int				type;
 	char			*cont;
 	int				qh;
+	int				emg;
 	struct s_tokens	*next;
 	struct s_tokens	*perv;
 }					t_tokens;
@@ -133,7 +134,7 @@ typedef struct glo
 
 int				stxe(t_tokens *to);	
 t_tokens			*lexer_split_cmdline(char *line);
-t_mini				*fill_last_list(t_tokens *token, t_env *list);
+void				fill_last_list(t_tokens *token, t_env *lis, t_mini **list);
 t_mini				*ft_lstlastl(t_mini *lst);
 void				ft_lstadd_backl(t_mini **lst, t_mini *new);
 char *expenv(char *str, t_env *env);

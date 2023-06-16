@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:46:33 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/14 17:24:41 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/16 11:07:42 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,12 @@ int	openfd(char *file, int i)
 	return (fd);
 }
 
-t_mini	*creat_list(t_tokens *tokens)
+void	creat_list(t_tokens *tokens, t_mini ** list)
 {
-	t_mini	*list;
+	//t_mini	*list;
 	int		i;
 
-	list = NULL;
+	//list = NULL;
 	i = 1;
 	while (tokens)
 	{
@@ -106,10 +106,10 @@ t_mini	*creat_list(t_tokens *tokens)
 	}
 	while (i > 0)
 	{
-		ft_lstadd_backl(&list, ft_lstnewl());
+		ft_lstadd_backl(list, ft_lstnewl());
 		i--;
 	}
-	return (list);
+	//return (list);
 }
 
 void	*ft_realloc(void *ptr, size_t size)
@@ -148,9 +148,9 @@ void	free_tokens(t_tokens *t)
 	}
 }
 
-t_mini	*fill_last_list(t_tokens *token, t_env *lis)
+void	fill_last_list(t_tokens *token, t_env *lis, t_mini **list)
 {
-	t_mini	*list;
+	// t_mini	*list;
 	t_mini	*tmp;
 	int		i;
 	int		flag;
@@ -162,8 +162,8 @@ t_mini	*fill_last_list(t_tokens *token, t_env *lis)
 	ft_maxheropn(token);
 	if (!stxe(token))
 	{
-		list = creat_list(token);
-		tmp = list;
+		creat_list(token, list);
+		tmp = *list;
 		open_herfiles(token, lis);
 		//system("leaks minishell");
 	//	exit(0);
@@ -171,41 +171,43 @@ t_mini	*fill_last_list(t_tokens *token, t_env *lis)
 		{
 			if (!token->cont && !token->next && token->type == ARG)
 			{
-				list->cmd = ft_realloc(list->cmd, (i + 1) * sizeof(char *));
-				list->cmd[i] = ft_strdup(token->cont);
+				(*list)->cmd = ft_realloc((*list)->cmd, (i + 1) * sizeof(char *));
+				(*list)->cmd[i] = ft_strdup(token->cont);
 				i++;
 			}
 			else if (token && token->type == ARG && !token->cont && token->next)
 				;
 			else if (token && token->type == PIPE)
 			{
-				list->cmd = ft_realloc(list->cmd, (i + 1) * sizeof(char *));
-				list->cmd[i] = NULL;
-				list = list->next;
+				(*list)->cmd = ft_realloc((*list)->cmd, (i + 1) * sizeof(char *));
+				(*list)->cmd[i] = NULL;
+				(*list) = (*list)->next;
 				i = 0;
 			}
 			else if (token && token->type == ARG && token->cont)
 			{
-				list->cmd = ft_realloc(list->cmd, (i + 1) * sizeof(char *));
-				list->cmd[i] = ft_strdup(token->cont);
+				(*list)->cmd = ft_realloc((*list)->cmd, (i + 1) * sizeof(char *));
+				(*list)->cmd[i] = ft_strdup(token->cont);
 				i++;
 			}
-			else if (token && token->next && token->type == HEREDOC)
-				list->infile = openfd(token->next->cont, 3);
-			else if (token && token->next && token->type == INPUT)
-				list->infile = openfd(token->next->cont, 0);
-			else if (token && token->next && token->type == OUTPUT)
-				list->outfile = openfd(token->next->cont, 1);
-			else if (token && token->next && token->type == APPEND)
-				list->outfile = openfd(token->next->cont, 2);
+			else if (token && token->next && token->type == INPUT && token->next->emg == 1)
+				(*list)->infile = -1;
+			else if (token && token->next && (token->type == OUTPUT || token->type == APPEND ) && token->next->emg == 1)
+				(*list)->outfile = -1;
+			else if (token && token->next && token->type == HEREDOC && (*list)->infile != -1)
+				(*list)->infile = openfd(token->next->cont, 3);
+			else if (token && token->next && token->type == INPUT && (*list)->infile != -1)
+				(*list)->infile = openfd(token->next->cont, 0);
+			else if (token && token->next && token->type == OUTPUT && (*list)->outfile != -1)
+				(*list)->outfile = openfd(token->next->cont, 1);
+			else if (token && token->next && token->type == APPEND && (*list)->outfile != -1)
+				(*list)->outfile = openfd(token->next->cont, 2);
 			token = token->next;
 		}
 		token = tm;
 		free_tokens(token);
-		list->cmd = ft_realloc(list->cmd, (i + 1) * sizeof(char *));
-		list->cmd[i] = NULL;
-		list = tmp;
-		return (list);
+		(*list)->cmd = ft_realloc((*list)->cmd, (i + 1) * sizeof(char *));
+		(*list)->cmd[i] = NULL;
+		(*list) = tmp;
 	}
-	return (NULL);
 }
