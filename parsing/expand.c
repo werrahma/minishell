@@ -6,11 +6,38 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 12:35:21 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/13 12:44:39 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/16 09:29:30 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execution/minishell.h"
+
+char	*ft_pjoin(char *s1, char *s2)
+{
+	int		a;
+	int		b;
+	char	*m;
+
+	a = -1;
+	b = -1;
+	if (!s1 && !s2)
+		return (NULL);
+	if (!s1 && s2)
+		return ((char *)s2);
+	if (s1 && !s2)
+		return ((char *)s1);
+	m = malloc((ft_strlen(s1) + ft_strlen(s2)) + 1);
+	if (!m)
+		return (0);
+	while (s1[++a])
+		m[a] = s1[a];
+	while (s2[++b])
+		m[a + b] = s2[b];
+	m[a + b] = '\0';
+	free(s1);
+	free(s2);
+	return (m);
+}
 
 int	qoutesordlr(t_tokens *token)
 {
@@ -48,6 +75,7 @@ char	*expand_tokens(t_tokens *token, t_env *env)
 	int			i;
 	char		*str;
 	char		*s;
+	char		*tmp;
 	int			j;
 	extern int	stx;
 
@@ -58,13 +86,13 @@ char	*expand_tokens(t_tokens *token, t_env *env)
 	{
 		if (token->cont[0] == '~' && token->cont[1] == '\0')
 		{
-			str = ft_strjoin(str, expenv("HOME", env));
+			str = ft_pjoin(str, expenv("HOME", env));
 		}
 		else if (token->cont[i] == '$' && token->cont[i + 1] == '?'
 			&& lexer_openqts(token->cont, i) != 2)
 		{
-			i++;
-			str = ft_strjoin(str, ft_itoa(stx));
+			i++;;
+			str = ft_pjoin(str, ft_itoa(stx));
 		}
 		else if (token->cont[i] == '$' && token->cont[i + 1]
 			&& lexer_openqts(token->cont, i) != 2 && token->type != 4)
@@ -80,9 +108,10 @@ char	*expand_tokens(t_tokens *token, t_env *env)
 					if (token->cont[i] == '\0' || !(ft_isalnum(token->cont[i])))
 					{
 						s = ft_substr(token->cont, j, (i - j));
-						str = ft_strjoin(str, expenv(s, env));
-						if (!str[0] && token->cont[i] == '\0')
-							return (str);
+						str = ft_pjoin(str, expenv(s, env));
+						free(s);
+						//if (!str[0] && token->cont[i] == '\0')
+						//	return (str);
 						i--;
 						break ;
 					}
@@ -104,9 +133,12 @@ char	*expand_tokens(t_tokens *token, t_env *env)
 	if (str && str[0] == '\0' && (token->perv->type == 6
 			|| token->perv->type == 7 || token->perv->type == 8))
 	{
-		ft_putstr_fd(ft_strjoin(token->cont, ": "), 2);
+		tmp = ft_strjoin(token->cont, ": ");
+		ft_putstr_fd(tmp, 2);
 		ft_putstr_fd("ambiguous redirect\n", 2);
 		stx = 1;
+		free(tmp);
+		token->emg = 1;
 	}
 	return (str);
 }

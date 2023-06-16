@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 21:20:11 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/14 17:38:54 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/15 17:19:01 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,9 @@ char	*expand_her(char *line, t_env *env)
 				{
 					s = ft_substr(line, j, (i - j));
 					str = ft_strjoin(str, expenv(s, env));
+					free(s);
 					if (!str[0] && line[i] == '\0')
-						return (str);
+						return (free(line), str);
 					i--;
 					break ;
 				}
@@ -69,6 +70,7 @@ char	*expand_her(char *line, t_env *env)
 			str = ft_chrjoin(str, line[i]);
 		i++;
 	}
+	free(line);
 	return (str);
 }
 
@@ -77,6 +79,7 @@ void	here_doc(char *name, char *li, int qh, t_env *env)
 	char	*line;
 	int		f;
 
+	//system("leaks minishell");
 	f = open(name, O_CREAT | O_RDWR | O_TRUNC, 0777);
 	while (1)
 	{
@@ -119,13 +122,14 @@ void	open_herfiles(t_tokens *tokens, t_env *list)
 		if (tokens->type == HEREDOC)
 		{
 			signal(SIGINT, SIG_IGN);
-			id = fork();
 			name = ft_gethername();
+			id = fork();
 			if (id == 0)
 			{
 				signal(SIGINT, handle_signal2);
 				signal(SIGQUIT, SIG_DFL);
 				here_doc(name, tokens->next->cont, tokens->next->qh, list);
+				//system("leaks minishell");
 				exit(0);
 			}
 			waitpid(id, &status, 0);
