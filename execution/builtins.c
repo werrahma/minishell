@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:18:00 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/15 13:20:03 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/16 19:06:23 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,19 +130,24 @@ void	our_cd(t_env *env, char *file)
 	int			flag;
 	static int	check;
 	extern int	stx;
+	char		*pwd;
 
 	tmp = env;
 	flag = 0;
-	if (check_oldpwd(env, &flag));
+	if (check_oldpwd(env, &flag))
+		;
 	else if (check == 0)
 	{
 		ft_lstadd_back(&env, ft_lstnew());
 		env = ft_lstlast(env);
-		env->key = "OLDPWD";
+		env->key = ft_strdup("OLDPWD");
 	}
 	env = tmp;
 	if (!ft_strcmp(file, "cd") && flag == 1)
+	{
+		free(file);
 		file = ft_strdup("/Users/werrahma");
+	}
 	else if (!ft_strcmp(file, "cd") && flag == 0)
 	{
 		write(1, "minishell: cd:", 14);
@@ -156,23 +161,27 @@ void	our_cd(t_env *env, char *file)
 		write(1, "minishell: cd:", 14);
 		write(1, file, ft_strlen(file));
 		write(2, ": No such file or directory\n", 28);
+		stx = 1;
+		return ;
 	}
 	while (env)
 	{
 		if (!ft_strcmp(env->key, "PWD"))
 		{
-			env->value = getcwd(NULL, 0);
-			// printf("new pwd == %s\n", env->value);
+			free(env->value);
+			pwd = getcwd(NULL, 0);
+			env->value = ft_strdup(pwd);
 			check = 1;
+			free(pwd);
 		}
 		else if (!ft_strcmp(env->key, "OLDPWD"))
 		{
+			free(env->value);
 			env->value = ft_strdup(oldpwd);
-			free(oldpwd);
-			// printf("oldpwd == %s\n", oldpwd);
 		}
 		env = env->next;
 	}
+	free(oldpwd);
 }
 
 // void	ft_exit(char **av)

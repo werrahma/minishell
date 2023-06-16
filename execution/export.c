@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:07:11 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/15 16:19:14 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/16 19:15:21 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,7 @@ void	our_export(t_env **env, char **av)
 	int			i;
 	int			j;
     t_env		*tmp;
+    t_env		*c_tmp;
 	t_env		*c_env;
 	static int	cnst;
 
@@ -190,6 +191,7 @@ void	our_export(t_env **env, char **av)
 	{
 		copy_env(env, &c_env);
 		sort_list(&c_env);
+		c_tmp = c_env;
 		while((c_env))
 		{
 				printf("declare -x ");
@@ -206,6 +208,7 @@ void	our_export(t_env **env, char **av)
 				printf("\n");
 			(c_env) = (c_env)->next;
 		}
+		c_env = c_tmp;
 		free_env(&c_env);
 	}
 	else

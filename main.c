@@ -154,6 +154,7 @@ int	main(int ac, char **av, char **env)
 				pipe(pipes.fd[0]);
 				pipe(pipes.fd[1]);
 				pipes_monitor(li, &pipes, &list);
+				system("leaks minishell");
 			}
 			// }
 			// printf("f0 === %d,,,, f1 == %d", pipes.f0, pipes.f1);
@@ -161,6 +162,7 @@ int	main(int ac, char **av, char **env)
 			li = li->next;
 		}
 		li = t;
+		free(pipes.pid);
 		// while(waitpid())
 		// while (wait(NULL) != -1)
 		// 	continue ;

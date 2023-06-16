@@ -1,0 +1,13 @@
+Makefile
+TODO
+execution
+get_next_line
+hello.txt
+l
+ls
+main.c
+main.o
+minishell
+out
+parsing
+walid
