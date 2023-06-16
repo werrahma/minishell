@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/14 12:03:34 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/15 14:46:59 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,11 @@ void	first_child(t_mini *list, t_pipe *pipes, t_env **env)
 	if (flag == 1 || !list->cmd[0])
 		exit(0);
 	execve(acs, list->cmd, get_env(*env));
+	while (list->cmd[i])
+	{
+		printf("minishell: %s No such file or directory\n",
+		list->cmd[i++]);
+	}
 	exit(127);
 }
 
@@ -93,6 +98,11 @@ void	second_child(t_mini *list, t_pipe *pipes, t_env **env)
 	if (flag == 1 || !list->cmd[0])
 		exit(0);
 	execve(acs, list->cmd, get_env(*env));
+	while (list->cmd[i])
+	{
+		printf("minishell: %s No such file or directory\n",
+		list->cmd[i++]);
+	}
 	exit(127);
 }
 
@@ -140,5 +150,10 @@ void	last_child(t_mini *list, t_pipe *pipes, t_env **env)
 	if (flag == 1 || !list->cmd[0])
 		exit(0);
 	execve(acs, list->cmd, get_env(*env));
+	while (list->cmd[i])
+	{
+		printf("minishell: %s No such file or directory\n",
+		list->cmd[i++]);
+	}
 	exit(127);
 }

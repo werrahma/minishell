@@ -9,7 +9,7 @@ void	copy_env(t_env **env, t_env **c_env)
 	tmp = *env;
 	while (tmp)
 	{
-		ft_lstadd_back(c_env, ft_lstnew(1));
+		ft_lstadd_back(c_env, ft_lstnew());
 		tmp = (tmp)->next;
 	}
 	c_tmp = *c_env;

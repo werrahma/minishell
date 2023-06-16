@@ -15,14 +15,14 @@ int	syntax_checker(t_mini *list)
 	return (1);
 }
 
-void handle_signal(int sig)
-{
-	stx = 1,
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
+// void handle_signal(int sig)
+// {
+// 	stx = 1,
+// 	printf("\n");
+// 	rl_on_new_line();
+// 	rl_replace_line("", 0);
+// 	rl_redisplay();
+// }
 
 void unlink_hf()
 {
@@ -52,17 +52,7 @@ void	free_li(t_mini *li)
 
 	tmp = li;
 	int i = 0;
-	while(li)
-	{
-		tmp = li;
-		li = li->next;
-		while (li->cmd[i])
-		{
-			free(li->cmd[i++]);
-		}
-		i = 0;
-		free(li->cmd);		
-	}
+ 
 }
 int	main(int ac, char **av, char **env)
 {
@@ -79,7 +69,7 @@ int	main(int ac, char **av, char **env)
 	// t_tokens     *lst;
 	t_mini *li = NULL;
 	t_pipe pipes;
-	t_mini *t = li;
+	t_mini *t;
 	create_list(&list, env);
 	fill_list(&list, env);
 	// while(1);
@@ -94,10 +84,10 @@ int	main(int ac, char **av, char **env)
 	// printf("%d\n", pipes.stdiin);
 	// pipe(pipes.fd[1]);
 	// exit(1);
-	signal(SIGQUIT, SIG_IGN);
+	// signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
-		signal(SIGINT, handle_signal);
+		// signal(SIGINT, handle_signal);
 		line = readline("minishell$ ");
 		if (!line)
 		{
@@ -115,6 +105,7 @@ int	main(int ac, char **av, char **env)
 		do_expand_tokens(&tokens, list);
 		//write(2, "gg\n", 3);
 		li = fill_last_list(tokens, list);
+		t = li;
 		//system("leaks minishell");
 		//puts("fffff");
 		size_list = ft_lstsize(li);
@@ -181,7 +172,7 @@ int	main(int ac, char **av, char **env)
 		if (line[0])
 			add_history(line);
 		free(line);
-		free_li(li);
+		//free_li(li);
 		unlink_hf();
 		// system("leaks minishell");
 	}

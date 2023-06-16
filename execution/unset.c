@@ -6,11 +6,18 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:15:35 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/12 18:33:02 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/15 12:20:55 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_node(t_env *env)
+{
+	free(env->key);	
+	free(env->value);
+	free(env);	
+}
 
 void	unset(t_env **env, char **remove)
 {
@@ -26,7 +33,6 @@ void	unset(t_env **env, char **remove)
 	flag = 0;
 	i = 1;
 	int flag2 = 0;
-	tmp1 = *env;
 	while(remove[i])
 	{
 		while(*env && (*env)->next)
@@ -35,13 +41,17 @@ void	unset(t_env **env, char **remove)
 			nxt = (*env)->next;
 			if (!ft_strcmp(curent->key, remove[i]))
 			{
+				tmp1 = *env;
 				*env = (*env)->next;
+				free_node(tmp1);
 				flag = 1;
 				break;
 			}
 			else if (!ft_strcmp(nxt->key, remove[i]))
 			{
+				tmp1 = curent->next;
 				curent->next = nxt->next;
+				free_node(tmp1);
 				break ;
 			}
 			*env = (*env)->next;

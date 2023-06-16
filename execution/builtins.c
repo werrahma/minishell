@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:18:00 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/14 17:45:39 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/15 13:20:03 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void	our_cd(t_env *env, char *file)
 	if (check_oldpwd(env, &flag));
 	else if (check == 0)
 	{
-		ft_lstadd_back(&env, ft_lstnew(1));
+		ft_lstadd_back(&env, ft_lstnew());
 		env = ft_lstlast(env);
 		env->key = "OLDPWD";
 	}

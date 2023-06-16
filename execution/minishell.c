@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 12:22:26 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/14 22:55:57 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/15 16:58:26 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,11 @@ int	check_arg(char **av, t_env **env)
 	// 	i++;
 	// }
 	// exit(1);
+	// while(1);
+	int x = 0;
+	// while(av[x])
+	// 	free(av[x++]);
+	// free(av);
 	return (0);
 }
 
