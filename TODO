@@ -56,7 +56,6 @@ minishell$ printenv PWD
 minishell$ export djkd | export djjkdk | export djk
 minishell$ export no changes
 
-exit status ->> cd 3end fasiii
 
 minishell$ ./ls
 minishell$ //ls 
@@ -83,3 +82,4 @@ bash-3.2$ cd ~/Desktop/
 
 
 
+check thes test in exit ->>>  exit 3fe frsd fds

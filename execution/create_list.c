@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 12:08:24 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/03 17:14:10 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/17 11:22:42 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	create_list(t_env **list, char **env)
 	i = 0;
 	while (env[i])
 	{
-		ft_lstadd_back(list, ft_lstnew(i));
+		ft_lstadd_back(list, ft_lstnew());
 		i++;
 	}
 }
@@ -31,7 +31,10 @@ void	create_env(t_env **list)
 
 	i = 0;
 	while(i < 3)
-		ft_lstadd_back(list, ft_lstnew(i++));
+	{
+		ft_lstadd_back(list, ft_lstnew());
+		i++;
+	}
 	i = 0;
 	// while(*list)
 	// {

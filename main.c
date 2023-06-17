@@ -15,15 +15,15 @@ int	syntax_checker(t_mini *list)
 	return (1);
 }
 
-void handle_signal(int sig)
-{
-	(void) sig;
-	stx = 1;
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
+// void handle_signal(int sig)
+// {
+// 	(void) sig;
+// 	stx = 1;
+// 	printf("\n");
+// 	rl_on_new_line();
+// 	rl_replace_line("", 0);
+// 	rl_redisplay();
+// }
 
 void unlink_hf()
 {
@@ -92,10 +92,10 @@ int	main(int ac, char **av, char **env)
 	// printf("%d\n", pipes.stdiin);
 	// pipe(pipes.fd[1]);
 	// exit(1);
-	signal(SIGQUIT, SIG_IGN);
+	// signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
-		signal(SIGINT, handle_signal);
+		// signal(SIGINT, handle_signal);
 		line = readline("minishell$ ");
 		if (!line)
 		{
@@ -154,6 +154,7 @@ int	main(int ac, char **av, char **env)
 				pipe(pipes.fd[0]);
 				pipe(pipes.fd[1]);
 				pipes_monitor(li, &pipes, &list);
+				// system("leaks minishell");
 			}
 			// }
 			// printf("f0 === %d,,,, f1 == %d", pipes.f0, pipes.f1);
@@ -180,10 +181,11 @@ int	main(int ac, char **av, char **env)
 		// 	printf("%s\n", li->cmd[i++]);
 		if (line[0])
 			add_history(line);
+		free(pipes.pid);
 		free(line);
 		unlink_hf();
 		free_li(&li);
-		//system("leaks minishell");
+		// system("leaks minishell");
 	}
 	exit(exit_status);
 }

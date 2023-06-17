@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:15:35 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/12 18:33:02 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/16 22:59:31 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_node(t_env *env)
+{
+	free(env->key);	
+	free(env->value);
+	free(env);	
+}
 
 void	unset(t_env **env, char **remove)
 {
@@ -26,7 +33,6 @@ void	unset(t_env **env, char **remove)
 	flag = 0;
 	i = 1;
 	int flag2 = 0;
-	tmp1 = *env;
 	while(remove[i])
 	{
 		while(*env && (*env)->next)
@@ -35,24 +41,29 @@ void	unset(t_env **env, char **remove)
 			nxt = (*env)->next;
 			if (!ft_strcmp(curent->key, remove[i]))
 			{
+				tmp1 = *env;
 				*env = (*env)->next;
+				tmp = tmp->next;
+				free_node(tmp1);
 				flag = 1;
 				break;
 			}
 			else if (!ft_strcmp(nxt->key, remove[i]))
 			{
+				tmp1 = curent->next;
 				curent->next = nxt->next;
+				free_node(tmp1);
 				break ;
 			}
 			*env = (*env)->next;
 		}
-		if (!(*env)->next && !ft_strcmp((*env)->key, remove[i]))
+		if ((*env) && !(*env)->next && !ft_strcmp((*env)->key, remove[i]))
 			flag2  =1 ;
-		if (flag == 1)
-		{
-			flag = 0;
-			tmp = tmp ->next;
-		}
+		// if (flag == 1)
+		// {
+		// 	flag = 0;
+		// 	tmp = tmp ->next;
+		// }
 		*env = tmp;
 		i++;
 	}

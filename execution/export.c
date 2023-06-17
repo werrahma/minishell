@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:07:11 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/14 18:01:17 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/16 23:25:12 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ void	dup_key(char *str, t_env *lst)
 		j++;
 	if (str[j] && !str[j + 1])
 		j++;
+	if (!lst->key)
+		free(lst->key);
 	lst->key = malloc(j + 1);
 	while (str && i < j)
 	{
@@ -105,7 +107,8 @@ void	dup_key(char *str, t_env *lst)
 
 int	has_plus_equal(char *arg, t_env *env)
 {
-	int i;
+	char	*tmp;
+	int		i;
 
 	i = 0;
 	while(arg[i])
@@ -114,7 +117,9 @@ int	has_plus_equal(char *arg, t_env *env)
 		{
 			// printf("last value is ->> %s\n", env->value);
 			// printf("arg is === %s\n", arg);
+			tmp = env->value;
 			env->value = ft_strjoin(env->value, &arg[i + 2]);
+			free(tmp);
 			// printf("new value is ->> %s\n", env->value);
 			return (1);
 		}
@@ -156,7 +161,10 @@ int	is_string_inlist(t_env *env, char *arg)
 		{
 			// free(env->key);
 			if (flag == 1)
+			{
+				free(env->key);
 				env->key = ft_strdup(arg);
+			}
 			return (1);
 		}
 		env = env->next;
@@ -169,6 +177,7 @@ void	our_export(t_env **env, char **av)
 	int			i;
 	int			j;
     t_env		*tmp;
+    t_env		*c_tmp;
 	t_env		*c_env;
 	static int	cnst;
 
@@ -182,6 +191,7 @@ void	our_export(t_env **env, char **av)
 	{
 		copy_env(env, &c_env);
 		sort_list(&c_env);
+		c_tmp = c_env;
 		while((c_env))
 		{
 				printf("declare -x ");
@@ -198,6 +208,7 @@ void	our_export(t_env **env, char **av)
 				printf("\n");
 			(c_env) = (c_env)->next;
 		}
+		c_env = c_tmp;
 		free_env(&c_env);
 	}
 	else
@@ -211,6 +222,7 @@ void	our_export(t_env **env, char **av)
 				// printf("%s\n", av[i]);
 				// dup_key(av[i], *env);
 				*env = fond_key(*env, av[i]);
+				free((*env)->value);
 				dup_value(av[i], *env);
 			}
 			else
@@ -220,7 +232,7 @@ void	our_export(t_env **env, char **av)
 					printf("minishell: export: %s: not a valid identifier\n", av[i]);
 					break ;
 				}
-				ft_lstadd_back(env, ft_lstnew(1));
+				ft_lstadd_back(env, ft_lstnew());
 				*env = ft_lstlast(*env);
 				if (!tmp && !cnst)
 				{

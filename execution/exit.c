@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 12:46:05 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/05 13:22:55 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/16 23:44:58 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	my_exit(char **av)
 	i = 0;
 	flag = 0;
 	write(2, "exit\n", 5);
-	if (str_len(av) > 2)
+	if (str_len(av) > 2 && (av[1][0] >= '0' && av[1][0] <= '9'))
 	{
 		write(1, "too many arguments\n", 19);
 		return (-1);
