@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:15:35 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/15 12:20:55 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/16 22:59:31 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	unset(t_env **env, char **remove)
 			{
 				tmp1 = *env;
 				*env = (*env)->next;
+				tmp = tmp->next;
 				free_node(tmp1);
 				flag = 1;
 				break;
@@ -56,13 +57,13 @@ void	unset(t_env **env, char **remove)
 			}
 			*env = (*env)->next;
 		}
-		if (!(*env)->next && !ft_strcmp((*env)->key, remove[i]))
+		if ((*env) && !(*env)->next && !ft_strcmp((*env)->key, remove[i]))
 			flag2  =1 ;
-		if (flag == 1)
-		{
-			flag = 0;
-			tmp = tmp ->next;
-		}
+		// if (flag == 1)
+		// {
+		// 	flag = 0;
+		// 	tmp = tmp ->next;
+		// }
 		*env = tmp;
 		i++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 12:22:26 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/16 19:16:56 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/16 23:47:46 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	check_arg(char **av, t_env **env)
 {
 	int	i;
 	int	hold;
+	extern int stx;
 
 	i = 0;
 	// while((*env))
@@ -104,7 +105,10 @@ int	check_arg(char **av, t_env **env)
 		{
 			hold = my_exit(av);
 			if(hold != -1)
+			{
+				stx =hold;
 				exit(hold);
+			}
 		}
 		else if (!ft_strcmp("export", av[i]))
 		{

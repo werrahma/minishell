@@ -19,19 +19,19 @@ SRC = \
 NAME = minishell
 LIBFT = execution/libft/libft.a
 
-READLINE = -lreadline -L /Users/yahamdan/.brew/Cellar/readline/8.2.1/lib -I /Users/yahamdan/.brew/Cellar/readline/8.2.1/include
+READLINE = -lreadline #-L /Users/yahamdan/.brew/Cellar/readline/8.2.1/lib -I /Users/yahamdan/.brew/Cellar/readline/8.2.1/include
 
 OBJ = $(SRC:.c=.o)
 
 CC = cc
 
-CFLAGS = #-fsanitize=address -g # -Wall -Wextra -Werror 
+CFLAGS = -fsanitize=address -g # -Wall -Wextra -Werror 
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	cd execution/libft && $(MAKE)
-	$(CC) $(CFLAGS) $(READLINE) $(OBJ) $(LIBFT) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) -lreadline
 
 clean:
 	rm -rf $(OBJ)
