@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:19:35 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/17 11:21:32 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/17 13:17:46 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	stxe(t_tokens *to)
 	extern int	stx;
 	int j = 0;
 
-	if (to->type == 2)
+	if (to && to->type == 2)
 	{
 		ft_putstr_fd("syntax error near unexpected token `|'\n", 2);
 		stx = 258;

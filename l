@@ -1,0 +1,12 @@
+Makefile
+TODO
+execution
+get_next_line
+iii
+l
+ls
+main.c
+main.o
+minishell
+out
+parsing
