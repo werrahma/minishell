@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   our_unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,28 +14,30 @@
 
 void	free_node(t_env *env)
 {
-	free(env->key);	
+	free(env->key);
 	free(env->value);
-	free(env);	
+	free(env);
 }
 
-void	unset(t_env **env, char **remove)
+void	our_unset(t_env **env, char **remove)
 {
 	t_env	*curent;
 	t_env	*nxt;
 	t_env	*tmp;
-	t_env	*tmp1 = NULL;
+	t_env	*tmp1;
 	int		i;
 	int		flag;
+	int		flag2;
 
+	tmp1 = NULL;
 	curent = *env;
 	tmp = *env;
 	flag = 0;
 	i = 1;
-	int flag2 = 0;
-	while(remove[i])
+	flag2 = 0;
+	while (remove[i])
 	{
-		while(*env && (*env)->next)
+		while (*env && (*env)->next)
 		{
 			curent = *env;
 			nxt = (*env)->next;
@@ -46,7 +48,7 @@ void	unset(t_env **env, char **remove)
 				tmp = tmp->next;
 				free_node(tmp1);
 				flag = 1;
-				break;
+				break ;
 			}
 			else if (!ft_strcmp(nxt->key, remove[i]))
 			{
@@ -58,7 +60,7 @@ void	unset(t_env **env, char **remove)
 			*env = (*env)->next;
 		}
 		if ((*env) && !(*env)->next && !ft_strcmp((*env)->key, remove[i]))
-			flag2  =1 ;
+			flag2 = 1;
 		// if (flag == 1)
 		// {
 		// 	flag = 0;

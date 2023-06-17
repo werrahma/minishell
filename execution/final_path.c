@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 11:36:22 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/17 20:13:13 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/17 20:43:11 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,3 @@ char	**pathfinder(t_env *env)
 	}
 	return (NULL);
 }
-
-// char	**pathfinder(char **env)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (env[i])
-// 	{
-// 		if (ft_strncmp("PATH=", env[i], 5) == 0)
-// 			return (pass_split(env[i]));
-// 		i++;
-// 	}
-// 	return (NULL);
-// }

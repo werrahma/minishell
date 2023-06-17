@@ -5,7 +5,7 @@ SRC = \
 		get_next_line/get_next_line.c \
 		get_next_line/get_next_line_utils.c \
 		execution/minishell.c execution/ft_lstadd_back.c execution/ft_lstadd_front.c execution/ft_lstlast.c execution/ft_lstnew.c execution/create_list.c\
-		execution/ft_strcmp.c execution/builtins.c execution/unset.c execution/exit.c execution/export.c\
+		execution/ft_strcmp.c execution/builtins.c execution/our_unset.c execution/exit.c execution/export.c\
 		execution/cmp_env.c execution/sort_list.c\
 		execution/check_access.c\
 		execution/children.c\
