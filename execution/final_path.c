@@ -6,21 +6,11 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 11:36:22 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/07 12:33:30 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/17 20:13:13 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	free_split(char **sp)
-{
-	int	i;
-
-	i = 0;
-	while (sp)
-		free(sp[i++]);
-	free(sp);
-}
 
 char	**pass_split(char *path)
 {
@@ -30,7 +20,7 @@ char	**pass_split(char *path)
 	n_path = ft_strdup(&path[5]);
 	sp = ft_split(n_path, ':');
 	if (!sp)
-		free_split(sp);
+		out_free(sp);
 	free(n_path);
 	return (sp);
 }

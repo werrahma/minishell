@@ -71,7 +71,8 @@ typedef struct s_pipe
 // #include <readline/readline.h>
 // #include <readline/history.h>
 
-void				free_split(char **sp);
+void				check_arg(char **av, t_env **env);
+void				out_free(char **arr);
 char				**split_env(char *str);
 char				**get_env(t_env *env);
 int					is_spas_instring(char *str);
@@ -94,7 +95,7 @@ void				our_export(t_env **env, char **av);
 int					cmp_env(char *str1, char *str2);
 void				sort_list(t_env **env);
 void				fill_list(t_env **list, char **env);
-int					check_arg(char **av, t_env **env);
+int					wcheck_arg(char **av, t_env **env);
 
 void				first_child(t_mini *list, t_pipe *pipes, t_env **env);
 void				second_child(t_mini *list, t_pipe *pipes, t_env **env);

@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:18:00 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/16 19:06:23 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/17 12:34:16 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,14 +123,13 @@ int	check_oldpwd(t_env *env, int *flag)
 
 void	our_cd(t_env *env, char *file)
 {
-	char		str[PATH_MAX];
-	char		*path;
 	char		*oldpwd;
 	t_env		*tmp;
 	int			flag;
 	static int	check;
 	extern int	stx;
 	char		*pwd;
+	int flag2 = 0;
 
 	tmp = env;
 	flag = 0;
@@ -145,7 +144,9 @@ void	our_cd(t_env *env, char *file)
 	env = tmp;
 	if (!ft_strcmp(file, "cd") && flag == 1)
 	{
-		free(file);
+		// printf()
+		// free(file);
+		flag2 = 1;
 		file = ft_strdup("/Users/werrahma");
 	}
 	else if (!ft_strcmp(file, "cd") && flag == 0)
@@ -181,6 +182,9 @@ void	our_cd(t_env *env, char *file)
 		}
 		env = env->next;
 	}
+	system("leaks minishell");
+	if (flag2 == 1)
+		free(file);
 	free(oldpwd);
 }
 
