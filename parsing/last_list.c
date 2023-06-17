@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:46:33 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/16 11:07:42 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/17 13:22:13 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int	openfd(char *file, int i)
 	}
 	else if (i == 3)
 		fd = open(file, O_RDWR | O_APPEND, 0777);
+	
 	return (fd);
 }
 
@@ -195,7 +196,11 @@ void	fill_last_list(t_tokens *token, t_env *lis, t_mini **list)
 			else if (token && token->next && (token->type == OUTPUT || token->type == APPEND ) && token->next->emg == 1)
 				(*list)->outfile = -1;
 			else if (token && token->next && token->type == HEREDOC && (*list)->infile != -1)
+			{
 				(*list)->infile = openfd(token->next->cont, 3);
+				printf("****%d\n", (*list)->infile);
+
+			}
 			else if (token && token->next && token->type == INPUT && (*list)->infile != -1)
 				(*list)->infile = openfd(token->next->cont, 0);
 			else if (token && token->next && token->type == OUTPUT && (*list)->outfile != -1)

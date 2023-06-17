@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 21:20:11 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/15 17:19:01 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/17 13:28:02 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void	here_doc(char *name, char *li, int qh, t_env *env)
 	char	*line;
 	int		f;
 
-	//system("leaks minishell");
 	f = open(name, O_CREAT | O_RDWR | O_TRUNC, 0777);
 	while (1)
 	{
@@ -137,6 +136,8 @@ void	open_herfiles(t_tokens *tokens, t_env *list)
 			{
 				printf("here\n");
 				free(name);
+				free(tokens->next->cont);
+				tokens->next->cont = NULL;
 				break ;
 			}
 			free(tokens->next->cont);
