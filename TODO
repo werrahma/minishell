@@ -67,3 +67,19 @@ minishell$ knksjdndk
 knksjdndk :command not found
 minishell$ echo $? |echo $?
 127
+
+ //ls |> ls
+
+ ls || ls
+
+ bash-3.2$ exit 10l ld
+exit
+bash: exit: 10l: numeric argument required
+
+bash-3.2$ unset OLDPWD
+bash-3.2$ cd -
+bash: cd: OLDPWD not set
+bash-3.2$ cd ~/Desktop/
+
+
+

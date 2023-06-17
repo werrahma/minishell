@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 12:35:21 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/16 09:29:30 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/17 11:22:12 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,13 @@ char	*expand_tokens(t_tokens *token, t_env *env)
 		{
 			str = ft_pjoin(str, expenv("HOME", env));
 		}
-		else if (token->cont[i] == '$' && token->cont[i + 1] == '?'
+		else if (token->cont[i] && token->cont[i] == '$' && token->cont[i + 1] == '?'
 			&& lexer_openqts(token->cont, i) != 2)
 		{
 			i++;;
 			str = ft_pjoin(str, ft_itoa(stx));
 		}
-		else if (token->cont[i] == '$' && token->cont[i + 1]
+		else if (token->cont[i] && token->cont[i] == '$' && token->cont[i + 1]
 			&& lexer_openqts(token->cont, i) != 2 && token->type != 4)
 		{
 			j = i + 1;
@@ -111,7 +111,7 @@ char	*expand_tokens(t_tokens *token, t_env *env)
 						str = ft_pjoin(str, expenv(s, env));
 						free(s);
 						//if (!str[0] && token->cont[i] == '\0')
-						//	return (str);
+							//return (str);
 						i--;
 						break ;
 					}
@@ -128,9 +128,10 @@ char	*expand_tokens(t_tokens *token, t_env *env)
 			str = ft_chrjoin(str, token->cont[i]);
 		else if (token->cont[i] != '\"' && token->cont[i] != '\'')
 			str = ft_chrjoin(str, token->cont[i]);
+		printf("%c\n", token->cont[i]);
 		i++;
 	}
-	if (str && str[0] == '\0' && (token->perv->type == 6
+	if (str && str[0] == '\0' && token->perv && ( token->perv->type == 6
 			|| token->perv->type == 7 || token->perv->type == 8))
 	{
 		tmp = ft_strjoin(token->cont, ": ");

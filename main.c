@@ -100,12 +100,12 @@ int	main(int ac, char **av, char **env)
 		if (!line)
 		{
 			printf("exit\n");
-			exit(1);
+			exit(stx);
 		}
 		if(lexer_openqts(line, ft_strlen(line)))
 		{
 			ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
-			stx = 1;
+			stx = 258;
 			continue;
 		}
 		// system("leaks minishell");
@@ -183,7 +183,7 @@ int	main(int ac, char **av, char **env)
 		free(line);
 		unlink_hf();
 		free_li(&li);
-		system("leaks minishell");
+		//system("leaks minishell");
 	}
 	exit(exit_status);
 }

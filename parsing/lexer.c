@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 18:44:16 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/13 13:18:37 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/17 11:04:37 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	sep(char s)
 {
-	if (s == '<' || s == '>' || s == '|')
+	if (s == '<' || s == '>')
 		return (1);
-	else if (s == ' ' || s == '\n' || s == '\t')
-		return (1);
+	else if (s == ' ' || s == '\n' || s == '\t' || s == '|')
+		return (2);
 	return (0);
 }
 
@@ -119,7 +119,7 @@ char	*lexer_collect_op(char *line, int *i)
 	else if (sep(line[*i]) && sep(line[*i + 1]))
 	{
 		str = ft_chrjoin(str, line[(*i)++]);
-		if (str[0] == line[*i])
+		if (str[0] == line[*i] && sep(line[*i]) == 1)
 			str = ft_chrjoin(str, line[(*i)++]);
 		else
 			return (str);
