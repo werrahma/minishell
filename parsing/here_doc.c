@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 21:20:11 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/17 13:28:02 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/17 15:16:11 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	*expand_her(char *line, t_env *env)
 	return (str);
 }
 
-void	here_doc(char *name, char *li, int qh, t_env *env)
+int	here_doc(char *name, char *li, int qh, t_env *env)
 {
 	char	*line;
 	int		f;
@@ -85,14 +85,13 @@ void	here_doc(char *name, char *li, int qh, t_env *env)
 		line = readline("> ");
 		if (!line)
 			break ;
-		if (!ft_strncmp(line, li, ft_strlen(line)) && ft_strlen(line) == ft_strlen(li))
-		{
-			close(f);
-			return (free(line));
-		}
+		if (!ft_strncmp(line, li, ft_strlen(line))
+			&& ft_strlen(line) == ft_strlen(li))
+			return (free(line), f);
 		else
 		{
-			if (qh == 1 || !ft_strchr(line, '$'));
+			if (qh == 1 || !ft_strchr(line, '$'))
+				;
 			else
 				line = expand_her(line, env);
 			ft_putstr_fd(line, f);
@@ -100,7 +99,7 @@ void	here_doc(char *name, char *li, int qh, t_env *env)
 			free(line);
 		}
 	}
-	close(f);
+	return (f);
 }
 
 void	handle_signal2(int sig)
@@ -115,6 +114,7 @@ void	open_herfiles(t_tokens *tokens, t_env *list)
 	extern int	stx;
 	char		*name;
 	int			status;
+	int			f;
 
 	while (tokens)
 	{
@@ -127,8 +127,8 @@ void	open_herfiles(t_tokens *tokens, t_env *list)
 			{
 				signal(SIGINT, handle_signal2);
 				signal(SIGQUIT, SIG_DFL);
-				here_doc(name, tokens->next->cont, tokens->next->qh, list);
-				//system("leaks minishell");
+				f = here_doc(name, tokens->next->cont, tokens->next->qh, list);
+				close(f);
 				exit(0);
 			}
 			waitpid(id, &status, 0);
@@ -136,6 +136,7 @@ void	open_herfiles(t_tokens *tokens, t_env *list)
 			{
 				printf("here\n");
 				free(name);
+				close(f);
 				free(tokens->next->cont);
 				tokens->next->cont = NULL;
 				break ;
