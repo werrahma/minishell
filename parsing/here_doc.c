@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 21:20:11 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/17 15:16:11 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/18 11:34:19 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ void	handle_signal2(int sig)
 void	open_herfiles(t_tokens *tokens, t_env *list)
 {
 	int			id;
-	extern int	stx;
 	char		*name;
 	int			status;
 	int			f;
@@ -126,7 +125,7 @@ void	open_herfiles(t_tokens *tokens, t_env *list)
 			if (id == 0)
 			{
 				signal(SIGINT, handle_signal2);
-				signal(SIGQUIT, SIG_DFL);
+				signal(SIGQUIT, SIG_IGN);
 				f = here_doc(name, tokens->next->cont, tokens->next->qh, list);
 				close(f);
 				exit(0);
@@ -134,7 +133,6 @@ void	open_herfiles(t_tokens *tokens, t_env *list)
 			waitpid(id, &status, 0);
 			if (status != 0)
 			{
-				printf("here\n");
 				free(name);
 				close(f);
 				free(tokens->next->cont);

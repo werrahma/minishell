@@ -6,11 +6,11 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:13:22 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/16 09:14:00 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/18 11:15:37 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../execution/minishell.h"
+#include "../../execution/minishell.h"
 
 void	ft_lstadd_backp(t_tokens **lst, t_tokens *new)
 {
