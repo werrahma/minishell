@@ -6,12 +6,39 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:18:00 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/16 19:06:23 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/17 20:37:24 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	pwd(void)
+{
+	char	str[PATH_MAX];
+
+	printf("%s\n", getcwd(str, PATH_MAX));
+}
+void	print_env(t_env *env)
+{
+	int	i;
+
+	i = 0;
+	if (!env)
+	{
+		write(2, "env: No such file or directory\n", 31);
+		return ;
+	}
+	while (env)
+	{
+		if (env->value)
+		{
+			printf("%s", env->key);
+			printf("=");
+			printf("%s\n", env->value);
+		}
+		env = env->next;
+	}
+}
 int	check_echo(char *s)
 {
 	int	i;
@@ -56,34 +83,7 @@ void	print_cho(char **s, int i, int check)
 		printf("\n");
 }
 
-void	pwd(void)
-{
-	char	str[PATH_MAX];
-
-	printf("%s\n", getcwd(str, PATH_MAX));
-}
-void	print_env(t_env *env)
-{
-	int	i;
-
-	i = 0;
-	if (!env)
-	{
-		write(2, "env: No such file or directory\n", 31);
-		return ;
-	}
-	while (env)
-	{
-		if (env->value)
-		{
-			printf("%s", env->key);
-			printf("=");
-			printf("%s\n", env->value);
-		}
-		env = env->next;
-	}
-}
-int	echo(char **str)
+int	our_echo(char **str)
 {
 	int	i;
 	int	j;
@@ -123,14 +123,13 @@ int	check_oldpwd(t_env *env, int *flag)
 
 void	our_cd(t_env *env, char *file)
 {
-	char		str[PATH_MAX];
-	char		*path;
 	char		*oldpwd;
 	t_env		*tmp;
 	int			flag;
 	static int	check;
 	extern int	stx;
 	char		*pwd;
+	int flag2 = 0;
 
 	tmp = env;
 	flag = 0;
@@ -145,7 +144,7 @@ void	our_cd(t_env *env, char *file)
 	env = tmp;
 	if (!ft_strcmp(file, "cd") && flag == 1)
 	{
-		free(file);
+		flag2 = 1;
 		file = ft_strdup("/Users/werrahma");
 	}
 	else if (!ft_strcmp(file, "cd") && flag == 0)
@@ -181,13 +180,7 @@ void	our_cd(t_env *env, char *file)
 		}
 		env = env->next;
 	}
+	if (flag2 == 1)
+		free(file);
 	free(oldpwd);
 }
-
-// void	ft_exit(char **av)
-// {
-// 	int	i;
-
-// 	i = 1;
-// 	exit (printf("",ft_atoi(av[i]));
-// }

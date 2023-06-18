@@ -15,15 +15,15 @@ int	syntax_checker(t_mini *list)
 	return (1);
 }
 
-void handle_signal(int sig)
-{
-	(void) sig;
-	stx = 1;
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
+// void handle_signal(int sig)
+// {
+// 	(void) sig;
+// 	stx = 1;
+// 	printf("\n");
+// 	rl_on_new_line();
+// 	rl_replace_line("", 0);
+// 	rl_redisplay();
+// }
 
 void unlink_hf()
 {
@@ -95,7 +95,7 @@ int	main(int ac, char **av, char **env)
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
-		signal(SIGINT, handle_signal);
+		// signal(SIGINT, handle_signal);
 		line = readline("minishell$ ");
 		if (!line)
 		{
@@ -146,46 +146,31 @@ int	main(int ac, char **av, char **env)
 			{
 				// printf("am in builtin\n");
 				check_arg(li->cmd, &list);
-				// printf("stx === %d\n", stx);
 			}
 			else
 			{
-				// write(2, "hrere\n", 6);
 				pipe(pipes.fd[0]);
 				pipe(pipes.fd[1]);
 				pipes_monitor(li, &pipes, &list);
-				// system("leaks minishell");
 			}
-			// }
-			// printf("f0 === %d,,,, f1 == %d", pipes.f0, pipes.f1);
 			pipes.index++;
 			li = li->next;
 		}
 		li = t;
-		// while(waitpid())
-		// while (wait(NULL) != -1)
-		// 	continue ;
-		// printf("\ndup in the last time == %d\n",  stdin_main);
 		dup2(stdin_main, pipes.strin_main);
 		// dup2(stdout_main, pipes.stdouut);
 		int i = 0;
-		// waitpid(pipes.pid[size_list - 1], &exit_status, 0);
 		while (i < size_list)
 			waitpid(pipes.pid[i++], &exit_status, 0);
-		// printf("status == %d\n", stx);
 		if (WIFEXITED(exit_status))
 			stx = WEXITSTATUS(exit_status);
-		// exit(1);
-		// i = 0;
-		// while(li->cmd[i])
-		// 	printf("%s\n", li->cmd[i++]);
 		if (line[0])
 			add_history(line);
 		free(pipes.pid);
 		free(line);
 		unlink_hf();
 		free_li(&li);
-		// system("leaks minishell");
+		system("leaks minishell");
 	}
 	exit(exit_status);
 }
