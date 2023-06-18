@@ -160,9 +160,10 @@ int	main(int ac, char **av, char **env)
 		dup2(stdin_main, pipes.strin_main);
 		// dup2(stdout_main, pipes.stdouut);
 		int i = 0;
+		// printf("exit sta==  %d\n", stx);
 		while (i < size_list)
 			waitpid(pipes.pid[i++], &exit_status, 0);
-		if (WIFEXITED(exit_status))
+		if (WIFEXITED(exit_status) && size_list > 1)
 			stx = WEXITSTATUS(exit_status);
 		if (line[0])
 			add_history(line);
@@ -170,7 +171,7 @@ int	main(int ac, char **av, char **env)
 		free(line);
 		unlink_hf();
 		free_li(&li);
-		//system("leaks minishell");
+		// system("leaks minishell");
 	}
 	exit(exit_status);
 }
