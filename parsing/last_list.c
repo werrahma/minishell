@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:46:33 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/17 13:22:13 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/17 15:59:33 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,36 +68,18 @@ int	openfd(char *file, int i)
 		}
 	}
 	else if (i == 1)
-	{
 		fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0777);
-		if (fd == -1)
-		{
-			ft_putstr_fd(" : no such file or directory\n", 2);
-			stx = 1;
-		}
-	}
 	else if (i == 2)
-	{
 		fd = open(file, O_CREAT | O_RDWR | O_APPEND, 0777);
-		if (fd == -1)
-		{
-			ft_putstr_fd(ft_strjoin(file, " :"), 2);
-			ft_putstr_fd(" no such file or directory\n", 2);
-			stx = 1;
-		}
-	}
 	else if (i == 3)
 		fd = open(file, O_RDWR | O_APPEND, 0777);
-	
 	return (fd);
 }
 
-void	creat_list(t_tokens *tokens, t_mini ** list)
+void	creat_list(t_tokens *tokens, t_mini **list)
 {
-	//t_mini	*list;
-	int		i;
+	int	i;
 
-	//list = NULL;
 	i = 1;
 	while (tokens)
 	{
@@ -110,7 +92,6 @@ void	creat_list(t_tokens *tokens, t_mini ** list)
 		ft_lstadd_backl(list, ft_lstnewl());
 		i--;
 	}
-	//return (list);
 }
 
 void	*ft_realloc(void *ptr, size_t size)
@@ -136,83 +117,81 @@ void	*ft_realloc(void *ptr, size_t size)
 	free(ptr);
 	return (nptr);
 }
+
 void	free_tokens(t_tokens *t)
 {
-	t_tokens *tmp;
-	while(t)
+	t_tokens	*tmp;
+
+	while (t)
 	{
 		tmp = t;
 		t = t->next;
 		free(tmp->cont);
-		// free(tmp->perv);
 		free(tmp);
 	}
 }
 
 void	fill_last_list(t_tokens *token, t_env *lis, t_mini **list)
 {
-	// t_mini	*list;
-	t_mini	*tmp;
-	int		i;
-	int		flag;
-	t_tokens *tm;
+	t_mini		*tmp;
+	t_tokens	*tm;
+	int			i;
+	int			flag;
 
 	i = 0;
 	flag = 0;
 	tm = token;
 	ft_maxheropn(token);
-	if (!stxe(token))
+	if (stxe(token))
+		return ;
+	creat_list(token, list);
+	tmp = *list;
+	open_herfiles(token, lis);
+	while (token)
 	{
-		creat_list(token, list);
-		tmp = *list;
-		open_herfiles(token, lis);
-		//system("leaks minishell");
-	//	exit(0);
-		while (token)
+		// if (!token->cont && !token->next && token->type == ARG)
+		// {
+		// 	(*list)->cmd = ft_realloc((*list)->cmd, (i + 1) * sizeof(char *));
+		// 	(*list)->cmd[i] = ft_strdup(token->cont);
+		// 	i++;
+		// }
+		if (token && token->type == ARG && !token->cont && token->next)
+			;
+		else if (token && token->type == PIPE)
 		{
-			if (!token->cont && !token->next && token->type == ARG)
-			{
-				(*list)->cmd = ft_realloc((*list)->cmd, (i + 1) * sizeof(char *));
-				(*list)->cmd[i] = ft_strdup(token->cont);
-				i++;
-			}
-			else if (token && token->type == ARG && !token->cont && token->next)
-				;
-			else if (token && token->type == PIPE)
-			{
-				(*list)->cmd = ft_realloc((*list)->cmd, (i + 1) * sizeof(char *));
-				(*list)->cmd[i] = NULL;
-				(*list) = (*list)->next;
-				i = 0;
-			}
-			else if (token && token->type == ARG && token->cont)
-			{
-				(*list)->cmd = ft_realloc((*list)->cmd, (i + 1) * sizeof(char *));
-				(*list)->cmd[i] = ft_strdup(token->cont);
-				i++;
-			}
-			else if (token && token->next && token->type == INPUT && token->next->emg == 1)
-				(*list)->infile = -1;
-			else if (token && token->next && (token->type == OUTPUT || token->type == APPEND ) && token->next->emg == 1)
-				(*list)->outfile = -1;
-			else if (token && token->next && token->type == HEREDOC && (*list)->infile != -1)
-			{
-				(*list)->infile = openfd(token->next->cont, 3);
-				printf("****%d\n", (*list)->infile);
-
-			}
-			else if (token && token->next && token->type == INPUT && (*list)->infile != -1)
-				(*list)->infile = openfd(token->next->cont, 0);
-			else if (token && token->next && token->type == OUTPUT && (*list)->outfile != -1)
-				(*list)->outfile = openfd(token->next->cont, 1);
-			else if (token && token->next && token->type == APPEND && (*list)->outfile != -1)
-				(*list)->outfile = openfd(token->next->cont, 2);
-			token = token->next;
+			(*list)->cmd = ft_realloc((*list)->cmd, (i + 1) * sizeof(char *));
+			(*list)->cmd[i] = NULL;
+			(*list) = (*list)->next;
+			i = 0;
 		}
-		token = tm;
-		free_tokens(token);
-		(*list)->cmd = ft_realloc((*list)->cmd, (i + 1) * sizeof(char *));
-		(*list)->cmd[i] = NULL;
-		(*list) = tmp;
+		else if (token && token->type == ARG)
+		{
+			(*list)->cmd = ft_realloc((*list)->cmd, (i + 1) * sizeof(char *));
+			(*list)->cmd[i] = ft_strdup(token->cont);
+			i++;
+		}
+		else if (token && token->next && token->type == 6 && token->next->emg == 1)
+			(*list)->infile = -1;
+		else if (token && token->next && (token->type == 7 || token->type == 8)
+			&& token->next->emg == 1)
+			(*list)->outfile = -1;
+		else if (token && token->next && token->type == 3
+			&& (*list)->infile != -1)
+			(*list)->infile = openfd(token->next->cont, 3);
+		else if (token && token->next && token->type == 6
+			&& (*list)->infile != -1)
+			(*list)->infile = openfd(token->next->cont, 0);
+		else if (token && token->next && token->type == 7
+			&& (*list)->outfile != -1)
+			(*list)->outfile = openfd(token->next->cont, 1);
+		else if (token && token->next && token->type == 8
+			&& (*list)->outfile != -1)
+			(*list)->outfile = openfd(token->next->cont, 2);
+		token = token->next;
 	}
+	token = tm;
+	free_tokens(token);
+	(*list)->cmd = ft_realloc((*list)->cmd, (i + 1) * sizeof(char *));
+	(*list)->cmd[i] = NULL;
+	(*list) = tmp;
 }
