@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:46:33 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/19 20:19:01 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/20 12:54:56 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,17 @@ void	openfiles(t_tokens *token, t_mini **list)
 	else if (token && token->next && (token->type == 7 || token->type == 8)
 		&& token->next->emg == 1)
 		(*list)->outfile = -1;
-	else if (token && token->next && token->type == 3 && (*list)->infile != -1)
+	else if (token && token->next && token->type == 3
+		&& ((*list)->infile != -1 && (*list)->outfile != -1))
 		(*list)->infile = openfd(token->next->cont, 3);
-	else if (token && token->next && token->type == 6 && (*list)->infile != -1)
+	else if (token && token->next && token->type == 6
+		&& ((*list)->infile != -1 && (*list)->outfile != -1))
 		(*list)->infile = openfd(token->next->cont, 0);
-	else if (token && token->next && token->type == 7 && (*list)->outfile != -1)
+	else if (token && token->next && token->type == 7
+		&& ((*list)->infile != -1 && (*list)->outfile != -1))
 		(*list)->outfile = openfd(token->next->cont, 1);
-	else if (token && token->next && token->type == 8 && (*list)->outfile != -1)
+	else if (token && token->next && token->type == 8
+		&& ((*list)->infile != -1 && (*list)->outfile != -1))
 		(*list)->outfile = openfd(token->next->cont, 2);
 }
 
@@ -78,6 +82,12 @@ void	fill(t_tokens *token, t_mini **list, int *i)
 {
 	while (token)
 	{
+		// if (!token->cont && !token->next && token->type == ARG)
+		// {
+		// 	(*list)->cmd = ft_realloc((*list)->cmd, (*i + 1) * sizeof(char *));
+		// 	(*list)->cmd[*i] = ft_strdup(token->cont);
+		// 	(*i)++;
+		// }
 		if (token && token->type == ARG && !token->cont && token->next)
 			;
 		else if (token && token->type == PIPE)

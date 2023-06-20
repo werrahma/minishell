@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 12:35:21 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/19 20:38:51 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/20 12:00:18 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ char	*expenv(char *str, t_env *env)
 	env = rmp;
 	return (ft_strdup(""));
 }
-
 
 char	*expand_tokens(t_tokens *token, t_env *env)
 {

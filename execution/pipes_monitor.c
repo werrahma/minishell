@@ -38,13 +38,17 @@ void	pipes_monitor(t_mini *list, t_pipe *pipes, t_env **env)
 
 	have_file = 0;
 	flag = 0;
+	// int i = 0;
+	// printf("%d\n", list->outfile);
+	// printf("%d\n", list->infile);
+
 	if (!list->next && list->outfile == -3)
 	{
-		// printf("am here for flag\n");
+		// dprintf(2, "am here for flag\n");
 		flag = 1;
 		list->outfile = 1;
 	}
-	if (list->infile > 2 || list->infile == -1)
+	if (list->infile > 2 || list->infile == -1 || list->outfile == -1)
 	{
 		have_file++;
 		// printf("i have infile\n");
@@ -61,13 +65,13 @@ void	pipes_monitor(t_mini *list, t_pipe *pipes, t_env **env)
 	}
 	else if (list->infile == -3 && list->next && list->outfile == -3)
 	{
-		// printf("multiple\n");
+		// dprintf(2, "multiple\n");
 		multiple_pipe(list, env, pipes);
 		// pipes->index++;
 	}
 	else if (list->outfile > 2 || flag == 1)
 	{
-		// printf("i have outfile\n");
+		// dprintf(2, "i have outfile\n");
 		pipes->pid[pipes->index] = fork();
 		// signal(SIGINT, SIG_IGN);
 		// pipes->index++;
