@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/17 20:13:54 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/19 22:09:51 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	execve_failure_task(t_mini *list, t_env *env, t_pipe *pipes)
 	int	i;
 
 	i = 0;
-	out_free(pipes->env);
+	our_free(pipes->env);
 	while (list->cmd[i])
 	{
 		printf("minishell: %s No such file or directory\n",
@@ -137,10 +137,7 @@ void	last_child(t_mini *list, t_pipe *pipes, t_env **env)
 	if (list->outfile != -3)
 		dup2(list->outfile, 1);
 	if (list->outfile != 1)
-	{
-		// write(2, "am closed the file\n", 19);
 		close(list->outfile);
-	}
 	if (flag == 1)
 		check_arg(list->cmd, env);
 	close(pipes->fd[pipes->f0][0]);

@@ -6,13 +6,13 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 12:22:26 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/17 20:33:17 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/19 22:11:42 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	out_free(char **arr)
+void	our_free(char **arr)
 {
 	int	i;
 
@@ -54,7 +54,7 @@ void	fill_list(t_env **list, char **env)
 			(*list)->value = ft_strdup(hold[j]);
 			j++;
 		}
-		out_free(hold);
+		our_free(hold);
 		(*list) = (*list)->next;
 		i++;
 	}

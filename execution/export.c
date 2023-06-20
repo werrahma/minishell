@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:07:11 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/17 21:21:45 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/20 11:04:15 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,10 @@ void	dup_value(char *str, t_env *lst)
 		j++;
 	}
 	if (j == 0)
+	{
+		free(lst->value);
 		lst->value = NULL;
+	}
 	else
 		lst->value[j] = '\0';
 	// printf("here\n");
@@ -92,8 +95,6 @@ void	dup_key(char *str, t_env *lst)
 		j++;
 	if (str[j] && !str[j + 1])
 		j++;
-	if (!lst->key)
-		free(lst->key);
 	lst->key = malloc(j + 1);
 	while (str && i < j)
 	{
@@ -111,16 +112,17 @@ int	has_plus_equal(char *arg, t_env *env)
 	int		i;
 
 	i = 0;
+	// char **str;
+	// printf("%s\n", env->key);
+	// exit(1);
+	// str = ft_split(env->value, '=');
 	while(arg[i])
 	{
 		if (arg[i] == '+' && arg[i + 1] == '=')
 		{
-			// printf("last value is ->> %s\n", env->value);
-			// printf("arg is === %s\n", arg);
 			tmp = env->value;
 			env->value = ft_strjoin(env->value, &arg[i + 2]);
 			free(tmp);
-			// printf("new value is ->> %s\n", env->value);
 			return (1);
 		}
 		i++;
@@ -130,10 +132,14 @@ int	has_plus_equal(char *arg, t_env *env)
 
 int	is_plus_equal_inlist(t_env *env, char *arg)
 {
+	char	**str;
+
+	str = ft_split(arg, '+');
 	while(env)
 	{
-		if (!ft_strncmp(env->key, arg, ft_strlen(env->key)))
+		if (!ft_strncmp(env->key, str[0], ft_strlen(str[0])))
 		{
+			our_free(str);
 			if(has_plus_equal(arg, env))
 				return (1);
 			else
@@ -141,6 +147,7 @@ int	is_plus_equal_inlist(t_env *env, char *arg)
 		}
 		env = env->next;
 	}
+	our_free(str);
 	return (0);
 }
 int	is_string_inlist(t_env *env, char *arg)
@@ -150,7 +157,6 @@ int	is_string_inlist(t_env *env, char *arg)
 
 	i = 0;
 	flag = 0;
-	// printf("arg ->>>> %s\n", arg);
 	while(arg[i] && arg[i] != '=')
 		i++;
 	if (arg[i] && !arg[i + 1])
@@ -159,7 +165,6 @@ int	is_string_inlist(t_env *env, char *arg)
 	{
 		if (!ft_strncmp(env->key, arg, ft_strlen(env->key)))
 		{
-			// free(env->key);
 			if (flag == 1)
 			{
 				free(env->key);
@@ -194,11 +199,10 @@ void	our_export(t_env **env, char **av)
 		c_tmp = c_env;
 		while((c_env))
 		{
-				printf("declare -x ");
-				printf("%s", (c_env)->key);
+			printf("declare -x ");
+			printf("%s", (c_env)->key);
 			if ((c_env)->value != NULL)
 			{
-				// printf("/;;");
 				printf("=");
 				printf("\"");
 				printf("%s", (c_env)->value);

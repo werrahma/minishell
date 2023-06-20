@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:18:00 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/17 20:37:24 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/20 10:37:25 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	pwd(void)
 	char	str[PATH_MAX];
 
 	printf("%s\n", getcwd(str, PATH_MAX));
+	
 }
 void	print_env(t_env *env)
 {
@@ -90,10 +91,7 @@ int	our_echo(char **str)
 
 	i = 0;
 	j = 0;
-	// while (str[i])	
-	// 	printf("%s\n", str[1]);
-	// exit(1);
-	if (str_len(str) <= 1)
+	if (str_len(str) <= 1 || !str[1][0])
 		printf("\n");
 	else if (str_len(str) == 2 && check_echo(str[1]));
 	else if (str[1][0] == '-')
