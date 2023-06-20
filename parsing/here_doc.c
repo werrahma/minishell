@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 21:20:11 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/18 11:34:19 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/19 21:24:14 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,11 @@ char	*expand_her(char *line, t_env *env)
 	free(line);
 	return (str);
 }
+void	handle_signal2(int sig)
+{
+	printf("\n");
+	exit(1);
+}
 
 int	here_doc(char *name, char *li, int qh, t_env *env)
 {
@@ -102,10 +107,14 @@ int	here_doc(char *name, char *li, int qh, t_env *env)
 	return (f);
 }
 
-void	handle_signal2(int sig)
+void  dochelper(t_tokens *tokens, char *name, t_env *list)
 {
-	printf("\n");
-	exit(1);
+	int f;
+	signal(SIGINT, handle_signal2);
+	signal(SIGQUIT, SIG_IGN);
+	f = here_doc(name, tokens->next->cont, tokens->next->qh, list);
+	close(f);
+	exit(0);
 }
 
 void	open_herfiles(t_tokens *tokens, t_env *list)
@@ -123,18 +132,19 @@ void	open_herfiles(t_tokens *tokens, t_env *list)
 			name = ft_gethername();
 			id = fork();
 			if (id == 0)
-			{
-				signal(SIGINT, handle_signal2);
-				signal(SIGQUIT, SIG_IGN);
-				f = here_doc(name, tokens->next->cont, tokens->next->qh, list);
-				close(f);
-				exit(0);
-			}
+				dochelper(tokens, name, list);
+			// {
+			// 	signal(SIGINT, handle_signal2);
+			// 	signal(SIGQUIT, SIG_IGN);
+			// 	f = here_doc(name, tokens->next->cont, tokens->next->qh, list);
+			// 	close(f);
+			// 	exit(0);
+			// }
 			waitpid(id, &status, 0);
 			if (status != 0)
 			{
 				free(name);
-				close(f);
+				//close(f);
 				free(tokens->next->cont);
 				tokens->next->cont = NULL;
 				break ;

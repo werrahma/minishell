@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:46:33 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/18 11:07:27 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/19 20:19:01 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,18 @@ int	openfd(char *file, int i)
 {
 	extern int	stx;
 	int			fd;
+	char		*str;
 
 	if (i == 0)
 	{
 		fd = open(file, O_RDONLY);
 		if (fd == -1)
 		{
-			ft_putstr_fd(ft_strjoin(file, " :"), 2);
+			str = ft_strjoin(file, " :");
+			ft_putstr_fd(str, 2);
 			ft_putstr_fd(" no such file or directory\n", 2);
 			stx = 1;
+			free(str);
 		}
 	}
 	else if (i == 1)
@@ -73,23 +76,27 @@ void	openfiles(t_tokens *token, t_mini **list)
 
 void	fill(t_tokens *token, t_mini **list, int *i)
 {
-	if (token && token->type == ARG && !token->cont && token->next)
-		;
-	else if (token && token->type == PIPE)
+	while (token)
 	{
-		(*list)->cmd = ft_realloc((*list)->cmd, (*i + 1) * sizeof(char *));
-		(*list)->cmd[*i] = NULL;
-		(*list) = (*list)->next;
-		*i = 0;
+		if (token && token->type == ARG && !token->cont && token->next)
+			;
+		else if (token && token->type == PIPE)
+		{
+			(*list)->cmd = ft_realloc((*list)->cmd, (*i + 1) * sizeof(char *));
+			(*list)->cmd[*i] = NULL;
+			(*list) = (*list)->next;
+			*i = 0;
+		}
+		else if (token && token->type == ARG)
+		{
+			(*list)->cmd = ft_realloc((*list)->cmd, (*i + 1) * sizeof(char *));
+			(*list)->cmd[*i] = ft_strdup(token->cont);
+			(*i)++;
+		}
+		else
+			openfiles(token, list);
+		token = token->next;
 	}
-	else if (token && token->type == ARG)
-	{
-		(*list)->cmd = ft_realloc((*list)->cmd, (*i + 1) * sizeof(char *));
-		(*list)->cmd[*i] = ft_strdup(token->cont);
-		(*i)++;
-	}
-	else
-		openfiles(token, list);
 }
 
 void	fill_last_list(t_tokens *token, t_env *lis, t_mini **list)
@@ -103,17 +110,14 @@ void	fill_last_list(t_tokens *token, t_env *lis, t_mini **list)
 	flag = 0;
 	ft_maxheropn(token);
 	if (stxe(token))
+	{
+		free_tokens(token);
 		return ;
+	}
 	creat_list(token, list);
 	open_herfiles(token, lis);
 	tmp = *list;
-	tm = token;
-	while (token)
-	{
-		fill(token, list, &i);
-		token = token->next;
-	}
-	token = tm;
+	fill(token, list, &i);
 	free_tokens(token);
 	(*list)->cmd = ft_realloc((*list)->cmd, (i + 1) * sizeof(char *));
 	(*list)->cmd[i] = NULL;
