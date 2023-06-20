@@ -1,9 +1,10 @@
 SRC = \
 		main.c\
-		parsing/lexer.c parsing/lexer_utils.c parsing/last_list.c parsing/here_doc.c\
-		parsing/expand.c parsing/stxe.c\
-		get_next_line/get_next_line.c \
-		get_next_line/get_next_line_utils.c \
+		parsing/lexer.c parsing/last_list.c\
+		parsing/here_doc.c parsing/expand.c parsing/stxe.c\
+		parsing/utils/lexer_utils.c \
+		parsing/utils/lexer_define.c \
+		parsing/utils/list_utils.c \
 		execution/minishell.c execution/ft_lstadd_back.c execution/ft_lstadd_front.c execution/ft_lstlast.c execution/ft_lstnew.c execution/create_list.c\
 		execution/ft_strcmp.c execution/builtins.c execution/our_unset.c execution/exit.c execution/export.c\
 		execution/cmp_env.c execution/sort_list.c\
@@ -25,7 +26,7 @@ OBJ = $(SRC:.c=.o)
 
 CC = cc
 
-CFLAGS = -fsanitize=address -g -Wall -Wextra -Werror 
+CFLAGS = -fsanitize=address -g #-Wall -Wextra -Werror 
 
 all: $(NAME)
 

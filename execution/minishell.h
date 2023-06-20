@@ -110,15 +110,6 @@ int					ft_checker(int ac, char *av);
 void				pipes_monitor(t_mini *list, t_pipe *pipes, t_env **env);
 int					*tab_pid(t_mini *list);
 
-void				rl_replace_line(const char *text, int clear_undo);
-// ***** parsing
-// typedef	struct s_tokens
-// {
-// 	int		type;
-// 	char	*cont;
-// 	struct s_tokens	*next;
-// 	struct s_tokens	*perv;
-// }	t_tokens;
 
 typedef struct glo
 {
@@ -133,29 +124,36 @@ typedef struct glo
 // 	struct s_mini *next;
 // }	t_mini;
 
-int				stxe(t_tokens *to);	
-t_tokens			*lexer_split_cmdline(char *line);
-void				fill_last_list(t_tokens *token, t_env *lis, t_mini **list);
-t_mini				*ft_lstlastl(t_mini *lst);
-void				ft_lstadd_backl(t_mini **lst, t_mini *new);
-char *expenv(char *str, t_env *env);
 // parsinghelperf
 
-t_tokens			*ft_lstnewp(char *content);
-size_t				ft_strlen(const char *s);
-t_tokens			*ft_lstlastp(t_tokens *lst);
-char				*ft_strdup(const char *s1);
-char				*ft_chrjoin(char *dst, char c);
-void				*ft_calloc(size_t count, size_t size);
-void				ft_lstadd_backp(t_tokens **lst, t_tokens *new);
-int					lexer_openqts(char *line, int indx);
-char				*get_next_line(int fd);
-int					ft_strcmp(const char *s1, const char *s2);
-void				open_herfiles(t_tokens *tokens, t_env *list);
-void				do_expand_tokens(t_tokens **tokens, t_env *env);
-int					have_builtins(char **cmd);
-int					ft_lstsize(t_mini *lst);
-void				ft_maxheropn(t_tokens  *tokens);
+
+void		rl_replace_line(const char *text, int clear_undo);
+int			stxe(t_tokens *to);	
+t_tokens	*lexer_split_cmdline(char *line);
+void		fill_last_list(t_tokens *token, t_env *lis, t_mini **list);
+t_mini		*ft_lstlastl(t_mini *lst);
+void		ft_lstadd_backl(t_mini **lst, t_mini *new);
+char		*expenv(char *str, t_env *env);
+t_tokens	*ft_lstnewp(char *content);
+size_t		ft_strlen(const char *s);
+t_tokens	*ft_lstlastp(t_tokens *lst);
+char		*ft_strdup(const char *s1);
+char		*ft_chrjoin(char *dst, char c);
+void		*ft_calloc(size_t count, size_t size);
+void		ft_lstadd_backp(t_tokens **lst, t_tokens *new);
+int			lexer_openqts(char *line, int indx);
+char		*get_next_line(int fd);
+int			ft_strcmp(const char *s1, const char *s2);
+void		open_herfiles(t_tokens *tokens, t_env *list);
+void		do_expand_tokens(t_tokens **tokens, t_env *env);
+int			have_builtins(char **cmd);
+int			ft_lstsize(t_mini *lst);
+void		ft_maxheropn(t_tokens  *tokens);
+void		*ft_realloc(void *ptr, size_t size);
+t_mini		*ft_lstnewl(void);
+void		free_tokens(t_tokens *t);
+int			definetype_helper(t_tokens *toke);
+t_tokens	*lexer_definetype(t_tokens *token);
 
 # define INFILE 0
 # define OUTFILE 1

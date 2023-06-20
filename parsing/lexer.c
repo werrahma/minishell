@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 18:44:16 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/17 11:04:37 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/18 11:11:26 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,46 +19,6 @@ int	sep(char s)
 	else if (s == ' ' || s == '\n' || s == '\t' || s == '|')
 		return (2);
 	return (0);
-}
-
-int	definetype_helper(t_tokens *toke)
-{
-	if (!ft_strcmp(toke->cont, "<<"))
-		return (HEREDOC);
-	else if (!ft_strcmp(toke->cont, "<"))
-		return (INPUT);
-	else if (!ft_strcmp(toke->cont, ">"))
-		return (OUTPUT);
-	else if (!ft_strcmp(toke->cont, ">>"))
-		return (APPEND);
-	else if (!ft_strcmp(toke->cont, "|"))
-		return (PIPE);
-	else if (!toke->perv)
-		return (ARG);
-	else if (toke->perv->type == HEREDOC)
-		return (LIMETER);
-	else if (toke->perv->type == INPUT)
-		return (INFILE);
-	else if (toke->perv->type == OUTPUT)
-		return (OUTFILE);
-	else if (toke->perv->type == APPEND)
-		return (OUTFILE);
-	else
-		return (ARG);
-}
-
-t_tokens	*lexer_definetype(t_tokens *token)
-{
-	t_tokens	*tmp;
-
-	tmp = token;
-	while (token)
-	{
-		token->type = definetype_helper(token);
-		token = token->next;
-	}
-	token = tmp;
-	return (token);
 }
 
 int	lexer_openqts(char *line, int indx)

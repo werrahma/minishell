@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 14:00:52 by werrahma          #+#    #+#             */
-/*   Updated: 2022/10/28 15:30:01 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/19 20:01:08 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_strlen(const char *ar)
 	size_t	a;
 
 	a = 0;
-	while (ar[a] != '\0')
+	while (ar && ar[a] != '\0')
 		a++;
 	return (a);
 }
