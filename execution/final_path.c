@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 11:36:22 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/17 20:43:11 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/19 22:10:00 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**pass_split(char *path)
 	n_path = ft_strdup(&path[5]);
 	sp = ft_split(n_path, ':');
 	if (!sp)
-		out_free(sp);
+		our_free(sp);
 	free(n_path);
 	return (sp);
 }

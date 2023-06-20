@@ -3,8 +3,9 @@
 
 void	copy_env(t_env **env, t_env **c_env)
 {
-	t_env *c_tmp;
-	t_env *tmp;
+	t_env	*c_tmp;
+	t_env	*tmp;
+	char	**split;
 
 	tmp = *env;
 	while (tmp)
@@ -15,16 +16,15 @@ void	copy_env(t_env **env, t_env **c_env)
 	c_tmp = *c_env;
 	while (*c_env && *env)
 	{
-		// if (!(*env)->key)
-		// 	(*c_env)->key = NULL;
-		// else
-		(*c_env)->key = ft_strdup((*env)->key);
+		split = ft_split((*env)->key, '=');
+		(*c_env)->key = ft_strdup(split[0]);
 		if (!(*env)->value)
 			(*c_env)->value = NULL;
 		else
 			(*c_env)->value = ft_strdup((*env)->value);
 		*env = (*env)->next;
 		*c_env = (*c_env)->next;
+		our_free(split);
 	}
 	*c_env = c_tmp;
 }
@@ -48,21 +48,10 @@ void	sort_list(t_env **env)
 			value_swaping = (*env)->next->value;
 			(*env)->next->value = (*env)->value;
 			(*env)->value = value_swaping;
-			// value_swaping = (*env)->next->value;
-			// (*env)->next->value = value_swaping;
-			// key_swaping = (*env);
 			*env = tmp;
 		}
 		else
 			*env = (*env)->next;
 	}
-	// printf("%s\n", (*env)->key);
 	*env = tmp;
-	// while(*env)
-	// {
-	// 	printf("%s == ", (*env)->key);
-	// 	printf("%s\n", (*env)->value);
-	// 	(*env) = (*env)->next;
-	// }
-	// exit(1);
 }

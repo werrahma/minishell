@@ -24,8 +24,11 @@ char	**get_env(t_env *env)
 	{
 		c_env[i] = ft_strjoin(env->key, "=");
 		tmp = c_env[i];
-		c_env[i] = ft_strjoin(c_env[i], env->value);
-		free(tmp);
+		if (env->value)
+		{
+			c_env[i] = ft_strjoin(c_env[i], env->value);
+			free(tmp);
+		}
 		env = env->next;
 		i++;
 	}

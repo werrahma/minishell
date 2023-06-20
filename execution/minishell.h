@@ -72,7 +72,7 @@ typedef struct s_pipe
 // #include <readline/history.h>
 
 void				check_arg(char **av, t_env **env);
-void				out_free(char **arr);
+void				our_free(char **arr);
 char				**split_env(char *str);
 char				**get_env(t_env *env);
 int					is_spas_instring(char *str);

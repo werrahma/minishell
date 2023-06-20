@@ -146,6 +146,7 @@ int	main(int ac, char **av, char **env)
 			{
 				// printf("am in builtin\n");
 				check_arg(li->cmd, &list);
+		// system("leaks minishell");
 			}
 			else
 			{
@@ -171,7 +172,6 @@ int	main(int ac, char **av, char **env)
 		free(line);
 		unlink_hf();
 		free_li(&li);
-		// system("leaks minishell");
 	}
 	exit(exit_status);
 }
