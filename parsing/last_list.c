@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:46:33 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/20 12:54:56 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/20 17:59:29 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,6 @@ void	fill(t_tokens *token, t_mini **list, int *i)
 {
 	while (token)
 	{
-		// if (!token->cont && !token->next && token->type == ARG)
-		// {
-		// 	(*list)->cmd = ft_realloc((*list)->cmd, (*i + 1) * sizeof(char *));
-		// 	(*list)->cmd[*i] = ft_strdup(token->cont);
-		// 	(*i)++;
-		// }
 		if (token && token->type == ARG && !token->cont && token->next)
 			;
 		else if (token && token->type == PIPE)
