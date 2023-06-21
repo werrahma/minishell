@@ -38,6 +38,14 @@ typedef struct s_env
 	struct s_env	*next;
 }					t_env;
 
+typedef struct s_var
+{
+	t_env	*curent;
+	t_env	*nxt;
+	t_env	*tmp;
+	t_env	*tmp1;
+}				t_var;
+
 typedef struct s_pipe
 {
 	int				fd[2][2];

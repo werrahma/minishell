@@ -16,52 +16,52 @@ void	free_node(t_env *env)
 {
 	free(env->key);
 	free(env->value);
+	env->key = NULL;
+	env->value = NULL;
 	free(env);
 }
 
+void	unset_monitor(t_var *var, t_env **env, char *remove)
+{
+	while (*env && (*env)->next)
+	{
+		var->curent = *env;
+		var->nxt = (*env)->next;
+		if (!ft_strcmp(var->curent->key, remove))
+		{
+			var->tmp1 = *env;
+			*env = (*env)->next;
+			var->tmp = var->tmp->next;
+			free_node(var->tmp1);
+			break ;
+		}
+		else if (!ft_strcmp(var->nxt->key, remove))
+		{
+			var->tmp1 = var->curent->next;
+			var->curent->next = var->nxt->next;
+			free_node(var->tmp1);
+			break ;
+		}
+		*env = (*env)->next;
+	}
+}
 void	our_unset(t_env **env, char **remove)
 {
-	t_env	*curent;
-	t_env	*nxt;
-	t_env	*tmp;
-	t_env	*tmp1;
+	t_var	var;
 	int		i;
-	int		flag;
 	int		flag2;
 
-	tmp1 = NULL;
-	curent = *env;
-	tmp = *env;
-	flag = 0;
+	var.tmp1 = NULL;
+	var.curent = *env;
+	var.tmp = *env;
 	i = 1;
 	flag2 = 0;
 	while (remove[i])
 	{
-		while (*env && (*env)->next)
-		{
-			curent = *env;
-			nxt = (*env)->next;
-			if (!ft_strcmp(curent->key, remove[i]))
-			{
-				tmp1 = *env;
-				*env = (*env)->next;
-				tmp = tmp->next;
-				free_node(tmp1);
-				flag = 1;
-				break ;
-			}
-			else if (!ft_strcmp(nxt->key, remove[i]))
-			{
-				tmp1 = curent->next;
-				curent->next = nxt->next;
-				free_node(tmp1);
-				break ;
-			}
-			*env = (*env)->next;
-		}
+		unset_monitor(&var, env, remove[i]);
 		if ((*env) && !(*env)->next && !ft_strcmp((*env)->key, remove[i]))
 			flag2 = 1;
-		*env = tmp;
+		*env = var.tmp;
 		i++;
 	}
 	if (flag2 == 1)
@@ -74,5 +74,5 @@ void	our_unset(t_env **env, char **remove)
 		*env = NULL;
 	}
 	else
-		*env = tmp;
+		*env = var.tmp;
 }

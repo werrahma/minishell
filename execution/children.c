@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/21 11:45:40 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/21 12:15:38 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void	last_child(t_mini *list, t_pipe *pipes, t_env **env)
 
 	flag = 0;
 	i = 0;
-	//signal(SIGINT, SIG_IGN);
 	if (list->outfile == -1 || list->infile == -1)
 		exit(1);
 	ps_path = pathfinder(*env);
