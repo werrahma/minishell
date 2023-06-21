@@ -6,11 +6,35 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:05:52 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/19 21:06:55 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/21 11:41:29 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	child_failure(t_mini *list, int flag, t_pipe *pipes, t_env **env)
+{
+	int	i;
+
+	i = 0;
+	if (flag == -1)
+	{
+		while (list->cmd[i])
+		{
+			printf("minishell: %s No such file or directory\n",
+				list->cmd[i++]);
+		}
+		exit(1);
+	}
+	else
+	{
+		if (flag == 1)
+			check_arg(list->cmd, env);
+		colse_files(pipes);
+		if (flag == 1 || !list->cmd[0])
+			exit(0);
+	}
+}
 
 void	multiple_pipe(t_mini *list, t_env **env, t_pipe *pipes)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 12:46:05 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/16 23:44:58 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:04:20 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	str_len(char **av)
 	int	i;
 
 	i = 0;
-	while(av[i])
+	while (av[i])
 		i++;
 	return (i);
 }
@@ -29,7 +29,7 @@ int	check_exit_arg(char *av)
 	i = 0;
 	if (av[i] == '+' || av[i] == '-')
 		i++;
-	while(av[i])
+	while (av[i])
 	{
 		if (!(av[i] >= '0' && av[i] <= '9'))
 		{
@@ -40,7 +40,6 @@ int	check_exit_arg(char *av)
 	}
 	return (ft_atoi(av));
 }
-
 
 int	my_exit(char **av)
 {
@@ -58,10 +57,8 @@ int	my_exit(char **av)
 	}
 	else if (!av[1])
 		status = 127;
-	else if(av[1] && !check_exit_arg(av[1]))
-	{
+	else if (av[1] && !check_exit_arg(av[1]))
 		status = 255;
-	}
 	else
 		status = ft_atoi(av[1]);
 	if (status > 255)
@@ -69,5 +66,4 @@ int	my_exit(char **av)
 	else if (status < 0)
 		status = status + 256;
 	return (status);
-	
 }

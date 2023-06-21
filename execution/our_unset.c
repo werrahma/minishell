@@ -61,15 +61,9 @@ void	our_unset(t_env **env, char **remove)
 		}
 		if ((*env) && !(*env)->next && !ft_strcmp((*env)->key, remove[i]))
 			flag2 = 1;
-		// if (flag == 1)
-		// {
-		// 	flag = 0;
-		// 	tmp = tmp ->next;
-		// }
 		*env = tmp;
 		i++;
 	}
-	// printf("tmp.key === %s\n", (*env)->key);
 	if (flag2 == 1)
 	{
 		free((*env)->key);
@@ -78,16 +72,7 @@ void	our_unset(t_env **env, char **remove)
 		(*env)->value = NULL;
 		free(*env);
 		*env = NULL;
-		// *env = tmp1;
 	}
 	else
 		*env = tmp;
-	// else
-	// 	env = &tmp1;
-	// while(*env)
-	// {
-	// 	printf("%s\n", (*env)->key);
-	// 	*env = (*env)->next;
-	// }
-	// exit (1);
 }

@@ -71,6 +71,16 @@ typedef struct s_pipe
 // #include <readline/readline.h>
 // #include <readline/history.h>
 
+void				child_failure(t_mini *list, int flag, t_pipe *pipes, t_env **env);
+void				colse_files(t_pipe *pipes);
+int					is_string_inlist(t_env *env, char *arg);
+int					status_checker(int exit_status);
+int					export_monitor(t_env **env, t_env *tmp, char *av, int *cnst);
+void				dup_key(char *str, t_env *lst);
+void				dup_value(char *str, t_env *lst);
+t_env				*fond_key(t_env *list, char *str);
+void				free_env(t_env **env);
+int					is_spas_instring(char *str);
 void				check_arg(char **av, t_env **env);
 void				our_free(char **arr);
 char				**split_env(char *str);
@@ -91,8 +101,7 @@ void				our_cd(t_env *env, char *file);
 void				our_unset(t_env **env, char **remove);
 int					my_exit(char **av);
 int					str_len(char **av);
-void				our_export(t_env **env, char **av);
-int					cmp_env(char *str1, char *str2);
+int					our_export(t_env **env, char **av);
 void				sort_list(t_env **env);
 void				fill_list(t_env **list, char **env);
 int					wcheck_arg(char **av, t_env **env);
