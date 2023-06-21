@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 21:20:11 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/20 11:39:01 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/20 20:14:26 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,31 @@ char	*ft_gethername(void)
 	return (name);
 }
 
+char	*herexpand(char *line, char *str, int *i, t_env *env)
+{
+	int		j;
+	char	*s;
+
+	s = NULL;
+	j = *i + 1;
+	*i = j;
+	while (*i)
+	{
+		if (line[*i] == '\0' || !(ft_isalnum(line[*i])))
+		{
+			s = ft_substr(line, j, (*i - j));
+			str = ft_strjoin(str, expenv(s, env));
+			free(s);
+			if (!str[0] && line[*i] == '\0')
+				return (str);
+			(*i)--;
+			break ;
+		}
+		(*i)++;
+	}
+	return(str);
+}
+
 char	*expand_her(char *line, t_env *env)
 {
 	int		i;
@@ -49,22 +74,10 @@ char	*expand_her(char *line, t_env *env)
 				str = ft_chrjoin(str, line[i]);
 		else if (line[i] == '$')
 		{
-			j = i + 1;
-			i = j;
-			while (i)
-			{
-				if (line[i] == '\0' || !(ft_isalnum(line[i])))
-				{
-					s = ft_substr(line, j, (i - j));
-					str = ft_strjoin(str, expenv(s, env));
-					free(s);
-					if (!str[0] && line[i] == '\0')
-						return (free(line), str);
-					i--;
-					break ;
-				}
-				i++;
-			}
+			str = herexpand(line, str, &i, env);
+			if (!str[0] && line[i] == '\0')
+				return (free(line), str);
+		
 		}
 		else
 			str = ft_chrjoin(str, line[i]);
@@ -108,14 +121,22 @@ int	here_doc(char *name, char *li, int qh, t_env *env)
 	return (f);
 }
 
-void  dochelper(t_tokens *tokens, char *name, t_env *list)
+void	dochelper(t_tokens *tokens, char *name, t_env *list)
 {
-	int f;
+	int	f;
+
 	signal(SIGINT, handle_signal2);
 	signal(SIGQUIT, SIG_IGN);
 	f = here_doc(name, tokens->next->cont, tokens->next->qh, list);
 	close(f);
 	exit(0);
+}
+
+void	free_tmp(char *name, t_tokens *tokens)
+{
+	free(name);
+	free(tokens->next->cont);
+	tokens->next->cont = NULL;
 }
 
 void	open_herfiles(t_tokens *tokens, t_env *list)
@@ -132,25 +153,14 @@ void	open_herfiles(t_tokens *tokens, t_env *list)
 			signal(SIGINT, SIG_IGN);
 			name = ft_gethername();
 			id = fork();
+			if (id == 0)
 				dochelper(tokens, name, list);
-			// if (id == 0)
-			// {
-			// 	signal(SIGINT, handle_signal2);
-			// 	signal(SIGQUIT, SIG_IGN);
-			// 	f = here_doc(name, tokens->next->cont, tokens->next->qh, list);
-			// 	printf("[%d]\n", f);
-			// 	close(f);
-			// 	exit(0);
-			// }
 			waitpid(id, &status, 0);
 			if (status != 0)
 			{
-				free(name);
-				free(tokens->next->cont);
-				tokens->next->cont = NULL;
+				free_tmp(name, tokens);
 				break ;
 			}
-			printf("{%d}\n", f);
 			free(tokens->next->cont);
 			tokens->next->cont = name;
 		}

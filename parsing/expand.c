@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 12:35:21 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/20 12:00:18 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:18:40 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,7 @@ char	*expand_tokens(t_tokens *token, t_env *env)
 	while (token->cont && token->cont[i])
 	{
 		if (token->cont[0] == '~' && token->cont[1] == '\0')
-		{
 			str = ft_pjoin(str, expenv("HOME", env));
-		}
 		else if (token->cont[i] && token->cont[i] == '$'
 			&& token->cont[i + 1] == '?' && lexer_openqts(token->cont, i) != 2)
 		{
