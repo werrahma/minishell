@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 21:50:53 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/21 17:05:47 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:07:06 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef struct glo
 	int				stx;
 }					t_glo;
 
-
+void		forking(t_mini *list, t_pipe *pipes, t_env **env, int flag);
 void		check_open(t_mini *list);
 void		check_arg(char **av, t_env **env);
 int			cmp_env(char *str1, char *str2);
