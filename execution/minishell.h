@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 21:50:53 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/21 17:07:06 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:09:38 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,6 @@ typedef struct s_pipe
 	int				index;
 
 }					t_pipe;
-
-typedef struct glo
-{
-	int				stx;
-}					t_glo;
 
 void		forking(t_mini *list, t_pipe *pipes, t_env **env, int flag);
 void		check_open(t_mini *list);

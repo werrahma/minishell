@@ -6,13 +6,12 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:56:16 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/21 17:04:22 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:36:34 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution/minishell.h"
 
-t_glo	global;
 int		stx = 0;
 
 int	syntax_checker(t_mini *list)
@@ -27,15 +26,15 @@ int	syntax_checker(t_mini *list)
 	return (1);
 }
 
-// void	handle_signal(int sig)
-// {
-// 	(void) sig;
-// 	stx = 1;
-// 	printf("\n");
-// 	rl_on_new_line();
-// 	rl_replace_line("", 0);
-// 	rl_redisplay();
-// }
+void	handle_signal(int sig)
+{
+	(void) sig;
+	stx = 1;
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
 
 void	unlink_hf(void)
 {
@@ -85,31 +84,24 @@ int	main(int ac, char **av, char **env)
 	int exit_status;
 	t_env *list = NULL;
 	t_tokens *tokens;
-	// t_env   *tmp = NULL;
 
 	char *line;
-	// t_tokens     *lst;
 	t_mini *li = NULL;
 	t_pipe pipes;
 	t_mini *t;
 	create_list(&list, env);
 	fill_list(&list, env);
-	// while(1);
 	if (!list)
 		create_env(&list);
 	pipes.env = env;
 	pipes.strin_main = dup(0);
-	//int stdout_main = dup(1);
 	int stdin_main = dup(0);
 	pipes.stdiin = dup(0);
 	pipes.stdouut = dup(1);
-	// printf("%d\n", pipes.stdiin);
-	// pipe(pipes.fd[1]);
-	// exit(1);
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
-		// signal(SIGINT, handle_signal);
+		signal(SIGINT, handle_signal);
 		line = readline("minishell$ ");
 		if (!line)
 		{
@@ -123,45 +115,22 @@ int	main(int ac, char **av, char **env)
 			stx = 258;
 			continue;
 		}
-		// system("leaks minishell");
 		tokens = lexer_split_cmdline(line);
 		do_expand_tokens(&tokens, list);
-		//write(2, "gg\n", 3);
 		fill_last_list(tokens, list, &li);
-		//system("leaks minishell");
 		t = li;
-		//system("leaks minishell");
-		//puts("fffff");
 		size_list = ft_lstsize(li);
 		pipes.pid = tab_pid(li);
 		pipes.index = 0;
-		// while(li)
-		// {
-		// 	printf("jhsd\n");
-		// 	li = li->next;
-		// }
-		// exit(1);
-		// lst = lexer_split_cmdline(line);
-		//li = fill_last_list(lexer_split_cmdline(line));
-		//printf("***********\n");
 		pipes.f0 = 0;
 		pipes.f1 = 1;
+		signal(SIGINT, handle_sig);
 		while (li)
 		{
-			// if(!check_agr(li->cmd, &list))
-			// {
-			// printf("hereaa\n");
-			// if (!syntax_checker(li))
-			// {
-			// 	printf("for syntax\n");
-			// 	break ;
-			// }
 			if (have_builtins(li->cmd) && size_list == 1 && li->infile ==
 				-3 && li->outfile == -3)
 			{
-				// printf("am in builtin\n");
 				check_arg(li->cmd, &list);
-		// system("leaks minishell");
 			}
 			else
 			{
@@ -174,9 +143,7 @@ int	main(int ac, char **av, char **env)
 		}
 		li = t;
 		dup2(stdin_main, pipes.strin_main);
-		// dup2(stdout_main, pipes.stdouut);
 		int i = 0;
-		// printf("exit sta==  %d\n", stx);
 		while (i < size_list)
 			waitpid(pipes.pid[i++], &exit_status, 0);
 		if (WIFEXITED(exit_status) && size_list > 1)
