@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 21:50:53 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/21 17:07:06 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:57:37 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ typedef struct s_var
 	int		flag;
 	char	*pwd;
 	int		flag2;
+	int		i;
+	int		j;
 }				t_var;
 
 typedef struct s_pipe

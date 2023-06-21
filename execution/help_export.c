@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   help_export.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 18:10:39 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/21 16:37:42 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:00:08 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	is_spas_instring(char *str)
 	i = 0;
 	while (str[i] && str[i] != '=')
 	{
-		if (str[i] == ' ' || str[i] == '-' || (str[0] >= '0' && str[0] <= '9') ||str[i] == '$')
+		if (str[i] == ' ' || str[i] == '-' || (str[0] >= '0' && str[0] <= '9')
+			|| str[i] == '$')
 			return (0);
 		i++;
 	}
@@ -53,32 +54,31 @@ t_env	*fond_key(t_env *list, char *str)
 
 void	dup_value(char *str, t_env *lst)
 {
-	int	i;
-	int	j;
+	t_var	var;
 
-	i = 0;
-	while (str[i] && str[i] != '=')
-		i++;
-	if (str[i] == '=')
-		i++;
-	j = i;
-	while (str[j])
-		j++;
-	lst->value = malloc(j + 1);
-	j = 0;
-	while (str[i])
+	var.i = 0;
+	while (str[var.i] && str[var.i] != '=')
+		var.i++;
+	if (str[var.i] == '=')
+		var.i++;
+	var.j = var.i;
+	while (str[var.j])
+		var.j++;
+	lst->value = malloc(var.j + 1);
+	var.j = 0;
+	while (str[var.i])
 	{
-		lst->value[j] = str[i];
-		i++;
-		j++;
+		lst->value[var.j] = str[var.i];
+		var.i++;
+		var.j++;
 	}
-	if (j == 0)
+	if (var.j == 0)
 	{
 		free(lst->value);
 		lst->value = NULL;
 	}
 	else
-		lst->value[j] = '\0';
+		lst->value[var.j] = '\0';
 }
 
 void	dup_key(char *str, t_env *lst)

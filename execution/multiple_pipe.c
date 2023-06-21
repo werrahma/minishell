@@ -6,15 +6,24 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:05:52 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/21 17:03:11 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:42:47 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	swap(int *a, int *b)
+{
+	int	tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
 void	forking(t_mini *list, t_pipe *pipes, t_env **env, int flag)
 {
-	if (flag = 1)
+	if (flag == 1)
 	{
 		signal(SIGINT, handle_sig);
 		first_child(list, pipes, env);
@@ -33,6 +42,7 @@ void	check_open(t_mini *list)
 	if (list->outfile == -1 || list->infile == -1)
 		exit(1);
 }
+
 void	child_failure(t_mini *list, int flag, t_pipe *pipes, t_env **env)
 {
 	int	i;

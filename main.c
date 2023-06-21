@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:56:16 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/21 17:04:22 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:42:08 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution/minishell.h"
 
-t_glo	global;
 int		stx = 0;
 
 int	syntax_checker(t_mini *list)
@@ -158,11 +157,7 @@ int	main(int ac, char **av, char **env)
 			// }
 			if (have_builtins(li->cmd) && size_list == 1 && li->infile ==
 				-3 && li->outfile == -3)
-			{
-				// printf("am in builtin\n");
 				check_arg(li->cmd, &list);
-		// system("leaks minishell");
-			}
 			else
 			{
 				pipe(pipes.fd[0]);
@@ -181,6 +176,8 @@ int	main(int ac, char **av, char **env)
 			waitpid(pipes.pid[i++], &exit_status, 0);
 		if (WIFEXITED(exit_status) && size_list > 1)
 			stx = WEXITSTATUS(exit_status);
+		else if (WIFSIGNALED(exit_status))
+			stx = WTERMSIG(exit_status) + 128;
 		if (line[0])
 			add_history(line);
 		free(pipes.pid);
