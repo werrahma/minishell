@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/21 16:56:16 by yahamdan          #+#    #+#             */
+/*   Updated: 2023/06/21 17:04:22 by yahamdan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "execution/minishell.h"
 
 t_glo	global;
@@ -15,7 +27,7 @@ int	syntax_checker(t_mini *list)
 	return (1);
 }
 
-// void handle_signal(int sig)
+// void	handle_signal(int sig)
 // {
 // 	(void) sig;
 // 	stx = 1;
@@ -25,10 +37,10 @@ int	syntax_checker(t_mini *list)
 // 	rl_redisplay();
 // }
 
-void unlink_hf()
+void	unlink_hf(void)
 {
 	char	*name;
-	int 	i;
+	int	i;
 	char 	*ii;
 
 	i = 0;
