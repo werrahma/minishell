@@ -15,15 +15,15 @@ int	syntax_checker(t_mini *list)
 	return (1);
 }
 
-void handle_signal(int sig)
-{
-	(void) sig;
-	stx = 1;
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
+// void handle_signal(int sig)
+// {
+// 	(void) sig;
+// 	stx = 1;
+// 	printf("\n");
+// 	rl_on_new_line();
+// 	rl_replace_line("", 0);
+// 	rl_redisplay();
+// }
 
 void unlink_hf()
 {
@@ -97,7 +97,7 @@ int	main(int ac, char **av, char **env)
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
-		signal(SIGINT, handle_signal);
+		// signal(SIGINT, handle_signal);
 		line = readline("minishell$ ");
 		if (!line)
 		{
