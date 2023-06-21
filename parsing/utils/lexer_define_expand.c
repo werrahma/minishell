@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_define.c                                     :+:      :+:    :+:   */
+/*   lexer_define_and_expand.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 11:10:44 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/18 11:18:25 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:05:30 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,35 @@ t_tokens	*lexer_definetype(t_tokens *token)
 	}
 	token = tmp;
 	return (token);
+}
+
+int	qoutesordlr(t_tokens *token)
+{
+	int	i;
+
+	i = 0;
+	while (token->cont[i])
+	{
+		if (token->cont[i] == '\'' || token->cont[i] == '\"')
+			return (1);
+		if (token->cont[i] == '$' || token->cont[i] == '~')
+			return (2);
+		i++;
+	}
+	return (0);
+}
+
+char	*expenv(char *str, t_env *env)
+{
+	t_env	*rmp;
+
+	rmp = env;
+	while (env)
+	{
+		if (ft_strcmp(str, env->key) == 0)
+			return (ft_strdup(env->value));
+		env = env->next;
+	}
+	env = rmp;
+	return (ft_strdup(""));
 }

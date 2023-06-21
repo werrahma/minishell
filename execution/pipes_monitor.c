@@ -28,6 +28,12 @@ void	swap(int *a, int *b)
 	*a = *b;
 	*b = tmp;
 }
+// void	handle_sig(int sig)
+// {
+// 	printf("\n");
+// 	dprintf(2, "hejjj\n");
+// 	exit(130);
+// }
 
 void	pipes_monitor(t_mini *list, t_pipe *pipes, t_env **env)
 {
@@ -72,12 +78,13 @@ void	pipes_monitor(t_mini *list, t_pipe *pipes, t_env **env)
 	else if (list->outfile > 2 || flag == 1)
 	{
 		// dprintf(2, "i have outfile\n");
+		//signal(SIGINT, SIG_IGN);
 		pipes->pid[pipes->index] = fork();
 		// signal(SIGINT, SIG_IGN);
 		// pipes->index++;
 		if (pipes->pid[pipes->index] == 0)
 		{
-			// signal(SIGINT, SIG_DFL);
+			//signal(SIGINT, handle_sig);
 			// signal(SIGQUIT, SIG_DFL);
 			last_child(list, pipes, env);
 		}

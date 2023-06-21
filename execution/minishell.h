@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 21:50:53 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/20 21:55:56 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:07:15 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ t_tokens	*lexer_definetype(t_tokens *token);
 void		free_tmp(char *name, t_tokens *tokens);
 char		*ft_gethername(void);
 char		*herexpand(char *line, char *str, int *i, t_env *env);
+int			qoutesordlr(t_tokens *token);
 
 # define INFILE 0
 # define OUTFILE 1

@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 12:35:21 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/21 11:23:34 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:06:41 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,36 +39,6 @@ char	*ft_pjoin(char *s1, char *s2)
 	return (m);
 }
 
-int	qoutesordlr(t_tokens *token)
-{
-	int	i;
-
-	i = 0;
-	while (token->cont[i])
-	{
-		if (token->cont[i] == '\'' || token->cont[i] == '\"')
-			return (1);
-		if (token->cont[i] == '$' || token->cont[i] == '~')
-			return (2);
-		i++;
-	}
-	return (0);
-}
-
-char	*expenv(char *str, t_env *env)
-{
-	t_env	*rmp;
-
-	rmp = env;
-	while (env)
-	{
-		if (ft_strcmp(str, env->key) == 0)
-			return (ft_strdup(env->value));
-		env = env->next;
-	}
-	env = rmp;
-	return (ft_strdup(""));
-}
 char	*expand_helper1(t_tokens *token, char *str, int *i, t_env *env)
 {
 	int		j;
@@ -99,8 +69,8 @@ char	*expand_helper1(t_tokens *token, char *str, int *i, t_env *env)
 
 char	*expand_helper(t_tokens *token, char *str, int *i, t_env *env)
 {
-	int	j;
-	extern int stx;
+	int			j;
+	extern int	stx;
 
 	if (token->cont[0] == '~' && token->cont[1] == '\0')
 			str = ft_pjoin(str, expenv("HOME", env));
