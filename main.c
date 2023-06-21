@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:56:16 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/21 18:36:34 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/21 19:17:13 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int	main(int ac, char **av, char **env)
 	pipes.stdiin = dup(0);
 	pipes.stdouut = dup(1);
 	signal(SIGQUIT, SIG_IGN);
+	stx = 0;
 	while (1)
 	{
 		signal(SIGINT, handle_signal);
@@ -125,11 +126,13 @@ int	main(int ac, char **av, char **env)
 		pipes.f0 = 0;
 		pipes.f1 = 1;
 		signal(SIGINT, handle_sig);
+		int flag = 0;
 		while (li)
 		{
 			if (have_builtins(li->cmd) && size_list == 1 && li->infile ==
 				-3 && li->outfile == -3)
 			{
+				flag = 1;
 				check_arg(li->cmd, &list);
 			}
 			else
@@ -144,10 +147,17 @@ int	main(int ac, char **av, char **env)
 		li = t;
 		dup2(stdin_main, pipes.strin_main);
 		int i = 0;
-		while (i < size_list)
-			waitpid(pipes.pid[i++], &exit_status, 0);
-		if (WIFEXITED(exit_status) && size_list > 1)
-			stx = WEXITSTATUS(exit_status);
+		exit_status = stx;
+		if (!flag)
+		{
+			while (i < size_list)
+				waitpid(pipes.pid[i++], &exit_status, 0);
+			if (WIFEXITED(exit_status) && size_list == 1);
+			else if (WIFEXITED(exit_status))
+				stx = WEXITSTATUS(exit_status);
+			else if (WIFSIGNALED(exit_status))
+				stx = WTERMSIG(exit_status) + 128;
+		}
 		if (line[0])
 			add_history(line);
 		free(pipes.pid);

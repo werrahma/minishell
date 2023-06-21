@@ -3,23 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 15:18:00 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/21 15:04:50 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/21 19:03:36 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	pwd(void)
+int	pwd(void)
 {
 	char	str[PATH_MAX];
 
 	printf("%s\n", getcwd(str, PATH_MAX));
+	return (status_checker(0));
 }
 
-void	print_env(t_env *env)
+int	print_env(t_env *env)
 {
 	int	i;
 
@@ -27,7 +28,7 @@ void	print_env(t_env *env)
 	if (!env)
 	{
 		write(2, "env: No such file or directory\n", 31);
-		return ;
+		return (1);
 	}
 	while (env)
 	{
@@ -39,6 +40,7 @@ void	print_env(t_env *env)
 		}
 		env = env->next;
 	}
+	return (status_checker(0));
 }
 
 // int	check_oldpwd(t_env *env, int *flag)

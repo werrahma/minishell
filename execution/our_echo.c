@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   our_echo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 17:09:30 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/21 16:36:14 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:17:53 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,6 @@ int	our_echo(char **str)
 			return (print_cho(str, i + 2, 1), status_checker(0));
 	}
 	else
-		return (print_cho(str, i + 1, 0), 0);
+		return (print_cho(str, i + 1, 0), status_checker(0));
 	return (status_checker(0));
 }

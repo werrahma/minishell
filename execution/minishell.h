@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 21:50:53 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/21 17:09:38 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:57:45 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ typedef struct s_var
 	int		flag;
 	char	*pwd;
 	int		flag2;
+	int		i;
+	int		j;
 }				t_var;
 
 typedef struct s_pipe
@@ -115,8 +117,8 @@ void		ft_lstadd_back(t_env **lst, t_env *new);
 t_env		*ft_lstnew(void);
 t_env		*ft_lstlast(t_env *lst);
 int			ft_strcmp(const char *s1, const char *s2);
-void		pwd(void);
-void		print_env(t_env *env);
+int			pwd(void);
+int			print_env(t_env *env);
 int			our_echo(char **str);
 int			our_cd(t_env *env, char *file);
 int			our_unset(t_env **env, char **remove);

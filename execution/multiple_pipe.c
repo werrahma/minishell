@@ -6,11 +6,20 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:05:52 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/21 18:38:28 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/21 19:19:03 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	swap(int *a, int *b)
+{
+	int	tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
 
 void	forking(t_mini *list, t_pipe *pipes, t_env **env, int flag)
 {
@@ -29,10 +38,11 @@ void	forking(t_mini *list, t_pipe *pipes, t_env **env, int flag)
 void	check_open(t_mini *list)
 {
 	if (list->outfile == -1)
-		write(2, "No such file or directory\n", 27);
+		write(2, " : No such file or directory\n", 30);
 	if (list->outfile == -1 || list->infile == -1)
 		exit(1);
 }
+
 void	child_failure(t_mini *list, int flag, t_pipe *pipes, t_env **env)
 {
 	int	i;
