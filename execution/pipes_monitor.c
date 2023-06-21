@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_monitor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 22:45:28 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/20 22:45:46 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:15:39 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ void	swap(int *a, int *b)
 	*a = *b;
 	*b = tmp;
 }
+// void	handle_sig(int sig)
+// {
+// 	printf("\n");
+// 	dprintf(2, "hejjj\n");
+// 	exit(130);
+// }
 
 int	if_stdout(t_mini *list)
 {

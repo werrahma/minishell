@@ -1,5 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/20 21:50:53 by yahamdan          #+#    #+#             */
+/*   Updated: 2023/06/21 16:34:29 by werrahma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# include "libft/libft.h"
+# include <fcntl.h>
+# include <limits.h>
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <signal.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <strings.h>
+# include <sys/wait.h>
+# include <unistd.h>
 
 typedef struct s_tokens
 {
@@ -68,24 +93,47 @@ typedef struct s_pipe
 }					t_pipe;
 
 // #include "../parsing/p_minishell.h"
-# include "libft/libft.h"
-# include <fcntl.h>
-# include <limits.h>
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <signal.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <strings.h>
-# include <sys/wait.h>
-# include <unistd.h>
 // # include "../pipes_monitor_bonus/pipes_monitor.h"
 
 // #include <readline/readline.h>
 // #include <readline/history.h>
 
-void				check_open(t_mini *list);
+void		check_open(t_mini *list);
+void		check_arg(char **av, t_env **env);
+void		our_free(char **arr);
+char		**split_env(char *str);
+char		**get_env(t_env *env);
+int			is_spas_instring(char *str);
+void		copy_env(t_env **env, t_env **c_env);
+void		create_env(t_env **list);
+void		create_list(t_env **list, char **env);
+void		ft_lstadd_back(t_env **lst, t_env *new);
+t_env		*ft_lstnew(void);
+t_env		*ft_lstlast(t_env *lst);
+// void		cd(t_env *env);
+int			ft_strcmp(const char *s1, const char *s2);
+void		pwd(void);
+void		print_env(t_env *env);
+int			our_echo(char **str);
+int			my_exit(char **av);
+int			str_len(char **av);
+int			cmp_env(char *str1, char *str2);
+void		sort_list(t_env **env);
+void		fill_list(t_env **list, char **env);
+int			wcheck_arg(char **av, t_env **env);
+
+void		first_child(t_mini *list, t_pipe *pipes, t_env **env);
+void		second_child(t_mini *list, t_pipe *pipes, t_env **env);
+void		last_child(t_mini *list, t_pipe *pipes, t_env **env);
+char		*check_access(char **ps_path, char *av);
+char		**pathfinder(t_env *env);
+void		swap(int *a, int *b);
+void		multiple_pipe(t_mini *list, t_env **env, t_pipe *pipes);
+void		ft_fail(char av);
+int			size_lim(char *str, char *av);
+int			ft_checker(int ac, char *av);
+void		pipes_monitor(t_mini *list, t_pipe *pipes, t_env **env);
+int			*tab_pid(t_mini *list);
 void				child_failure(t_mini *list, int flag, t_pipe *pipes, t_env **env);
 void				colse_files(t_pipe *pipes);
 int					is_string_inlist(t_env *env, char *arg);
@@ -142,14 +190,13 @@ typedef struct glo
 
 // typedef struct s_mini
 // {
-// 	char	**cmd;
+// 	char*cmd;
 // 	int		infile;
 // 	int		outfile;
 // 	struct s_mini *next;
 // }	t_mini;
 
 // parsinghelperf
-
 
 void		rl_replace_line(const char *text, int clear_undo);
 int			stxe(t_tokens *to);	
@@ -172,12 +219,16 @@ void		open_herfiles(t_tokens *tokens, t_env *list);
 void		do_expand_tokens(t_tokens **tokens, t_env *env);
 int			have_builtins(char **cmd);
 int			ft_lstsize(t_mini *lst);
-void		ft_maxheropn(t_tokens  *tokens);
+void		ft_maxheropn(t_tokens *tokens);
 void		*ft_realloc(void *ptr, size_t size);
 t_mini		*ft_lstnewl(void);
 void		free_tokens(t_tokens *t);
 int			definetype_helper(t_tokens *toke);
 t_tokens	*lexer_definetype(t_tokens *token);
+void		free_tmp(char *name, t_tokens *tokens);
+char		*ft_gethername(void);
+char		*herexpand(char *line, char *str, int *i, t_env *env);
+int			qoutesordlr(t_tokens *token);
 
 # define INFILE 0
 # define OUTFILE 1

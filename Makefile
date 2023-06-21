@@ -3,7 +3,8 @@ SRC = \
 		parsing/lexer.c parsing/last_list.c\
 		parsing/here_doc.c parsing/expand.c parsing/stxe.c\
 		parsing/utils/lexer_utils.c \
-		parsing/utils/lexer_define.c \
+		parsing/utils/lexer_define_expand.c\
+		parsing/utils/here_doc_utils.c \
 		parsing/utils/list_utils.c \
 		execution/minishell.c execution/ft_lstadd_back.c execution/ft_lstadd_front.c execution/ft_lstlast.c execution/ft_lstnew.c execution/create_list.c\
 		execution/ft_strcmp.c execution/builtins.c execution/our_unset.c execution/exit.c execution/export.c\

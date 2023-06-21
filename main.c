@@ -104,6 +104,7 @@ int	main(int ac, char **av, char **env)
 		}
 		if(lexer_openqts(line, ft_strlen(line)))
 		{
+			free (line);
 			ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
 			stx = 258;
 			continue;
