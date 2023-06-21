@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_monitor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 22:45:28 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/21 18:45:06 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/21 20:09:26 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ int	*tab_pid(t_mini *list)
 void	handle_sig(int sig)
 {
 	(void)sig;
-	// rl_on_new_line();
 	printf("\n");
-	// exit(130);
 }
 
 int	if_stdout(t_mini *list)

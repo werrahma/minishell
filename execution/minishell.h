@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 21:50:53 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/21 18:57:45 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/21 20:14:34 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,8 @@ typedef struct s_var
 typedef struct s_pipe
 {
 	int				fd[2][2];
-	int				stdiin;
-	int				stdouut;
 	int				strin_main;
 	char			**env;
-	int				check;
 	int				f0;
 	int				f1;
 	int				*pid;
@@ -140,10 +137,6 @@ int			size_lim(char *str, char *av);
 int			ft_checker(int ac, char *av);
 void		pipes_monitor(t_mini *list, t_pipe *pipes, t_env **env);
 int			*tab_pid(t_mini *list);
-
-
-// parsinghelperf
-
 void		rl_replace_line(const char *text, int clear_undo);
 int			stxe(t_tokens *to);	
 t_tokens	*lexer_split_cmdline(char *line);

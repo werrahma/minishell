@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:56:16 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/21 19:17:13 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/21 20:14:01 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,16 @@
 
 int		stx = 0;
 
-int	syntax_checker(t_mini *list)
-{
-	while (list)
-	{
-		printf("infile ==== %d\n", list->infile);
-		if (list->infile == -1 || list->outfile == -1)
-			return (0);
-		list = list->next;
-	}
-	return (1);
-}
 
-void	handle_signal(int sig)
-{
-	(void) sig;
-	stx = 1;
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
+// void	handle_signal(int sig)
+// {
+// 	(void) sig;
+// 	stx = 1;
+// 	printf("\n");
+// 	rl_on_new_line();
+// 	rl_replace_line("", 0);
+// 	rl_redisplay();
+// }
 
 void	unlink_hf(void)
 {
@@ -96,17 +85,15 @@ int	main(int ac, char **av, char **env)
 	pipes.env = env;
 	pipes.strin_main = dup(0);
 	int stdin_main = dup(0);
-	pipes.stdiin = dup(0);
-	pipes.stdouut = dup(1);
 	signal(SIGQUIT, SIG_IGN);
 	stx = 0;
 	while (1)
 	{
-		signal(SIGINT, handle_signal);
+		// signal(SIGINT, handle_signal);
 		line = readline("minishell$ ");
 		if (!line)
 		{
-			printf("exit\n");
+			ft_putstr_fd("exit\n", 2);
 			exit(stx);
 		}
 		if(lexer_openqts(line, ft_strlen(line)))

@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/21 16:51:36 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/21 20:10:38 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ void	execve_failure_task(t_mini *list, t_pipe *pipes)
 	our_free(pipes->env);
 	while (list->cmd[i])
 	{
-		printf("minishell: %s No such file or directory\n",
-			list->cmd[i++]);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(list->cmd[i], 2);
+		ft_putstr_fd("No such file or directory\n", 2);
+		i++;
 	}
 	exit(127);
 }

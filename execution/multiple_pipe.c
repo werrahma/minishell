@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiple_pipe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:05:52 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/21 19:19:03 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/21 20:11:36 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,9 @@ void	swap(int *a, int *b)
 void	forking(t_mini *list, t_pipe *pipes, t_env **env, int flag)
 {
 	if (flag == 1)
-	{
-		//signal(SIGINT, handle_sig);
 		first_child(list, pipes, env);
-	}
 	else if (flag == 3)
-	{
-		//signal(SIGINT, handle_sig);
 		last_child(list, pipes, env);
-	}
 }
 
 void	check_open(t_mini *list)
@@ -52,8 +46,10 @@ void	child_failure(t_mini *list, int flag, t_pipe *pipes, t_env **env)
 	{
 		while (list->cmd[i])
 		{
-			printf("minishell: %s No such file or directory\n",
-				list->cmd[i++]);
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(list->cmd[i], 2);
+			ft_putstr_fd("No such file or directory\n", 2);
+			i++;
 		}
 		exit(1);
 	}

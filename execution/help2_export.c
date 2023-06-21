@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 19:55:03 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/21 18:18:01 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/21 20:07:29 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,9 @@ int	export_monitor(t_env **env, t_env **tmp, char *av, int *cnst)
 	{
 		if (!is_spas_instring(av))
 		{
-			printf("minishell: export: %s: not a valid identifier\n", av);
+			ft_putstr_fd("minishell: export: ", 2);
+			ft_putstr_fd("av", 2);
+			ft_putstr_fd(": not a valid identifier\n", 2);
 			return (0);
 		}
 		ft_lstadd_back(env, ft_lstnew());
