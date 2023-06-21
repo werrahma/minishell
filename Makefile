@@ -8,15 +8,14 @@ SRC = \
 		parsing/utils/list_utils.c \
 		execution/minishell.c execution/ft_lstadd_back.c execution/ft_lstadd_front.c execution/ft_lstlast.c execution/ft_lstnew.c execution/create_list.c\
 		execution/ft_strcmp.c execution/builtins.c execution/our_unset.c execution/exit.c execution/export.c\
-		execution/cmp_env.c execution/sort_list.c\
+		execution/sort_list.c\
 		execution/check_access.c\
 		execution/children.c\
 		execution/final_path.c\
-		execution/ft_fail.c\
 		execution/multiple_pipe.c\
 		execution/pipes_monitor.c\
-		execution/size_limiter.c\
-		execution/ft_lstsize.c execution/get_env.c execution/split_env.c
+		execution/size_limiter.c execution/help_export.c execution/help2_export.c\
+		execution/ft_lstsize.c execution/get_env.c execution/split_env.c execution/our_echo.c
 
 NAME = minishell
 LIBFT = execution/libft/libft.a
