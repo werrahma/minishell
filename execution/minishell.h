@@ -44,6 +44,12 @@ typedef struct s_var
 	t_env	*nxt;
 	t_env	*tmp;
 	t_env	*tmp1;
+
+	char		*oldpwd;
+	t_env		*cd_tmp;
+	int			flag;
+	char		*pwd;
+	int			flag2;
 }				t_var;
 
 typedef struct s_pipe
@@ -79,11 +85,12 @@ typedef struct s_pipe
 // #include <readline/readline.h>
 // #include <readline/history.h>
 
+void				check_open(t_mini *list);
 void				child_failure(t_mini *list, int flag, t_pipe *pipes, t_env **env);
 void				colse_files(t_pipe *pipes);
 int					is_string_inlist(t_env *env, char *arg);
 int					status_checker(int exit_status);
-int					export_monitor(t_env **env, t_env *tmp, char *av, int *cnst);
+int					export_monitor(t_env **env, t_env **tmp, char *av, int *cnst);
 void				dup_key(char *str, t_env *lst);
 void				dup_value(char *str, t_env *lst);
 t_env				*fond_key(t_env *list, char *str);
@@ -105,8 +112,8 @@ int					ft_strcmp(const char *s1, const char *s2);
 void				pwd(void);
 void				print_env(t_env *env);
 int					our_echo(char **str);
-void				our_cd(t_env *env, char *file);
-void				our_unset(t_env **env, char **remove);
+int					our_cd(t_env *env, char *file);
+int					our_unset(t_env **env, char **remove);
 int					my_exit(char **av);
 int					str_len(char **av);
 int					our_export(t_env **env, char **av);

@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:07:11 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/20 20:20:46 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/21 14:52:27 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,11 @@ int	our_export(t_env **env, char **av)
 	{
 		while (av[i])
 		{
-			if (!export_monitor(env, tmp, av[i], &cnst))
+			if (!export_monitor(env, &tmp, av[i], &cnst))
 				return (*env = tmp, status_checker(1));
 			i++;
 		}
 	}
 	*env = tmp;
-	return (status_checker(1));
+	return (status_checker(0));
 }

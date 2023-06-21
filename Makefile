@@ -12,7 +12,7 @@ SRC = \
 		execution/children.c\
 		execution/final_path.c\
 		execution/multiple_pipe.c\
-		execution/pipes_monitor.c\
+		execution/pipes_monitor.c execution/our_cd.c\
 		execution/size_limiter.c execution/help_export.c execution/help2_export.c\
 		execution/ft_lstsize.c execution/get_env.c execution/split_env.c execution/our_echo.c
 

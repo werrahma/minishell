@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/21 12:15:38 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/21 14:41:52 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ void	first_child(t_mini *list, t_pipe *pipes, t_env **env)
 	int		flag;
 
 	flag = 0;
-	if (list->infile == -1 || list->outfile == -1)
-		exit(1);
+	check_open(list);
 	ps_path = pathfinder(*env);
 	if (have_builtins(list->cmd))
 		flag = 1;
@@ -92,8 +91,7 @@ void	last_child(t_mini *list, t_pipe *pipes, t_env **env)
 
 	flag = 0;
 	i = 0;
-	if (list->outfile == -1 || list->infile == -1)
-		exit(1);
+	check_open(list);
 	ps_path = pathfinder(*env);
 	if (have_builtins(list->cmd))
 		flag = 1;
