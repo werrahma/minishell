@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 11:36:22 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/19 22:10:00 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:58:54 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	**pass_split(char *path)
 
 char	**pathfinder(t_env *env)
 {
-	while(env)
+	while (env)
 	{
 		if (!ft_strncmp("PATH", env->key, 4))
 			return (pass_split(env->value));

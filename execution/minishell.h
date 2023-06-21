@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 21:50:53 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/21 16:37:50 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:03:58 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ typedef struct s_pipe
 
 // #include <readline/readline.h>
 // #include <readline/history.h>
+
 
 void		check_open(t_mini *list);
 void		check_arg(char **av, t_env **env);

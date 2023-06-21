@@ -6,11 +6,25 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:05:52 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/21 16:51:52 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:03:11 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	forking(t_mini *list, t_pipe *pipes, t_env **env, int flag)
+{
+	if (flag = 1)
+	{
+		signal(SIGINT, handle_sig);
+		first_child(list, pipes, env);
+	}
+	else if (flag == 3)
+	{
+		signal(SIGINT, handle_sig);
+		last_child(list, pipes, env);
+	}
+}
 
 void	check_open(t_mini *list)
 {
