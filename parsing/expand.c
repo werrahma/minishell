@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 12:35:21 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/20 18:18:40 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/21 11:23:34 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,61 +69,75 @@ char	*expenv(char *str, t_env *env)
 	env = rmp;
 	return (ft_strdup(""));
 }
+char	*expand_helper1(t_tokens *token, char *str, int *i, t_env *env)
+{
+	int		j;
+	char	*s;
+
+	j = *i + 1;
+	*i = j;
+	s = NULL;
+	if (!(ft_isalnum(token->cont[*i])))
+		str = ft_chrjoin(str, token->cont[*i - 1]);
+	else
+	{
+		while (*i)
+		{
+			if (token->cont[*i] == '\0' || !(ft_isalnum(token->cont[*i])))
+			{
+				s = ft_substr(token->cont, j, (*i - j));
+				str = ft_pjoin(str, expenv(s, env));
+				free(s);
+				(*i)--;
+				break ;
+			}
+			(*i)++;
+		}
+	}
+	return (str);
+}
+
+char	*expand_helper(t_tokens *token, char *str, int *i, t_env *env)
+{
+	int	j;
+	extern int stx;
+
+	if (token->cont[0] == '~' && token->cont[1] == '\0')
+			str = ft_pjoin(str, expenv("HOME", env));
+	else if (token->cont[*i] && token->cont[*i] == '$'
+		&& token->cont[*i + 1] == '?' && lexer_openqts(token->cont, *i) != 2)
+	{
+		(*i)++;
+		str = ft_pjoin(str, ft_itoa(stx));
+	}
+	else if (token->cont[*i] && token->cont[*i] == '$' && token->cont[*i + 1]
+		&& lexer_openqts(token->cont, *i) != 2 && token->type != 4)
+		str = expand_helper1(token, str, i, env);
+	else if (lexer_openqts(token->cont, *i) == 0
+		&& token->cont[*i] != '\'' && token->cont[*i] != '\"')
+		str = ft_chrjoin(str, token->cont[*i]);
+	else if (lexer_openqts(token->cont, *i) == 1 && token->cont[*i] == '\'')
+		str = ft_chrjoin(str, token->cont[*i]);
+	else if (lexer_openqts(token->cont, *i) == 2 && token->cont[*i] == '\"')
+		str = ft_chrjoin(str, token->cont[*i]);
+	else if (token->cont[*i] != '\"' && token->cont[*i] != '\'')
+		str = ft_chrjoin(str, token->cont[*i]);
+	return (str);
+}
 
 char	*expand_tokens(t_tokens *token, t_env *env)
 {
 	int			i;
 	char		*str;
-	char		*s;
 	char		*tmp;
 	int			j;
 	extern int	stx;
 
 	i = 0;
 	str = NULL;
-	s = NULL;
 	while (token->cont && token->cont[i])
 	{
-		if (token->cont[0] == '~' && token->cont[1] == '\0')
-			str = ft_pjoin(str, expenv("HOME", env));
-		else if (token->cont[i] && token->cont[i] == '$'
-			&& token->cont[i + 1] == '?' && lexer_openqts(token->cont, i) != 2)
-		{
-			i++;
-			str = ft_pjoin(str, ft_itoa(stx));
-		}
-		else if (token->cont[i] && token->cont[i] == '$' && token->cont[i + 1]
-			&& lexer_openqts(token->cont, i) != 2 && token->type != 4)
-		{
-			j = i + 1;
-			i = j;
-			if (!(ft_isalnum(token->cont[i])))
-				str = ft_chrjoin(str, token->cont[i - 1]);
-			else
-			{
-				while (i)
-				{
-					if (token->cont[i] == '\0' || !(ft_isalnum(token->cont[i])))
-					{
-						s = ft_substr(token->cont, j, (i - j));
-						str = ft_pjoin(str, expenv(s, env));
-						free(s);
-						i--;
-						break ;
-					}
-					i++;
-				}
-			}
-		}
-		else if (lexer_openqts(token->cont, i) == 0
-			&& token->cont[i] != '\'' && token->cont[i] != '\"')
-			str = ft_chrjoin(str, token->cont[i]);
-		else if (lexer_openqts(token->cont, i) == 1 && token->cont[i] == '\'')
-			str = ft_chrjoin(str, token->cont[i]);
-		else if (lexer_openqts(token->cont, i) == 2 && token->cont[i] == '\"')
-			str = ft_chrjoin(str, token->cont[i]);
-		else if (token->cont[i] != '\"' && token->cont[i] != '\'')
-			str = ft_chrjoin(str, token->cont[i]);
+		str = expand_helper(token, str, &i, env);
 		i++;
 	}
 	if (str && str[0] == '\0' && token->perv && (token->perv->type == 6

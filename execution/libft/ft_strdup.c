@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 10:15:25 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/19 19:59:34 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/20 22:00:33 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ char	*ft_strdup(const char *s1)
 	int		b;
 	char	*p;
 
-//	if (!s1)
-	//	return (NULL);
 	b = ft_strlen(s1);
 	p = malloc(sizeof(char) * b + 1);
 	if (!p)
