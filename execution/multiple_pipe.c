@@ -6,12 +6,19 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:05:52 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/21 14:46:55 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:37:54 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	check_open(t_mini *list)
+{
+	if (list->outfile == -1)
+		write(2, "No such file or directory\n", 27);
+	if (list->outfile == -1 || list->infile == -1)
+		exit(1);
+}
 void	child_failure(t_mini *list, int flag, t_pipe *pipes, t_env **env)
 {
 	int	i;

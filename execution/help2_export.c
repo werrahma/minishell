@@ -6,7 +6,7 @@
 /*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 19:55:03 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/20 20:22:56 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/21 14:11:26 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	for_dup(t_env *env, char *av)
 	dup_value(av, env);
 }
 
-int	export_monitor(t_env **env, t_env *tmp, char *av, int *cnst)
+int	export_monitor(t_env **env, t_env **tmp, char *av, int *cnst)
 {
 	if (is_plus_equal_inlist(*env, av))
 		;
@@ -83,9 +83,9 @@ int	export_monitor(t_env **env, t_env *tmp, char *av, int *cnst)
 		}
 		ft_lstadd_back(env, ft_lstnew());
 		*env = ft_lstlast(*env);
-		if (!tmp && !cnst)
+		if (!*tmp && !*cnst)
 		{
-			tmp = *env;
+			*tmp = *env;
 			(*cnst)++;
 		}
 		dup_key(av, *env);

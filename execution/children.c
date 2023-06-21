@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/21 16:29:33 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:37:13 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	first_child(t_mini *list, t_pipe *pipes, t_env **env)
 	acs = NULL;
 	if (list->infile == -1 || list->outfile == -1)
 		exit(1);
+	check_open(list);
 	ps_path = pathfinder(*env);
 	if (have_builtins(list->cmd))
 		flag = 1;
@@ -97,6 +98,7 @@ void	last_child(t_mini *list, t_pipe *pipes, t_env **env)
 	acs = NULL;
 	if (list->outfile == -1 || list->infile == -1)
 		exit(1);
+	check_open(list);
 	ps_path = pathfinder(*env);
 	if (have_builtins(list->cmd))
 		flag = 1;

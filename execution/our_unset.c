@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   our_unset.c                                            :+:      :+:    :+:   */
+/*   our_unset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/07 21:15:35 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/16 22:59:31 by werrahma         ###   ########.fr       */
+/*   Created: 2023/06/21 14:27:05 by werrahma          #+#    #+#             */
+/*   Updated: 2023/06/21 14:43:14 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	unset_monitor(t_var *var, t_env **env, char *remove)
 		*env = (*env)->next;
 	}
 }
-void	our_unset(t_env **env, char **remove)
+
+int	our_unset(t_env **env, char **remove)
 {
 	t_var	var;
 	int		i;
@@ -66,13 +67,10 @@ void	our_unset(t_env **env, char **remove)
 	}
 	if (flag2 == 1)
 	{
-		free((*env)->key);
-		free((*env)->value);
-		(*env)->key = NULL;
-		(*env)->value = NULL;
-		free(*env);
+		free_node(*env);
 		*env = NULL;
 	}
 	else
 		*env = var.tmp;
+	return (status_checker(0));
 }
