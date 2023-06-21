@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 21:50:53 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/21 16:37:50 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:54:38 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,11 @@ typedef struct s_var
 	t_env	*nxt;
 	t_env	*tmp;
 	t_env	*tmp1;
-
-	char		*oldpwd;
-	t_env		*cd_tmp;
-	int			flag;
-	char		*pwd;
-	int			flag2;
+	char	*oldpwd;
+	t_env	*cd_tmp;
+	int		flag;
+	char	*pwd;
+	int		flag2;
 }				t_var;
 
 typedef struct s_pipe
@@ -92,36 +91,45 @@ typedef struct s_pipe
 
 }					t_pipe;
 
-// #include "../parsing/p_minishell.h"
-// # include "../pipes_monitor_bonus/pipes_monitor.h"
-
-// #include <readline/readline.h>
-// #include <readline/history.h>
+typedef struct glo
+{
+	int				stx;
+}					t_glo;
 
 void		check_open(t_mini *list);
 void		check_arg(char **av, t_env **env);
+int			cmp_env(char *str1, char *str2);
+void		child_failure(t_mini *list, int flag, t_pipe *pipes, t_env **env);
+void		colse_files(t_pipe *pipes);
+int			is_string_inlist(t_env *env, char *arg);
+int			status_checker(int exit_status);
+int			export_monitor(t_env **env, t_env **tmp, char *av, int *cnst);
+void		dup_key(char *str, t_env *lst);
+void		dup_value(char *str, t_env *lst);
+t_env		*fond_key(t_env *list, char *str);
+void		free_env(t_env **env);
+int			is_spas_instring(char *str);
 void		our_free(char **arr);
 char		**split_env(char *str);
 char		**get_env(t_env *env);
-int			is_spas_instring(char *str);
 void		copy_env(t_env **env, t_env **c_env);
 void		create_env(t_env **list);
 void		create_list(t_env **list, char **env);
 void		ft_lstadd_back(t_env **lst, t_env *new);
 t_env		*ft_lstnew(void);
 t_env		*ft_lstlast(t_env *lst);
-// void		cd(t_env *env);
 int			ft_strcmp(const char *s1, const char *s2);
 void		pwd(void);
 void		print_env(t_env *env);
 int			our_echo(char **str);
+int			our_cd(t_env *env, char *file);
+int			our_unset(t_env **env, char **remove);
 int			my_exit(char **av);
 int			str_len(char **av);
-int			cmp_env(char *str1, char *str2);
+int			our_export(t_env **env, char **av);
 void		sort_list(t_env **env);
 void		fill_list(t_env **list, char **env);
 int			wcheck_arg(char **av, t_env **env);
-
 void		first_child(t_mini *list, t_pipe *pipes, t_env **env);
 void		second_child(t_mini *list, t_pipe *pipes, t_env **env);
 void		last_child(t_mini *list, t_pipe *pipes, t_env **env);
@@ -134,67 +142,7 @@ int			size_lim(char *str, char *av);
 int			ft_checker(int ac, char *av);
 void		pipes_monitor(t_mini *list, t_pipe *pipes, t_env **env);
 int			*tab_pid(t_mini *list);
-void				child_failure(t_mini *list, int flag, t_pipe *pipes, t_env **env);
-void				colse_files(t_pipe *pipes);
-int					is_string_inlist(t_env *env, char *arg);
-int					status_checker(int exit_status);
-int					export_monitor(t_env **env, t_env **tmp, char *av, int *cnst);
-void				dup_key(char *str, t_env *lst);
-void				dup_value(char *str, t_env *lst);
-t_env				*fond_key(t_env *list, char *str);
-void				free_env(t_env **env);
-int					is_spas_instring(char *str);
-void				check_arg(char **av, t_env **env);
-void				our_free(char **arr);
-char				**split_env(char *str);
-char				**get_env(t_env *env);
-int					is_spas_instring(char *str);
-void				copy_env(t_env **env, t_env **c_env);
-void				create_env(t_env **list);
-void				create_list(t_env **list, char **env);
-void				ft_lstadd_back(t_env **lst, t_env *new);
-t_env				*ft_lstnew(void);
-t_env				*ft_lstlast(t_env *lst);
-// void	ft_cd(t_env *env);
-int					ft_strcmp(const char *s1, const char *s2);
-void				pwd(void);
-void				print_env(t_env *env);
-int					our_echo(char **str);
-int					our_cd(t_env *env, char *file);
-int					our_unset(t_env **env, char **remove);
-int					my_exit(char **av);
-int					str_len(char **av);
-int					our_export(t_env **env, char **av);
-void				sort_list(t_env **env);
-void				fill_list(t_env **list, char **env);
-int					wcheck_arg(char **av, t_env **env);
 
-void				first_child(t_mini *list, t_pipe *pipes, t_env **env);
-void				second_child(t_mini *list, t_pipe *pipes, t_env **env);
-void				last_child(t_mini *list, t_pipe *pipes, t_env **env);
-char				*check_access(char **ps_path, char *av);
-char				**pathfinder(t_env *env);
-void				swap(int *a, int *b);
-void				multiple_pipe(t_mini *list, t_env **env, t_pipe *pipes);
-void				ft_fail(char av);
-int					size_lim(char *str, char *av);
-int					ft_checker(int ac, char *av);
-void				pipes_monitor(t_mini *list, t_pipe *pipes, t_env **env);
-int					*tab_pid(t_mini *list);
-
-
-typedef struct glo
-{
-	int				stx;
-}					t_glo;
-
-// typedef struct s_mini
-// {
-// 	char*cmd;
-// 	int		infile;
-// 	int		outfile;
-// 	struct s_mini *next;
-// }	t_mini;
 
 // parsinghelperf
 
