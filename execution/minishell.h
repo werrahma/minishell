@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 21:50:53 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/21 13:19:50 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:21:39 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,14 @@ typedef struct s_env
 	struct s_env	*next;
 }					t_env;
 
+typedef struct s_var
+{
+	t_env	*curent;
+	t_env	*nxt;
+	t_env	*tmp;
+	t_env	*tmp1;
+}				t_var;
+
 typedef struct s_pipe
 {
 	int				fd[2][2];
@@ -104,7 +112,6 @@ void		our_cd(t_env *env, char *file);
 void		our_unset(t_env **env, char **remove);
 int			my_exit(char **av);
 int			str_len(char **av);
-void		our_export(t_env **env, char **av);
 int			cmp_env(char *str1, char *str2);
 void		sort_list(t_env **env);
 void		fill_list(t_env **list, char **env);
