@@ -6,13 +6,13 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:12:49 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/21 13:20:53 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:29:33 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	execve_failure_task(t_mini *list, t_env *env, t_pipe *pipes)
+void	execve_failure_task(t_mini *list, t_pipe *pipes)
 {
 	int	i;
 
@@ -30,7 +30,7 @@ void	exuc_cmd(t_pipe *pipes, t_env *env, t_mini *list, char *acs)
 {
 	pipes->env = get_env(env);
 	execve(acs, list->cmd, pipes->env);
-	execve_failure_task(list, env, pipes);
+	execve_failure_task(list, pipes);
 }
 
 void	first_child(t_mini *list, t_pipe *pipes, t_env **env)
@@ -40,6 +40,7 @@ void	first_child(t_mini *list, t_pipe *pipes, t_env **env)
 	int		flag;
 
 	flag = 0;
+	acs = NULL;
 	if (list->infile == -1 || list->outfile == -1)
 		exit(1);
 	ps_path = pathfinder(*env);
@@ -68,6 +69,7 @@ void	second_child(t_mini *list, t_pipe *pipes, t_env **env)
 	int		flag;
 
 	flag = 0;
+	acs = NULL;
 	ps_path = pathfinder(*env);
 	if (have_builtins(list->cmd))
 		flag = 1;
@@ -92,6 +94,7 @@ void	last_child(t_mini *list, t_pipe *pipes, t_env **env)
 
 	flag = 0;
 	i = 0;
+	acs = NULL;
 	if (list->outfile == -1 || list->infile == -1)
 		exit(1);
 	ps_path = pathfinder(*env);

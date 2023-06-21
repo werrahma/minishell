@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:13:30 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/21 09:27:36 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:30:25 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 char	**split_env(char *str)
 {
-	char	*tmp;
 	char	**split;
 	int		i;
 	int		j;

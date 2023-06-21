@@ -15,15 +15,15 @@ int	syntax_checker(t_mini *list)
 	return (1);
 }
 
-// void handle_signal(int sig)
-// {
-// 	(void) sig;
-// 	stx = 1;
-// 	printf("\n");
-// 	rl_on_new_line();
-// 	rl_replace_line("", 0);
-// 	rl_redisplay();
-// }
+void handle_signal(int sig)
+{
+	(void) sig;
+	stx = 1;
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
 
 void unlink_hf()
 {
@@ -67,6 +67,8 @@ void	free_li(t_mini **li)
 }
 int	main(int ac, char **av, char **env)
 {
+	(void)ac;
+	(void)av;
 	int size_list;
 	int exit_status;
 	t_env *list = NULL;
@@ -85,7 +87,7 @@ int	main(int ac, char **av, char **env)
 		create_env(&list);
 	pipes.env = env;
 	pipes.strin_main = dup(0);
-	int stdout_main = dup(1);
+	//int stdout_main = dup(1);
 	int stdin_main = dup(0);
 	pipes.stdiin = dup(0);
 	pipes.stdouut = dup(1);
@@ -95,7 +97,7 @@ int	main(int ac, char **av, char **env)
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
-		// signal(SIGINT, handle_signal);
+		signal(SIGINT, handle_signal);
 		line = readline("minishell$ ");
 		if (!line)
 		{

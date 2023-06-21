@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 18:44:16 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/18 11:11:26 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:05:52 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ t_tokens	*lexer_split_cmdline(char *line)
 {
 	t_tokens	*token;
 	int			i;
-	char		*str;
 
 	i = 0;
 	token = NULL;

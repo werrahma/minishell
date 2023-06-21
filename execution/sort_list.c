@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_list.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:32:29 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/20 18:22:07 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:14:08 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	create_c_list(t_env **c_env, t_env *env)
 void	copy_env(t_env **env, t_env **c_env)
 {
 	t_env	*c_tmp;
-	t_env	*tmp;
 	char	**split;
 
 	create_c_list(c_env, *env);

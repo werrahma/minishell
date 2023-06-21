@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 21:20:11 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/20 21:46:43 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:08:20 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 char	*expand_her(char *line, t_env *env)
 {
 	int		i;
-	int		j;
 	char	*s;
 	char	*str;
 
@@ -42,6 +41,7 @@ char	*expand_her(char *line, t_env *env)
 
 void	handle_signal2(int sig)
 {
+	(void)sig;
 	printf("\n");
 	exit(1);
 }
@@ -90,7 +90,6 @@ void	open_herfiles(t_tokens *tokens, t_env *list)
 	int			id;
 	char		*name;
 	int			status;
-	int			f;
 
 	while (tokens)
 	{

@@ -26,13 +26,13 @@ OBJ = $(SRC:.c=.o)
 
 CC = cc
 
-CFLAGS = #-fsanitize=address -g #-Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g # 
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	cd execution/libft && $(MAKE)
-	$(CC) $(CFLAGS) $(READLINE) $(OBJ) $(LIBFT) -o $(NAME) 
+	$(CC) $(READLINE) $(OBJ) $(LIBFT) -o $(NAME) 
 
 clean:
 	rm -rf $(OBJ)

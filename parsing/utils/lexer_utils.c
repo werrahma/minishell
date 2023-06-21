@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:13:22 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/19 19:58:57 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:12:19 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ char	*ft_chrjoin(char *dst, char c)
 {
 	char	*p;
 	int		i;
-	int		j;
 
 	p = NULL;
 	if (!dst && !c)

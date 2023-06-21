@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 21:46:33 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/20 17:59:29 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:07:29 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	openfd(char *file, int i)
 	int			fd;
 	char		*str;
 
+	fd = 0;
 	if (i == 0)
 	{
 		fd = open(file, O_RDONLY);
@@ -106,7 +107,6 @@ void	fill(t_tokens *token, t_mini **list, int *i)
 void	fill_last_list(t_tokens *token, t_env *lis, t_mini **list)
 {
 	t_mini		*tmp;
-	t_tokens	*tm;
 	int			i;
 	int			flag;
 

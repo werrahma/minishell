@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 22:45:28 by werrahma          #+#    #+#             */
-/*   Updated: 2023/06/21 13:15:39 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:30:16 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,16 @@ void	swap(int *a, int *b)
 	*a = *b;
 	*b = tmp;
 }
-// void	handle_sig(int sig)
-// {
-// 	printf("\n");
-// 	dprintf(2, "hejjj\n");
-// 	exit(130);
-// }
+
+void	handle_sig(int sig)
+{
+	(void)sig;
+	rl_on_new_line();
+	printf("ls\n");
+	//dprintf(2, "hejjj\n");
+	rl_redisplay();
+	exit(130);
+}
 
 int	if_stdout(t_mini *list)
 {
@@ -58,19 +62,22 @@ void	colse_files(t_pipe *pipes)
 
 void	pipes_monitor(t_mini *list, t_pipe *pipes, t_env **env)
 {
-	int	chld_o;
 	int	flag;
 	int	have_file;
 
 	have_file = 0;
 	flag = 0;
 	flag = if_stdout(list);
+	signal(SIGINT, SIG_IGN);
 	if (list->infile > 2 || list->infile == -1 || list->outfile == -1)
 	{
 		have_file++;
 		pipes->pid[pipes->index] = fork();
 		if (pipes->pid[pipes->index] == 0)
+		{
+			signal(SIGINT, handle_sig);
 			first_child(list, pipes, env);
+		}
 	}
 	if (have_file > 0)
 		dup2(pipes->fd[pipes->f0][0], pipes->strin_main);
@@ -80,7 +87,10 @@ void	pipes_monitor(t_mini *list, t_pipe *pipes, t_env **env)
 	{
 		pipes->pid[pipes->index] = fork();
 		if (pipes->pid[pipes->index] == 0)
+		{
+			signal(SIGINT, handle_sig);
 			last_child(list, pipes, env);
+		}
 	}
 	colse_files(pipes);
 }

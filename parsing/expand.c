@@ -6,7 +6,7 @@
 /*   By: yahamdan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 12:35:21 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/06/21 13:06:41 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:11:53 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ char	*expand_helper1(t_tokens *token, char *str, int *i, t_env *env)
 
 char	*expand_helper(t_tokens *token, char *str, int *i, t_env *env)
 {
-	int			j;
 	extern int	stx;
 
 	if (token->cont[0] == '~' && token->cont[1] == '\0')
@@ -100,7 +99,6 @@ char	*expand_tokens(t_tokens *token, t_env *env)
 	int			i;
 	char		*str;
 	char		*tmp;
-	int			j;
 	extern int	stx;
 
 	i = 0;
