@@ -55,7 +55,7 @@ Installation
 
     Clone the repository:
 
-git clone https://github.com/yourusername/minishell.git
+git clone https://github.com/werrahma/minishell.git
 cd minishell
 
 Build the Project:
